@@ -1,0 +1,6 @@
+useDynLib(RcppMLPACK)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+
+
+

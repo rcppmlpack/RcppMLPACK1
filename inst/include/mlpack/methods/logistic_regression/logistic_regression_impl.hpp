@@ -1,0 +1,145 @@
+/**
+ * @file logistic_regression_impl.hpp
+ * @author Sumedh Ghaisas
+ *
+ * Implementation of the LogisticRegression class.  This implementation supports
+ * L2-regularization.
+ *
+ * This file is part of MLPACK 1.0.8.
+ *
+ * MLPACK is free software: you can redistribute it and/or modify it under the
+ * terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation, either version 3 of the License, or (at your option) any
+ * later version.
+ *
+ * MLPACK is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+ * A PARTICULAR PURPOSE.  See the GNU Lesser General Public License for more
+ * details (LICENSE.txt).
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * MLPACK.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#ifndef __MLPACK_METHODS_LOGISTIC_REGRESSION_LOGISTIC_REGRESSION_IMPL_HPP
+#define __MLPACK_METHODS_LOGISTIC_REGRESSION_LOGISTIC_REGRESSION_IMPL_HPP
+
+// In case it hasn't been included yet.
+#include "logistic_regression.hpp"
+
+namespace mlpack {
+namespace regression {
+
+template<template<typename> class OptimizerType>
+LogisticRegression<OptimizerType>::LogisticRegression(
+    const arma::mat& predictors,
+    const arma::vec& responses,
+    const double lambda) :
+    parameters(arma::zeros<arma::vec>(predictors.n_rows + 1)),
+    lambda(lambda)
+{
+  LogisticRegressionFunction errorFunction(predictors, responses, lambda);
+  OptimizerType<LogisticRegressionFunction> optimizer(errorFunction);
+
+  // Train the model.
+  Timer::Start("logistic_regression_optimization");
+  const double out = optimizer.Optimize(parameters);
+  Timer::Stop("logistic_regression_optimization");
+
+  Log::Info << "LogisticRegression::LogisticRegression(): final objective of "
+      << "trained model is " << out << "." << std::endl;
+}
+
+template<template<typename> class OptimizerType>
+LogisticRegression<OptimizerType>::LogisticRegression(
+    const arma::mat& predictors,
+    const arma::vec& responses,
+    const arma::mat& initialPoint,
+    const double lambda) :
+    parameters(arma::zeros<arma::vec>(predictors.n_rows + 1)),
+    lambda(lambda)
+{
+  LogisticRegressionFunction errorFunction(predictors, responses, lambda);
+  errorFunction.InitialPoint() = initialPoint;
+  OptimizerType<LogisticRegressionFunction> optimizer(errorFunction);
+
+  // Train the model.
+  Timer::Start("logistic_regression_optimization");
+  const double out = optimizer.Optimize(parameters);
+  Timer::Stop("logistic_regression_optimization");
+
+  Log::Info << "LogisticRegression::LogisticRegression(): final objective of "
+      << "trained model is " << out << "." << std::endl;
+}
+
+template<template<typename> class OptimizerType>
+LogisticRegression<OptimizerType>::LogisticRegression(
+    OptimizerType<LogisticRegressionFunction>& optimizer) :
+    parameters(optimizer.Function().GetInitialPoint()),
+    lambda(optimizer.Function().Lambda())
+{
+  Timer::Start("logistic_regression_optimization");
+  const double out = optimizer.Optimize(parameters);
+  Timer::Stop("logistic_regression_optimization");
+
+  Log::Info << "LogisticRegression::LogisticRegression(): final objective of "
+      << "trained model is " << out << "." << std::endl;
+}
+
+template<template<typename> class OptimizerType>
+LogisticRegression<OptimizerType>::LogisticRegression(
+    const arma::vec& parameters,
+    const double lambda) :
+    parameters(parameters),
+    lambda(lambda)
+{
+  // Nothing to do.
+}
+
+template<template<typename> class OptimizerType>
+void LogisticRegression<OptimizerType>::Predict(const arma::mat& predictors,
+                                                arma::vec& responses,
+                                                const double decisionBoundary)
+    const
+{
+  // Calculate sigmoid function for each point.  The (1.0 - decisionBoundary)
+  // term correctly sets an offset so that floor() returns 0 or 1 correctly.
+  responses = arma::floor((1.0 / (1.0 + arma::exp(-parameters(0)
+      - predictors.t() * parameters.subvec(1, parameters.n_elem - 1))))
+      + (1.0 - decisionBoundary));
+}
+
+template <template<typename> class OptimizerType>
+double LogisticRegression<OptimizerType>::ComputeError(
+    const arma::mat& predictors,
+    const arma::vec& responses) const
+{
+  // Construct a new error function.
+  LogisticRegressionFunction newErrorFunction(predictors, responses,
+      lambda);
+
+  return newErrorFunction.Evaluate(parameters);
+}
+
+template <template<typename> class OptimizerType>
+double LogisticRegression<OptimizerType>::ComputeAccuracy(
+    const arma::mat& predictors,
+    const arma::vec& responses,
+    const double decisionBoundary) const
+{
+  // Predict responses using the current model.
+  arma::vec tempResponses;
+  Predict(predictors, tempResponses, decisionBoundary);
+
+  // Count the number of responses that were correct.
+  size_t count = 0;
+  for (size_t i = 0; i < responses.n_elem; i++)
+    if (responses(i) == tempResponses(i))
+      count++;
+
+  return (double) (count * 100) / responses.n_rows;
+}
+
+}; // namespace regression
+}; // namespace mlpack
+
+#endif // __MLPACK_METHODS_LOGISTIC_REGRESSION_LOGISTIC_REGRESSION_IMPL_HPP
