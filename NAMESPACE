@@ -1,3 +1,5 @@
 useDynLib(RcppMLPACK)
+import(RcppArmadillo)
+import(BH)
 exportPattern("^[[:alpha:]]+")
 importFrom(Rcpp, evalCpp)
