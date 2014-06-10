@@ -1,0 +1,4 @@
+.travis.yml
+.git
+^.*\.Rproj$
+^\.Rproj\.user$
