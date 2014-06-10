@@ -78,16 +78,16 @@ CLI::~CLI()
   // But only if the user did not ask for help or info.
   if (HasParam("verbose") && !HasParam("help") && !HasParam("info"))
   {
-    Log::Info << std::endl << "Execution parameters:" << std::endl;
+    Rcpp::Rcout << std::endl << "Execution parameters:" << std::endl;
     Print();
 
-    Log::Info << "Program timers:" << std::endl;
+    Rcpp::Rcout << "Program timers:" << std::endl;
     std::map<std::string, timeval>::iterator it;
     for (it = timer.GetAllTimers().begin(); it != timer.GetAllTimers().end();
         ++it)
     {
       std::string i = (*it).first;
-      Log::Info << "  " << i << ": ";
+      Rcpp::Rcout << "  " << i << ": ";
       timer.PrintTimer((*it).first);
     }
   }
@@ -96,7 +96,7 @@ CLI::~CLI()
   // options.  This way this output doesn't show up inexplicably for someone who
   // may not have wanted it there (i.e. in Boost unit tests).
   if (didParse)
-    Log::Debug << "Compiled with debugging symbols." << std::endl;
+    Rcpp::Rcout << "Compiled with debugging symbols." << std::endl;
 
   return;
 }
@@ -244,7 +244,7 @@ void CLI::DefaultMessages()
   // Notify the user if we are debugging.  This is not done in the constructor
   // because the output streams may not be set up yet.  We also don't want this
   // message twice if the user just asked for help or information.
-  Log::Debug << "Compiled with debugging symbols." << std::endl;
+  Rcpp::Rcout << "Compiled with debugging symbols." << std::endl;
 }
 
 /**
@@ -295,7 +295,7 @@ bool& CLI::GetParam<bool>(const std::string& key)
     return gmap[used_key].wasPassed;
 
   // The parameter was not passed in; terminate the program.
-  Log::Fatal << "Parameter '--" << key << "' does not exist in this program."
+  Rcpp::Rcerr << "Parameter '--" << key << "' does not exist in this program."
       << std::endl;
 
   // These lines will never be reached, but must be here to make the compiler
@@ -415,8 +415,8 @@ void CLI::ParseCommandLine(int argc, char** line)
   }
   catch (std::exception& ex)
   {
-    Log::Fatal << "Caught exception from parsing command line:\t";
-    Log::Fatal << ex.what() << std::endl;
+    Rcpp::Rcerr << "Caught exception from parsing command line:\t";
+    Rcpp::Rcerr << ex.what() << std::endl;
   }
 
   // Flush the buffer, make sure changes are propagated to vmap
@@ -455,7 +455,7 @@ void CLI::RemoveDuplicateFlags(po::basic_parsed_options<char>& bpo)
           // terminate. We pull the name from the original_tokens, rather than
           // from the string_key, because the string_key is the parameter after
           // aliases have been expanded.
-          Log::Fatal << "\"" << bpo.options[j].original_tokens[0] << "\""
+          Rcpp::Rcerr << "\"" << bpo.options[j].original_tokens[0] << "\""
               << " is defined multiple times." << std::endl;
         }
       }
@@ -480,7 +480,7 @@ void CLI::ParseStream(std::istream& stream)
   }
   catch (std::exception& ex)
   {
-    Log::Fatal << ex.what() << std::endl;
+    Rcpp::Rcerr << ex.what() << std::endl;
   }
 
   // Flush the buffer; make sure changes are propagated to vmap.
@@ -504,7 +504,7 @@ void CLI::Print()
   {
     std::string key = iter->first;
 
-    Log::Info << "  " << key << ": ";
+    Rcpp::Rcout << "  " << key << ": ";
 
     // Now, figure out what type it is, and print it.
     // We can handle strings, ints, bools, floats, doubles.
@@ -513,39 +513,39 @@ void CLI::Print()
     {
       std::string value = GetParam<std::string>(key);
       if (value == "")
-        Log::Info << "\"\"";
-      Log::Info << value;
+        Rcpp::Rcout << "\"\"";
+      Rcpp::Rcout << value;
     }
     else if (data.tname == TYPENAME(int))
     {
       int value = GetParam<int>(key);
-      Log::Info << value;
+      Rcpp::Rcout << value;
     }
     else if (data.tname == TYPENAME(bool))
     {
       bool value = HasParam(key);
-      Log::Info << (value ? "true" : "false");
+      Rcpp::Rcout << (value ? "true" : "false");
     }
     else if (data.tname == TYPENAME(float))
     {
       float value = GetParam<float>(key);
-      Log::Info << value;
+      Rcpp::Rcout << value;
     }
     else if (data.tname == TYPENAME(double))
     {
       double value = GetParam<double>(key);
-      Log::Info << value;
+      Rcpp::Rcout << value;
     }
     else
     {
       // We don't know how to print this, or it's a timeval which is printed
       // later.
-      Log::Info << "(Unknown data type - " << data.tname << ")";
+      Rcpp::Rcout << "(Unknown data type - " << data.tname << ")";
     }
 
-    Log::Info << std::endl;
+    Rcpp::Rcout << std::endl;
   }
-  Log::Info << std::endl;
+  Rcpp::Rcout << std::endl;
 }
 
 /* Prints the descriptions of the current hierarchy. */
@@ -724,7 +724,7 @@ void CLI::RequiredOptions()
     std::string str = *iter;
     if (!vmap.count(str))
     { // If a required option isn't there...
-      Log::Fatal << "Required option --" << str << " is undefined."
+      Rcpp::Rcerr << "Required option --" << str << " is undefined."
           << std::endl;
     }
   }

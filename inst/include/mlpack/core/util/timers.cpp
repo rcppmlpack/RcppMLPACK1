@@ -24,6 +24,8 @@
 #include "cli.hpp"
 #include "log.hpp"
 
+#include "Rcpp.h"
+
 #include <map>
 #include <string>
 
@@ -81,7 +83,7 @@ timeval Timers::GetTimer(const std::string& timerName)
 void Timers::PrintTimer(const std::string& timerName)
 {
   timeval& t = timers[timerName];
-  Log::Info << t.tv_sec << "." << std::setw(6) << std::setfill('0')
+  Rcpp::Rcout << t.tv_sec << "." << std::setw(6) << std::setfill('0')
       << t.tv_usec << "s";
 
   // Also output convenient day/hr/min/sec.
@@ -93,44 +95,44 @@ void Timers::PrintTimer(const std::string& timerName)
   if (!(days == 0 && hours == 0 && minutes == 0))
   {
     bool output = false; // Denotes if we have output anything yet.
-    Log::Info << " (";
+    Rcpp::Rcout << " (";
 
     // Only output units if they have nonzero values (yes, a bit tedious).
     if (days > 0)
     {
-      Log::Info << days << " days";
+      Rcpp::Rcout << days << " days";
       output = true;
     }
 
     if (hours > 0)
     {
       if (output)
-        Log::Info << ", ";
-      Log::Info << hours << " hrs";
+        Rcpp::Rcout << ", ";
+      Rcpp::Rcout << hours << " hrs";
       output = true;
     }
 
     if (minutes > 0)
     {
       if (output)
-        Log::Info << ", ";
-      Log::Info << minutes << " mins";
+        Rcpp::Rcout << ", ";
+      Rcpp::Rcout << minutes << " mins";
       output = true;
     }
 
     if (seconds > 0)
     {
       if (output)
-        Log::Info << ", ";
-      Log::Info << seconds << "." << std::setw(1) << (t.tv_usec / 100000) <<
+        Rcpp::Rcout << ", ";
+      Rcpp::Rcout << seconds << "." << std::setw(1) << (t.tv_usec / 100000) <<
           "secs";
       output = true;
     }
 
-    Log::Info << ")";
+    Rcpp::Rcout << ")";
   }
 
-  Log::Info << std::endl;
+  Rcpp::Rcout << std::endl;
 }
 
 void Timers::GetTime(timeval* tv)
