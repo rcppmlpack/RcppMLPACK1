@@ -3,7 +3,6 @@ MLPACLOBJECTS=\
 ../inst/include/mlpack/core/util/cli_deleter.o \
 ../inst/include/mlpack/core/util/option.o \
 ../inst/include/mlpack/core/util/prefixedoutstream.o \
-../inst/include/mlpack/core/util/save_restore_utility.o \
 ../inst/include/mlpack/core/util/string_util.o \
 ../inst/include/mlpack/core/util/timers.o \
 ../inst/include/mlpack/core/util/version.o \
