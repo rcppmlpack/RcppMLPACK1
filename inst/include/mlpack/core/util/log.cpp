@@ -137,7 +137,7 @@ void Log::Assert(bool condition, const std::string& message)
 #endif
 
     //backtrace_symbols_fd (array, size, 2);
-    exit(1);
+    //exit(1);
   }
 }
 #else

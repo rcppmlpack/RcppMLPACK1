@@ -26,6 +26,8 @@
 #include <iostream>
 #include <string>
 
+#include "Rcpp.h"
+
 #include "cli.hpp"
 #include "log.hpp"
 
@@ -202,7 +204,7 @@ void CLI::DefaultMessages()
   // --version is prioritized over --help.
   if (HasParam("version"))
   {
-    std::cout << GetSingleton().programName << ": part of "
+    Rcpp::Rcout << GetSingleton().programName << ": part of "
         << util::GetVersion() << std::endl;
     //exit(0);
   }
@@ -583,17 +585,17 @@ void CLI::PrintHelp(const std::string& param)
     std::string fullDesc = "  --" + used_param + alias + type + "  ";
 
     if (fullDesc.length() <= 32) // It all fits on one line.
-      std::cout << fullDesc << std::string(32 - fullDesc.length(), ' ');
+      Rcpp::Rcout << fullDesc << std::string(32 - fullDesc.length(), ' ');
     else // We need multiple lines.
-      std::cout << fullDesc << std::endl << std::string(32, ' ');
+      Rcpp::Rcout << fullDesc << std::endl << std::string(32, ' ');
 
-    std::cout << HyphenateString(data.desc, 32) << std::endl;
+    Rcpp::Rcout << HyphenateString(data.desc, 32) << std::endl;
     return;
   }
   else if (used_param != "")
   {
     // User passed a single variable, but it doesn't exist.
-    std::cerr << "Parameter --" << used_param << " does not exist."
+    Rcpp::Rcerr << "Parameter --" << used_param << " does not exist."
         << std::endl;
     //exit(1); // Nothing left to do.
   }
@@ -601,19 +603,19 @@ void CLI::PrintHelp(const std::string& param)
   // Print out the descriptions.
   if (docs.programName != "")
   {
-    std::cout << docs.programName << std::endl << std::endl;
-    std::cout << "  " << HyphenateString(docs.documentation, 2) << std::endl
+    Rcpp::Rcout << docs.programName << std::endl << std::endl;
+    Rcpp::Rcout << "  " << HyphenateString(docs.documentation, 2) << std::endl
         << std::endl;
   }
   else
-    std::cout << "[undocumented program]" << std::endl << std::endl;
+    Rcpp::Rcout << "[undocumented program]" << std::endl << std::endl;
 
   for (size_t pass = 0; pass < 2; ++pass)
   {
     if (pass == 0)
-      std::cout << "Required options:" << std::endl << std::endl;
+      Rcpp::Rcout << "Required options:" << std::endl << std::endl;
     else
-      std::cout << "Options: " << std::endl << std::endl;
+      Rcpp::Rcout << "Options: " << std::endl << std::endl;
 
     // Print out the descriptions of everything else.
     for (iter = gmap.begin(); iter != gmap.end(); ++iter)
@@ -673,20 +675,20 @@ void CLI::PrintHelp(const std::string& param)
       std::string fullDesc = "  --" + key + alias + type + "  ";
 
       if (fullDesc.length() <= 32) // It all fits on one line.
-        std::cout << fullDesc << std::string(32 - fullDesc.length(), ' ');
+        Rcpp::Rcout << fullDesc << std::string(32 - fullDesc.length(), ' ');
       else // We need multiple lines.
-        std::cout << fullDesc << std::endl << std::string(32, ' ');
+        Rcpp::Rcout << fullDesc << std::endl << std::string(32, ' ');
 
-      std::cout << HyphenateString(desc, 32) << std::endl;
+      Rcpp::Rcout << HyphenateString(desc, 32) << std::endl;
     }
 
-    std::cout << std::endl;
+    Rcpp::Rcout << std::endl;
 
   }
 
   // Helpful information at the bottom of the help output, to point the user to
   // citations and better documentation (if necessary).  See ticket #201.
-  std::cout << HyphenateString("For further information, including relevant "
+  Rcpp::Rcout << HyphenateString("For further information, including relevant "
       "papers, citations, and theory, consult the documentation found at "
       "http://www.mlpack.org or included with your distribution of MLPACK.", 0)
       << std::endl;
