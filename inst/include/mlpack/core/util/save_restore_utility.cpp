@@ -21,7 +21,7 @@
  * MLPACK.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "save_restore_utility.hpp"
-
+#include "Rcpp.h"
 using namespace mlpack;
 using namespace mlpack::util;
 
@@ -30,7 +30,7 @@ bool SaveRestoreUtility::ReadFile(const std::string& filename)
   xmlDocPtr xmlDocTree = NULL;
   if (NULL == (xmlDocTree = xmlReadFile(filename.c_str(), NULL, 0)))
   {
-    Log::Fatal << "Could not load XML file '" << filename << "'!" << std::endl;
+    Rcpp::Rcerr << "Could not load XML file '" << filename << "'!" << std::endl;
   }
 
   xmlNodePtr root = xmlDocGetRootElement(xmlDocTree);
@@ -135,7 +135,7 @@ arma::mat& SaveRestoreUtility::LoadParameter(arma::mat& matrix,
   }
   else
   {
-    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+    Rcpp::Rcerr << "LoadParameter(): node '" << name << "' not found.\n";
   }
   return matrix;
 }
@@ -150,7 +150,7 @@ std::string SaveRestoreUtility::LoadParameter(std::string& str,
   }
   else
   {
-    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+    Rcpp::Rcerr << "LoadParameter(): node '" << name << "' not found.\n";
   }
   return "";
 }
@@ -168,7 +168,7 @@ char SaveRestoreUtility::LoadParameter(char c, const std::string& name)
   }
   else
   {
-    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+    Rcpp::Rcerr << "LoadParameter(): node '" << name << "' not found.\n";
   }
   return 0;
 }
@@ -177,8 +177,8 @@ void SaveRestoreUtility::SaveParameter(const char c, const std::string& name)
 {
   int temp = (int) c;
   std::ostringstream output;
-  output << temp;
-  parameters[name] = output.str();
+  Rcpp::Rcout << temp;
+  //parameters[name] = output.str();
 }
 
 void SaveRestoreUtility::SaveParameter(const arma::mat& mat,
@@ -191,11 +191,11 @@ void SaveRestoreUtility::SaveParameter(const arma::mat& mat,
   {
     for (size_t c = 0; c < columns - 1; ++c)
     {
-      output << mat(r,c) << ",";
+      Rcpp::Rcout << mat(r,c) << ",";
     }
-    output << mat(r,columns - 1) << std::endl;
+    Rcpp::Rcout << mat(r,columns - 1) << std::endl;
   }
-  parameters[name] = output.str();
+  //parameters[name] = output.str();
 }
 
 // Special template specializations for vectors.

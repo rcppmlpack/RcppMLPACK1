@@ -206,7 +206,7 @@ void CLI::DefaultMessages()
   {
     Rcpp::Rcout << GetSingleton().programName << ": part of "
         << util::GetVersion() << std::endl;
-    //exit(0);
+
   }
 
   // Default help message.
@@ -214,7 +214,7 @@ void CLI::DefaultMessages()
   {
     Log::Info.ignoreInput = false;
     PrintHelp();
-    //exit(0); // The user doesn't want to run the program, he wants help.
+
   }
 
   if (HasParam("info"))
@@ -227,12 +227,12 @@ void CLI::DefaultMessages()
     if (str != "")
     {
       PrintHelp(str);
-      //exit(0);
+ 
     }
 
     // Otherwise just print the generalized help.
     PrintHelp();
-    //exit(0);
+
   }
 
   if (HasParam("verbose"))
@@ -597,7 +597,7 @@ void CLI::PrintHelp(const std::string& param)
     // User passed a single variable, but it doesn't exist.
     Rcpp::Rcerr << "Parameter --" << used_param << " does not exist."
         << std::endl;
-    //exit(1); // Nothing left to do.
+
   }
 
   // Print out the descriptions.

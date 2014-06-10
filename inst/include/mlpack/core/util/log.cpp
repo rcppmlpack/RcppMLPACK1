@@ -25,6 +25,7 @@
 #endif
 
 #include "log.hpp"
+#include "Rcpp.h"
 
 // Color code escape sequences -- but not on Windows.
 #ifndef _WIN32
@@ -46,20 +47,20 @@ using namespace mlpack::util;
 
 // Only output debugging output if in debug mode.
 #ifdef DEBUG
-PrefixedOutStream Log::Debug = PrefixedOutStream(std::cout,
+PrefixedOutStream Log::Debug = PrefixedOutStream(Rcpp::Rcout,
     BASH_CYAN "[DEBUG] " BASH_CLEAR);
 #else
 NullOutStream Log::Debug = NullOutStream();
 #endif
 
-PrefixedOutStream Log::Info = PrefixedOutStream(std::cout,
+PrefixedOutStream Log::Info = PrefixedOutStream(Rcpp::Rcout,
     BASH_GREEN "[INFO ] " BASH_CLEAR, true /* unless --verbose */, false);
-PrefixedOutStream Log::Warn = PrefixedOutStream(std::cout,
+PrefixedOutStream Log::Warn = PrefixedOutStream(Rcpp::Rcout,
     BASH_YELLOW "[WARN ] " BASH_CLEAR, false, false);
-PrefixedOutStream Log::Fatal = PrefixedOutStream(std::cerr,
+PrefixedOutStream Log::Fatal = PrefixedOutStream(Rcpp::Rcerr,
     BASH_RED "[FATAL] " BASH_CLEAR, false, true /* fatal */);
 
-std::ostream& Log::cout = std::cout;
+std::ostream& Log::cout = Rcpp::Rcout;
 
 // Only do anything for Assert() if in debugging mode.
 #ifdef DEBUG

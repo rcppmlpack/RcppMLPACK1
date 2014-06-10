@@ -25,6 +25,7 @@
 
 // In case it hasn't been included already.
 #include "save_restore_utility.hpp"
+#include "Rcpp.h"
 
 namespace mlpack {
 namespace util {
@@ -42,7 +43,7 @@ T& SaveRestoreUtility::LoadParameter(T& t, const std::string& name)
   }
   else
   {
-    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+    Rcpp::Rcerr << "LoadParameter(): node '" << name << "' not found.\n";
   }
   return t;
 }
@@ -72,7 +73,7 @@ std::vector<T>& SaveRestoreUtility::LoadParameter(std::vector<T>& v,
   }
   else
   {
-    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+   Rcpp::Rcerr << "LoadParameter(): node '" << name << "' not found.\n";
   }
   return v;
 }
@@ -81,8 +82,8 @@ template<typename T>
 void SaveRestoreUtility::SaveParameter(const T& t, const std::string& name)
 {
   std::ostringstream output;
-  output << t;
-  parameters[name] = output.str();
+  Rcpp::Rcout << t;
+  //parameters[name] = output.str();
 }
 
 template<typename T>
@@ -92,7 +93,7 @@ void SaveRestoreUtility::SaveParameter(const std::vector<T>& t,
   std::ostringstream output;
   for (size_t index = 0; index < t.size(); ++index)
   {
-    output << t[index] << ",";
+    Rcpp::Rcout << t[index] << ",";
   }
   std::string vectorAsStr = output.str();
   vectorAsStr.erase(vectorAsStr.length() - 1);
