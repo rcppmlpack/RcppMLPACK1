@@ -39,13 +39,13 @@ class PositiveDefiniteConstraint
   static void ApplyConstraint(arma::mat& covariance)
   {
     // TODO: make this more efficient.
-    if (det(covariance) <= 1e-50)
+    if(det(covariance) <= 1e-50)
     {
       Log::Debug << "Covariance matrix is not positive definite.  Adding "
           << "perturbation." << std::endl;
 
       double perturbation = 1e-30;
-      while (det(covariance) <= 1e-50)
+      while(det(covariance) <= 1e-50)
       {
         covariance.diag() += perturbation;
         perturbation *= 10;

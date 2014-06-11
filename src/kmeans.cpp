@@ -1,7 +1,7 @@
 #include "RcppMLPACK.h"
 
 using namespace mlpack::kmeans;
-using namespace Rcpp ;
+using namespace Rcpp;
 
 // [[Rcpp::export]]
 
