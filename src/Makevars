@@ -1,23 +1,8 @@
 MLPACLOBJECTS=\
 ../inst/include/mlpack/core/util/log.o \
-../inst/include/mlpack/core/util/cli_deleter.o \
-../inst/include/mlpack/core/util/option.o \
 ../inst/include/mlpack/core/util/prefixedoutstream.o \
 ../inst/include/mlpack/core/util/string_util.o \
-../inst/include/mlpack/core/util/timers.o \
-../inst/include/mlpack/core/util/version.o \
-../inst/include/mlpack/core/util/cli.o\
-../inst/include/boost/program_options/src/cmdline.o\
-../inst/include/boost/program_options/src/config_file.o\
-../inst/include/boost/program_options/src/convert.o\
-../inst/include/boost/program_options/src/parsers.o\
-../inst/include/boost/program_options/src/positional_options.o\
-../inst/include/boost/program_options/src/split.o\
-../inst/include/boost/program_options/src/utf8_codecvt_facet.o\
-../inst/include/boost/program_options/src/value_semantic.o\
-../inst/include/boost/program_options/src/options_description.o\
-../inst/include/boost/program_options/src/variables_map.o\
-../inst/include/boost/program_options/src/winmain.o
+../inst/include/mlpack/core/util/version.o 
 
 RCPPOBJECTS=RcppExports.o kmeans.o
 
