@@ -1,7 +1,7 @@
 Package: RcppMLPACK
 Type: Package
 Title: Rcpp integration for MLPACK library
-Version: 0.1.0
+Version: 1.0.8
 Date: 2014-06-08
 Author: Qiang Kou
 Maintainer: Qiang Kou <qkou@umail.iu.edu>
