@@ -1,4 +1,4 @@
-#include "../inst/include/RcppMLPACK.h"
+#include "RcppMLPACK.h"
 #include <Rcpp.h>
 
 using namespace Rcpp;

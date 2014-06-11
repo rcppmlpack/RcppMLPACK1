@@ -1,4 +1,4 @@
-kmeans <- function(X, y) {
+mlKmeans <- function(X, y) {
 
     X <- as.matrix(X)
     y <- as.numeric(y)
