@@ -1,10 +1,9 @@
 MLPACLOBJECTS=\
 ./mlpack/core/util/log.o \
 ./mlpack/core/util/prefixedoutstream.o \
-./mlpack/core/util/string_util.o \
-./mlpack/core/util/version.o 
+./mlpack/core/util/string_util.o 
 
-RCPPOBJECTS=RcppExports.o kmeans.o
+RCPPOBJECTS=RcppExports.o kmeans.o ridge_regression.o
 
 OBJECTS= $(MLPACLOBJECTS) $(RCPPOBJECTS) 
 

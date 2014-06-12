@@ -9,6 +9,7 @@
 #include <Rcpp.h>
 
 #include <mlpack/core.hpp>
+#include <mlpack/methods/linear_regression/linear_regression.hpp>
 #include <mlpack/methods/kmeans/kmeans.hpp>
 #include <mlpack/methods/kmeans/allow_empty_clusters.hpp>
 #include <mlpack/methods/kmeans/refined_start.hpp>
