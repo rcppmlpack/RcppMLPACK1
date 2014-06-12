@@ -36,3 +36,20 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// mlpca
+List mlpca(arma::mat& dataset, const double& scale, double& varRetained);
+RcppExport SEXP RcppMLPACK_mlpca(SEXP datasetSEXP, SEXP scaleSEXP, SEXP varRetainedSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< arma::mat& >::type dataset(datasetSEXP );
+        Rcpp::traits::input_parameter< const double& >::type scale(scaleSEXP );
+        Rcpp::traits::input_parameter< double& >::type varRetained(varRetainedSEXP );
+        List __result = mlpca(dataset, scale, varRetained);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}

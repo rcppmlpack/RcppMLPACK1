@@ -13,5 +13,6 @@
 #include <mlpack/methods/kmeans/kmeans.hpp>
 #include <mlpack/methods/kmeans/allow_empty_clusters.hpp>
 #include <mlpack/methods/kmeans/refined_start.hpp>
+#include <mlpack/methods/pca/pca.hpp>
 
 #endif

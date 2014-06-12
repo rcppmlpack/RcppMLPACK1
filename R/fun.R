@@ -16,3 +16,13 @@ mlRidge <- function(X, y, lambda) {
     .Call( "RcppMLPACK_ridge", X, y, lambda, PACKAGE = "RcppMLPACK" )
 
 }
+
+mlPCA <- function(X, scale, varRetained) {
+
+    X <- as.matrix(X)
+    scale <- as.vector(scale)
+    varRetained <- as.numeric(varRetained)
+
+    .Call( "RcppMLPACK_mlpca", X, scale, varRetained, PACKAGE = "RcppMLPACK" )
+
+}

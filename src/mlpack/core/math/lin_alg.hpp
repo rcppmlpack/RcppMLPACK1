@@ -44,7 +44,13 @@ void VectorPower(arma::vec& vec, double power);
  * @param x Input matrix
  * @param xCentered Matrix to write centered output into
  */
-void Center(const arma::mat& x, arma::mat& xCentered);
+inline void Center(const arma::mat& x, arma::mat& xCentered)
+{
+  // Get the mean of the elements in each row.
+  arma::vec rowMean = arma::sum(x, 1) / x.n_cols;
+
+  xCentered = x - arma::repmat(rowMean, 1, x.n_cols);
+}
 
 /**
  * Whitens a matrix using the singular value decomposition of the covariance
