@@ -127,7 +127,7 @@ public:
 	 */
 	void Predict(const arma::mat& points, arma::vec& predictions) const {
 		// We want to be sure we have the correct number of dimensions in the dataset.
-		Log::Assert(points.n_rows == parameters.n_rows - 1);
+		//Log::Assert(points.n_rows == parameters.n_rows - 1);
 
 		// Get the predictions, but this ignores the intercept value (parameters[0]).
 		predictions = arma::trans(
@@ -163,7 +163,7 @@ public:
 
 		// Ensure that we have the correct number of dimensions in the dataset.
 		if (nRows != parameters.n_rows - 1) {
-			Log::Fatal
+			Rcpp::Rcout
 					<< "The test data must have the same number of columns as the "
 							"training file." << std::endl;
 		}

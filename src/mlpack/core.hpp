@@ -181,9 +181,11 @@
   #define force_inline __forceinline
 #endif
 
+#include "Rcpp.h"
+
 // Now MLPACK-specific includes.
 #include <mlpack/core/arma_extend/arma_extend.hpp> // Includes Armadillo.
-#include <mlpack/core/util/log.hpp>
+//#include <mlpack/core/util/log.hpp>
 //#include <mlpack/core/util/cli.hpp>
 #include <mlpack/core/data/load.hpp>
 #include <mlpack/core/data/save.hpp>

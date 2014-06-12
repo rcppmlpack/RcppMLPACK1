@@ -1,6 +1,4 @@
-MLPACLOBJECTS=\
-./mlpack/core/util/log.o \
-./mlpack/core/util/prefixedoutstream.o 
+MLPACLOBJECTS=
 
 RCPPOBJECTS=RcppExports.o kmeans.o ridge_regression.o
 

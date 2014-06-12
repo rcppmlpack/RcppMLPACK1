@@ -54,7 +54,7 @@ KMeans(const size_t maxIterations,
   // Validate overclustering factor.
   if (overclusteringFactor < 1.0)
   {
-    Log::Warn << "KMeans::KMeans(): overclustering factor must be >= 1.0 ("
+    Rcpp::Rcerr << "KMeans::KMeans(): overclustering factor must be >= 1.0 ("
         << overclusteringFactor << " given). Setting factor to 1.0.\n";
     this->overclusteringFactor = 1.0;
   }
@@ -79,7 +79,7 @@ FastCluster(MatType& data,
   size_t actualClusters = size_t(overclusteringFactor * clusters);
   if (actualClusters > data.n_cols)
   {
-    Log::Warn << "KMeans::Cluster(): overclustering factor is too large.  No "
+    Rcpp::Rcerr << "KMeans::Cluster(): overclustering factor is too large.  No "
         << "overclustering will be done." << std::endl;
     actualClusters = clusters;
   }
@@ -97,7 +97,7 @@ FastCluster(MatType& data,
   // Build the mrkd-tree on this dataset.
   tree::BinarySpaceTree<typename bound::HRectBound<2>, tree::MRKDStatistic>
       tree(data, 1);
-  Log::Debug << "Tree Built." << std::endl;
+  Rcpp::Rcerr << "Tree Built." << std::endl;
   // A pointer for traversing the mrkd-tree.
   tree::BinarySpaceTree<typename bound::HRectBound<2>, tree::MRKDStatistic>*
       node;
@@ -491,7 +491,7 @@ FastCluster(MatType& data,
     // assignments.
   } while (changedAssignments > 0 && iteration != maxIterations);
 
-  Log::Info << "Iterations: " << iteration << std::endl
+  Rcpp::Rcout << "Iterations: " << iteration << std::endl
       << "Skips: " << skip << std::endl
       << "Comparisons: " << comps << std::endl
       << "Dominations: " << dominations << std::endl;
@@ -541,14 +541,14 @@ Cluster(const MatType& data,
 {
   // Make sure we have more points than clusters.
   if (clusters > data.n_cols)
-    Log::Warn << "KMeans::Cluster(): more clusters requested than points given."
+    Rcpp::Rcerr << "KMeans::Cluster(): more clusters requested than points given."
         << std::endl;
 
   // Make sure our overclustering factor is valid.
   size_t actualClusters = size_t(overclusteringFactor * clusters);
   if (actualClusters > data.n_cols && overclusteringFactor != 1.0)
   {
-    Log::Warn << "KMeans::Cluster(): overclustering factor is too large.  No "
+    Rcpp::Rcerr << "KMeans::Cluster(): overclustering factor is too large.  No "
         << "overclustering will be done." << std::endl;
     actualClusters = clusters;
   }
@@ -557,19 +557,19 @@ Cluster(const MatType& data,
   if (initialAssignmentGuess)
   {
     if (assignments.n_elem != data.n_cols)
-      Log::Fatal << "KMeans::Cluster(): initial cluster assignments (length "
+      Rcpp::Rcerr << "KMeans::Cluster(): initial cluster assignments (length "
           << assignments.n_elem << ") not the same size as the dataset (size "
           << data.n_cols << ")!" << std::endl;
   }
   else if (initialCentroidGuess)
   {
     if (centroids.n_cols != clusters)
-      Log::Fatal << "KMeans::Cluster(): wrong number of initial cluster "
+      Rcpp::Rcerr << "KMeans::Cluster(): wrong number of initial cluster "
         << "centroids (" << centroids.n_cols << ", should be " << clusters
         << ")!" << std::endl;
 
     if (centroids.n_rows != data.n_rows)
-      Log::Fatal << "KMeans::Cluster(): initial cluster centroids have wrong "
+      Rcpp::Rcerr << "KMeans::Cluster(): initial cluster centroids have wrong "
         << " dimensionality (" << centroids.n_rows << ", should be "
         << data.n_rows << ")!" << std::endl;
 
@@ -674,12 +674,12 @@ Cluster(const MatType& data,
 
   if (iteration != maxIterations)
   {
-    Log::Debug << "KMeans::Cluster(): converged after " << iteration
+    Rcpp::Rcerr << "KMeans::Cluster(): converged after " << iteration
         << " iterations." << std::endl;
   }
   else
   {
-    Log::Debug << "KMeans::Cluster(): terminated after limit of " << iteration
+    Rcpp::Rcerr << "KMeans::Cluster(): terminated after limit of " << iteration
         << " iterations." << std::endl;
 
     // Recalculate final clusters.
