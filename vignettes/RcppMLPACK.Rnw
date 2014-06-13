@@ -1,0 +1,26 @@
+\documentclass[letterpaper]{article}
+\usepackage{lscape}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{epstopdf}
+\usepackage{hyperref}
+
+\begin{document}
+
+\title{RcppMLPACK: R integration with MLPACK using Rcpp}
+
+\author{Qiang Kou\\\href{mailto:qkou@umail.iu.edu}{qkou@umail.iu.edu}}
+
+\date{\today}
+
+\maketitle
+
+
+\bibliography{ref}
+\bibliographystyle{unsrt}
+
+
+\end{document}
