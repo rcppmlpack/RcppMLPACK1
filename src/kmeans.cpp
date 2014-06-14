@@ -4,7 +4,6 @@ using namespace mlpack::kmeans;
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-
 List kmeans(const arma::mat& data, const int& clusters) {
     
     arma::Col<size_t> assignments;
