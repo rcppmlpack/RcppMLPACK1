@@ -1,0 +1,79 @@
+\documentclass[letterpaper]{article}
+\usepackage{lscape}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amsthm, amsfonts, array}
+\usepackage{graphicx,booktabs,xcolor,color}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{epstopdf}
+\usepackage{listings}
+\definecolor{shadecolor}{rgb}{0.95,0.95,0.95}
+\lstset{xrightmargin=0pt,
+    keepspaces=true,
+    basicstyle=\ttfamily,
+    commentstyle=\ttfamily,
+    numbers=left,
+    numberstyle=\tiny,
+    backgroundcolor=\color{shadecolor},
+    columns=fullflexible,
+    showstringspaces=false,
+    breaklines=true,
+    framerule=0.7pt,
+    frameround=tttt,
+    captionpos=b,
+    aboveskip=1em,
+}
+\begin{document}
+
+\title{RcppMLPACK: R integration with MLPACK using Rcpp}
+
+\author{Qiang Kou\\qkou@umail.iu.edu}
+
+\date{\today}
+
+\maketitle
+
+\section{Introduction}
+
+MLPACL\cite{curtin2013mlpack} is a scalable C++ machine learning library.
+
+
+\section{Input/Ouput using Armadillo}
+
+\section{Available algorithms}
+
+\section{Examples}
+
+\subsection{Ridge regression example}
+
+\begin{lstlisting}[caption={Ridge Regression}]
+#include "RcppMLPACK.h"
+
+using namespace Rcpp;
+using namespace mlpack::regression;
+
+// [[Rcpp::export]]
+
+List ridge(const arma::mat& data, const arma::vec& responses, const int& lambda) {
+    
+    LinearRegression lr(data, responses, lambda);
+
+    arma::vec parameters = lr.Parameters();
+  
+    return List::create(_["parameters"] = parameters,
+                        _["lambda"]     = lambda);
+}
+\end{lstlisting}
+
+\subsection{Processing files on disk directly}
+
+\section{Acknowledgement}
+
+\bibliography{ref}
+\bibliographystyle{unsrt}
+
+
+\end{document}
