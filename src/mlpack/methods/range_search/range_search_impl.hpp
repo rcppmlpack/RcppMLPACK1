@@ -51,7 +51,7 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
     numPrunes(0)
 {
   // Build the trees.
-  Timer::Start("range_search/tree_building");
+  //Timer::Start("range_search/tree_building");
 
   // Naive sets the leaf size such that the entire tree is one node.
   referenceTree = new TreeType(referenceCopy, oldFromNewReferences,
@@ -60,7 +60,7 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
   queryTree = new TreeType(queryCopy, oldFromNewQueries,
       (naive ? queryCopy.n_cols : leafSize));
 
-  Timer::Stop("range_search/tree_building");
+  //Timer::Stop("range_search/tree_building");
 }
 
 template<typename MetricType, typename TreeType>
@@ -82,7 +82,7 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
     numPrunes(0)
 {
   // Build the trees.
-  Timer::Start("range_search/tree_building");
+  //Timer::Start("range_search/tree_building");
 
   // Naive sets the leaf size such that the entire tree is one node.
   referenceTree = new TreeType(referenceCopy, oldFromNewReferences,
@@ -92,7 +92,7 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
   if (!singleMode)
     queryTree = new TreeType(*referenceTree);
 
-  Timer::Stop("range_search/tree_building");
+  //Timer::Stop("range_search/tree_building");
 }
 
 template<typename MetricType, typename TreeType>
@@ -161,7 +161,7 @@ void RangeSearch<MetricType, TreeType>::Search(
     std::vector<std::vector<size_t> >& neighbors,
     std::vector<std::vector<double> >& distances)
 {
-  Timer::Start("range_search/computing_neighbors");
+  //Timer::Start("range_search/computing_neighbors");
 
   // Set size of prunes to 0.
   numPrunes = 0;
@@ -210,10 +210,10 @@ void RangeSearch<MetricType, TreeType>::Search(
     numPrunes = traverser.NumPrunes();
   }
 
-  Timer::Stop("range_search/computing_neighbors");
+  //Timer::Stop("range_search/computing_neighbors");
 
   // Output number of prunes.
-  Log::Info << "Number of pruned nodes during computation: " << numPrunes
+  Rcpp::Rcout << "Number of pruned nodes during computation: " << numPrunes
       << "." << std::endl;
 
   // Map points back to original indices, if necessary.

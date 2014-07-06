@@ -34,17 +34,17 @@ bool Save(const std::string& filename,
           bool fatal,
           bool transpose)
 {
-  Timer::Start("saving_data");
+  //Timer::Start("saving_data");
 
   // First we will try to discriminate by file extension.
   size_t ext = filename.rfind('.');
   if (ext == std::string::npos)
   {
     if (fatal)
-      Log::Fatal << "No extension given with filename '" << filename << "'; "
+      Rcpp::Rcerr << "No extension given with filename '" << filename << "'; "
           << "type unknown.  Save failed." << std::endl;
     else
-      Log::Warn << "No extension given with filename '" << filename << "'; "
+      Rcpp::Rcerr << "No extension given with filename '" << filename << "'; "
           << "type unknown.  Save failed." << std::endl;
 
     return false;
@@ -60,13 +60,13 @@ bool Save(const std::string& filename,
   if (!stream.is_open())
   {
     if (fatal)
-      Log::Fatal << "Cannot open file '" << filename << "' for writing. "
+      Rcpp::Rcerr << "Cannot open file '" << filename << "' for writing. "
           << "Save failed." << std::endl;
     else
-      Log::Warn << "Cannot open file '" << filename << "' for writing; save "
+      Rcpp::Rcerr << "Cannot open file '" << filename << "' for writing; save "
           << "failed." << std::endl;
 
-    Timer::Stop("saving_data");
+    //Timer::Stop("saving_data");
     return false;
   }
 
@@ -102,15 +102,15 @@ bool Save(const std::string& filename,
     stringType = "HDF5 data";
 #else
     if (fatal)
-      Log::Fatal << "Attempted to save HDF5 data to '" << filename << "', but "
+      Rcpp::Rcerr << "Attempted to save HDF5 data to '" << filename << "', but "
           << "Armadillo was compiled without HDF5 support.  Save failed."
           << std::endl;
     else
-      Log::Warn << "Attempted to save HDF5 data to '" << filename << "', but "
+      Rcpp::Rcerr << "Attempted to save HDF5 data to '" << filename << "', but "
           << "Armadillo was compiled without HDF5 support.  Save failed."
           << std::endl;
 
-    Timer::Stop("saving_data");
+    //Timer::Stop("saving_data");
     return false;
 #endif
   }
@@ -125,15 +125,15 @@ bool Save(const std::string& filename,
   if (unknownType)
   {
     if (fatal)
-      Log::Fatal << "Unable to determine format to save to from filename '"
+      Rcpp::Rcerr << "Unable to determine format to save to from filename '"
           << filename << "'.  Save failed." << std::endl;
     else
-      Log::Warn << "Unable to determine format to save to from filename '"
+      Rcpp::Rcerr << "Unable to determine format to save to from filename '"
           << filename << "'.  Save failed." << std::endl;
   }
 
   // Try to save the file.
-  Log::Info << "Saving " << stringType << " to '" << filename << "'."
+  Rcpp::Rcout << "Saving " << stringType << " to '" << filename << "'."
       << std::endl;
 
   // Transpose the matrix.
@@ -144,11 +144,11 @@ bool Save(const std::string& filename,
     if (!tmp.quiet_save(stream, saveType))
     {
       if (fatal)
-        Log::Fatal << "Save to '" << filename << "' failed." << std::endl;
+        Rcpp::Rcerr << "Save to '" << filename << "' failed." << std::endl;
       else
-        Log::Warn << "Save to '" << filename << "' failed." << std::endl;
+        Rcpp::Rcerr << "Save to '" << filename << "' failed." << std::endl;
 
-      Timer::Stop("saving_data");
+      //Timer::Stop("saving_data");
       return false;
     }
   }
@@ -157,16 +157,16 @@ bool Save(const std::string& filename,
     if (!matrix.quiet_save(stream, saveType))
     {
       if (fatal)
-        Log::Fatal << "Save to '" << filename << "' failed." << std::endl;
+        Rcpp::Rcerr << "Save to '" << filename << "' failed." << std::endl;
       else
-        Log::Warn << "Save to '" << filename << "' failed." << std::endl;
+        Rcpp::Rcerr << "Save to '" << filename << "' failed." << std::endl;
 
-      Timer::Stop("saving_data");
+      //Timer::Stop("saving_data");
       return false;
     }
   }
 
-  Timer::Stop("saving_data");
+  //Timer::Stop("saving_data");
 
   // Finally return success.
   return true;

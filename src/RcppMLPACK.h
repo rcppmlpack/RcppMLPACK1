@@ -15,5 +15,5 @@
 #include <mlpack/methods/kmeans/refined_start.hpp>
 #include <mlpack/methods/pca/pca.hpp>
 #include <mlpack/methods/range_search/range_search.hpp>
-
+#include <mlpack/methods/lsh/lsh_search.hpp>
 #endif

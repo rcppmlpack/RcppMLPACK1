@@ -27,6 +27,7 @@
 #include <mlpack/core.hpp>
 #include <mlpack/core/math/range.hpp>
 #include <mlpack/core/metrics/lmetric.hpp>
+#include <mlpack/core/util/string_util.hpp>
 
 namespace mlpack {
 namespace bound {
