@@ -28,4 +28,6 @@ This MLPACL integration heavily relies on [Rcpp](http://www.rcpp.org) package fo
 
 You can always find me by email (qkou@umail.iu.edu) if you have any questions.
 
+The version number of MLPACK is used as the version number of this package. 
+
 Qiang Kou
