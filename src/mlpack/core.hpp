@@ -149,6 +149,12 @@
  *   - Sumedh Ghaisas <sumedhghaisas@gmail.com>
  */
 
+#if defined(__MINGW32__)
+#undef Realloc
+#undef Free
+#include <windows.h>
+#endif
+
 // First, standard includes.
 #include <stdlib.h>
 #include <stdio.h>

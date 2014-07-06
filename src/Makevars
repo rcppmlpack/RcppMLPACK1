@@ -1,5 +1,5 @@
 PKG_CXXFLAGS=-I. -I/usr/include/libxml2/
-PKG_LIBS= $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lxml2
+PKG_LIBS= $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) ## -lxml2
 
 ## With R 3.1.0 or later, you can uncomment the following line to tell R to 
 ## enable compilation with C++11 (where available)
