@@ -1,34 +1,4 @@
-./methods/rann/ra_search_rules_impl.hpp:    Log::Warn << "Rank-approximation percentile " << tau << " corresponds to "
-./methods/rann/ra_search_rules_impl.hpp:    Log::Fatal << "Cannot return " << k << " approximate nearest neighbors "
-./methods/rann/ra_search_rules_impl.hpp:    Log::Warn << "Rank-approximation percentile " << tau << " corresponds to "
-./methods/rann/ra_search_rules_impl.hpp:  Log::Info << "Minimum samples required per query: " << numSamplesReqd <<
-./methods/rann/ra_search_rules_impl.hpp:  Log::Assert(alpha <= 1.0);
-./methods/rann/ra_search_impl.hpp:      Log::Info << "Performing single-tree traversal..." << std::endl;
-./methods/rann/ra_search_impl.hpp:      Log::Info << "Single-tree traversal complete." << std::endl;
-./methods/rann/ra_search_impl.hpp:      Log::Info << "Average number of distance calculations per query point: "
-./methods/rann/ra_search_impl.hpp:    Log::Info << "Performing dual-tree traversal..." << std::endl;
-./methods/rann/ra_search_impl.hpp:      Log::Info << "Query statistic pre-search: "
-./methods/rann/ra_search_impl.hpp:      Log::Info << "Query statistic pre-search: "
-./methods/rann/ra_search_impl.hpp:    Log::Info << "Dual-tree traversal complete." << std::endl;
-./methods/rann/ra_search_impl.hpp:    Log::Info << "Average number of distance calculations per query point: "
-./methods/rann/ra_search_impl.hpp:  Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
-./methods/nmf/nmf_impl.hpp:    Log::Warn << "NMF::NMF(): minResidue must be a positive value ("
-./methods/nmf/nmf_impl.hpp:  Log::Info << "Initialized W and H." << std::endl;
-./methods/nmf/nmf_impl.hpp:  Log::Info << "NMF converged to residue of " << sqrt(residue) << " in "
 ./methods/nmf/random_acol_init.hpp:      Log::Warn << "Number of random columns is more than the number of columns"
-./methods/local_coordinate_coding/lcc_impl.hpp:  Log::Info << "Initial Coding Step." << std::endl;
-./methods/local_coordinate_coding/lcc_impl.hpp:  Log::Info << "  Sparsity level: " << 100.0 * ((double)(adjacencies.n_elem)) /
-./methods/local_coordinate_coding/lcc_impl.hpp:  Log::Info << "  Objective value: " << Objective(adjacencies) << "."
-./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "Iteration " << t << " of " << maxIterations << "."
-./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "Performing dictionary step..." << std::endl;
-./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "  Objective value: " << Objective(adjacencies) << "."
-./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "Performing coding step..." << std::endl;
-./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
-./methods/local_coordinate_coding/lcc_impl.hpp:      Log::Warn << "Objective increased in coding step!  Terminating."
-./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "Objective value: " << curObjVal << " (improvement "
-./methods/local_coordinate_coding/lcc_impl.hpp:      Log::Info << "Converged within tolerance " << objTolerance << ".\n";
-./methods/local_coordinate_coding/lcc_impl.hpp:      Log::Debug << "Optimization at point " << i << "." << std::endl;
-./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Warn << "There are " << nInactiveAtoms
 ./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
 ./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
 ./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): varRetained (" << varRetained << ") must be "
@@ -46,23 +16,6 @@
 ./methods/det/dtree.cpp:      Log::Assert(gT < std::numeric_limits<double>::max());
 ./methods/det/dtree.cpp:  Log::Assert(query.n_elem == maxVals.n_elem);
 ./methods/det/dtree.cpp:  Log::Assert(query.n_elem == maxVals.n_elem);
-./methods/det/dt_utils.cpp:    Log::Info << "Leaf membership; row represents leaf id, column represents "
-./methods/det/dt_utils.cpp:      Log::Info << "Leaf membership printed to '" << leafClassMembershipFile
-./methods/det/dt_utils.cpp:      Log::Warn << "Can't open '" << leafClassMembershipFile << "' to write "
-./methods/det/dt_utils.cpp:  Log::Info << "Maximum variable importance: " << max << "." << std::endl;
-./methods/det/dt_utils.cpp:    Log::Info << "Variable importance: " << std::endl << imps.t() << std::endl;
-./methods/det/dt_utils.cpp:      Log::Info << "Variable importance printed to '" << viFile << "'."
-./methods/det/dt_utils.cpp:      Log::Warn << "Can't open '" << viFile << "' to write variable importance "
-./methods/det/dt_utils.cpp:  Log::Info << dtree->SubtreeLeaves() << " leaf nodes in the tree using full "
-./methods/det/dt_utils.cpp:      Log::Warn << "Can't open '" << unprunedTreeOutput << "' to write computed"
-./methods/det/dt_utils.cpp:    Log::Assert((alpha < std::numeric_limits<double>::max()) ||
-./methods/det/dt_utils.cpp:    Log::Assert(alpha > oldAlpha);
-./methods/det/dt_utils.cpp:    Log::Assert(dtree->SubtreeLeavesLogNegError() < treeSeq.second);
-./methods/det/dt_utils.cpp:  Log::Info << prunedSequence.size() << " trees in the sequence; maximum alpha:"
-./methods/det/dt_utils.cpp:  Log::Info << "Optimal alpha: " << optimalAlpha << "." << std::endl;
-./methods/det/dt_utils.cpp:    Log::Assert((alpha < std::numeric_limits<double>::max()) ||
-./methods/det/dt_utils.cpp:    Log::Assert(alpha > oldAlpha);
-./methods/det/dt_utils.cpp:  Log::Info << dtreeOpt->SubtreeLeaves() << " leaf nodes in the optimally "
 ./methods/linear_regression/linear_regression.cpp:  Log::Assert(points.n_rows == parameters.n_rows - 1);
 ./methods/linear_regression/linear_regression.cpp:    Log::Fatal << "The test data must have the same number of columns as the "
 ./methods/radical/radical.cpp:    Log::Info << "RADICAL: sweep " << sweepNum << "." << std::endl;
@@ -214,58 +167,14 @@
 ./core/optimizers/sgd/sgd_impl.hpp:  Log::Info << "SGD: maximum iterations (" << maxIterations << ") reached; "
 ./core/dists/gaussian_distribution.cpp:    Log::Debug << "GaussianDistribution::Estimate(): Covariance matrix is not "
 ./core/dists/gaussian_distribution.cpp:    Log::Debug << "GaussianDistribution::Estimate(): Covariance matrix is not "
-./core/util/timers.cpp:  Log::Info << t.tv_sec << "." << std::setw(6) << std::setfill('0')
-./core/util/timers.cpp:    Log::Info << " (";
-./core/util/timers.cpp:      Log::Info << days << " days";
-./core/util/timers.cpp:        Log::Info << ", ";
-./core/util/timers.cpp:      Log::Info << hours << " hrs";
-./core/util/timers.cpp:        Log::Info << ", ";
-./core/util/timers.cpp:      Log::Info << minutes << " mins";
-./core/util/timers.cpp:        Log::Info << ", ";
-./core/util/timers.cpp:      Log::Info << seconds << "." << std::setw(1) << (t.tv_usec / 100000) <<
-./core/util/timers.cpp:    Log::Info << ")";
-./core/util/timers.cpp:  Log::Info << std::endl;
 ./core/util/nulloutstream.hpp: * Used for Log::Debug when not compiled with debugging symbols.  This class
 ./core/util/save_restore_utility_impl.hpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
 ./core/util/save_restore_utility_impl.hpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
-./core/util/cli.cpp:    Log::Info << std::endl << "Execution parameters:" << std::endl;
-./core/util/cli.cpp:    Log::Info << "Program timers:" << std::endl;
-./core/util/cli.cpp:      Log::Info << "  " << i << ": ";
-./core/util/cli.cpp:    Log::Debug << "Compiled with debugging symbols." << std::endl;
-./core/util/cli.cpp:    Log::Info.ignoreInput = false;
-./core/util/cli.cpp:    Log::Info.ignoreInput = false;
-./core/util/cli.cpp:    Log::Info.ignoreInput = false;
-./core/util/cli.cpp:  Log::Debug << "Compiled with debugging symbols." << std::endl;
-./core/util/cli.cpp:  Log::Fatal << "Parameter '--" << key << "' does not exist in this program."
-./core/util/cli.cpp:    Log::Fatal << "Caught exception from parsing command line:\t";
-./core/util/cli.cpp:    Log::Fatal << ex.what() << std::endl;
-./core/util/cli.cpp:          Log::Fatal << "\"" << bpo.options[j].original_tokens[0] << "\""
-./core/util/cli.cpp:    Log::Fatal << ex.what() << std::endl;
-./core/util/cli.cpp:    Log::Info << "  " << key << ": ";
-./core/util/cli.cpp:        Log::Info << "\"\"";
-./core/util/cli.cpp:      Log::Info << value;
-./core/util/cli.cpp:      Log::Info << value;
-./core/util/cli.cpp:      Log::Info << (value ? "true" : "false");
-./core/util/cli.cpp:      Log::Info << value;
-./core/util/cli.cpp:      Log::Info << value;
-./core/util/cli.cpp:      Log::Info << "(Unknown data type - " << data.tname << ")";
-./core/util/cli.cpp:    Log::Info << std::endl;
-./core/util/cli.cpp:  Log::Info << std::endl;
-./core/util/cli.cpp:      Log::Fatal << "Required option --" << str << " is undefined."
 ./core/util/save_restore_utility.cpp:    Log::Fatal << "Could not load XML file '" << filename << "'!" << std::endl;
 ./core/util/save_restore_utility.cpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
 ./core/util/save_restore_utility.cpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
 ./core/util/save_restore_utility.cpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
 ./core/util/cli.hpp: *   Log::Info << "Naive has been passed!" << std::endl;
-./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"Constructor"<<std::endl;
-./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"LSSampling"<<std::endl;
-./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"CalculateCentroid"<<std::endl;
-./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"CTNode"<<std::endl;
-./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"GetPivot"<<std::endl;
-./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"SplitData"<<std::endl;
-./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"CreateCosineSimilarityArray"<<std::endl;
-./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"GetMinSimilarity"<<std::endl;
-./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"GetMaxSimilarity"<<std::endl;
 ./core/tree/cover_tree/cover_tree_impl.hpp:  Log::Info << distanceComps << " distance computations during tree "
 ./core/tree/cover_tree/cover_tree_impl.hpp:  Log::Info << distanceComps << " distance computations during tree "
 ./core/tree/cover_tree/cover_tree_impl.hpp:  Log::Assert(originalSum == (nearSetSize + farSetSize + usedSetSize));

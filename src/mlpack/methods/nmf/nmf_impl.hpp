@@ -44,7 +44,7 @@ NMF<InitializationRule, WUpdateRule, HUpdateRule>::NMF(
 {
   if (minResidue < 0.0)
   {
-    Log::Warn << "NMF::NMF(): minResidue must be a positive value ("
+    Rcpp::Rcerr << "NMF::NMF(): minResidue must be a positive value ("
         << minResidue << " given). Setting to the default value of 1e-10.\n";
     this->minResidue = 1e-10;
   }
@@ -74,7 +74,7 @@ void NMF<InitializationRule, WUpdateRule, HUpdateRule>::Apply(
   // Initialize W and H.
   initializeRule.Initialize(V, r, W, H);
 
-  Log::Info << "Initialized W and H." << std::endl;
+  Rcpp::Rcout << "Initialized W and H." << std::endl;
 
   size_t iteration = 1;
   const size_t nm = n * m;
@@ -105,7 +105,7 @@ void NMF<InitializationRule, WUpdateRule, HUpdateRule>::Apply(
     iteration++;
   }
 
-  Log::Info << "NMF converged to residue of " << sqrt(residue) << " in "
+  Rcpp::Rcout << "NMF converged to residue of " << sqrt(residue) << " in "
       << iteration << " iterations." << std::endl;
 }
 
