@@ -154,7 +154,7 @@
 #undef Free
 #include <windows.h>
 #endif
-#include "Rcpp.h"
+
 // First, standard includes.
 #include <stdlib.h>
 #include <stdio.h>

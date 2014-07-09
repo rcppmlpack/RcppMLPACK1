@@ -3,7 +3,7 @@ MLPACKOBJECTS=\
 ./mlpack/core/math/random.o
 
 
-PKGOBJECTS = RcppExports.o kmeans.o ##mlpca.o ridge_regression.o
+PKGOBJECTS = RcppExports.o kmeans.o
 
 OBJECTS= $(MLPACKOBJECTS) $(PKGOBJECTS)
 
