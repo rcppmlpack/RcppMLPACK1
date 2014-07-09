@@ -24,8 +24,6 @@
 
 #include <mlpack/core.hpp>
 
-#define max_rand_i 100000
-
 /**
  * Linear algebra utility functions, generally performed on matrices or vectors.
  */
@@ -37,17 +35,7 @@ namespace math {
  * is ignored in the power operation and then re-added.  Useful for
  * eigenvalues.
  */
-inline void VectorPower(arma::vec& vec, double power)
-{
-  for (size_t i = 0; i < vec.n_elem; i++)
-  {
-    if (std::abs(vec(i)) > 1e-12)
-      vec(i) = (vec(i) > 0) ? std::pow(vec(i), (double) power) :
-          -std::pow(-vec(i), (double) power);
-    else
-      vec(i) = 0;
-  }
-}
+void VectorPower(arma::vec& vec, double power);
 
 /**
  * Creates a centered matrix, where centering is done by subtracting
@@ -56,116 +44,41 @@ inline void VectorPower(arma::vec& vec, double power)
  * @param x Input matrix
  * @param xCentered Matrix to write centered output into
  */
-inline void Center(const arma::mat& x, arma::mat& xCentered)
-{
-  // Get the mean of the elements in each row.
-  arma::vec rowMean = arma::sum(x, 1) / x.n_cols;
-
-  xCentered = x - arma::repmat(rowMean, 1, x.n_cols);
-}
+void Center(const arma::mat& x, arma::mat& xCentered);
 
 /**
  * Whitens a matrix using the singular value decomposition of the covariance
  * matrix. Whitening means the covariance matrix of the result is the identity
  * matrix.
  */
-inline void WhitenUsingSVD(const arma::mat& x, arma::mat& xWhitened, arma::mat& whiteningMatrix)
-{
-  arma::mat covX, u, v, invSMatrix, temp1;
-  arma::vec sVector;
-
-  covX = ccov(x);
-
-  svd(u, sVector, v, covX);
-
-  size_t d = sVector.n_elem;
-  invSMatrix.zeros(d, d);
-  invSMatrix.diag() = 1 / sqrt(sVector);
-
-  whiteningMatrix = v * invSMatrix * trans(u);
-
-  xWhitened = whiteningMatrix * x;
-}
+void WhitenUsingSVD(const arma::mat& x,
+                    arma::mat& xWhitened,
+                    arma::mat& whiteningMatrix);
 
 /**
  * Whitens a matrix using the eigendecomposition of the covariance matrix.
  * Whitening means the covariance matrix of the result is the identity matrix.
  */
-inline void WhitenUsingEig(const arma::mat& x, arma::mat& xWhitened, arma::mat& whiteningMatrix)
-{
-  arma::mat diag, eigenvectors;
-  arma::vec eigenvalues;
-
-  // Get eigenvectors of covariance of input matrix.
-  eig_sym(eigenvalues, eigenvectors, ccov(x));
-
-  // Generate diagonal matrix using 1 / sqrt(eigenvalues) for each value.
-  VectorPower(eigenvalues, -0.5);
-  diag.zeros(eigenvalues.n_elem, eigenvalues.n_elem);
-  diag.diag() = eigenvalues;
-
-  // Our whitening matrix is diag(1 / sqrt(eigenvectors)) * eigenvalues.
-  whiteningMatrix = diag * trans(eigenvectors);
-
-  // Now apply the whitening matrix.
-  xWhitened = whiteningMatrix * x;
-}
+void WhitenUsingEig(const arma::mat& x,
+                    arma::mat& xWhitened,
+                    arma::mat& whiteningMatrix);
 
 /**
  * Overwrites a dimension-N vector to a random vector on the unit sphere in R^N.
  */
-inline void RandVector(arma::vec& v)
-{
-  v.zeros();
-
-  for (size_t i = 0; i + 1 < v.n_elem; i += 2)
-  {
-    double a = Random();
-    double b = Random();
-    double first_term = sqrt(-2 * log(a));
-    double second_term = 2 * M_PI * b;
-    v[i]     = first_term * cos(second_term);
-    v[i + 1] = first_term * sin(second_term);
-  }
-
-  if ((v.n_elem % 2) == 1)
-  {
-    v[v.n_elem - 1] = sqrt(-2 * log(math::Random())) * cos(2 * M_PI *
-        math::Random());
-  }
-
-  v /= sqrt(dot(v, v));
-}
+void RandVector(arma::vec& v);
 
 /**
  * Orthogonalize x and return the result in W, using eigendecomposition.
  * We will be using the formula \f$ W = x (x^T x)^{-0.5} \f$.
  */
-inline void Orthogonalize(const arma::mat& x, arma::mat& W)
-{
-  // For a matrix A, A^N = V * D^N * V', where VDV' is the
-  // eigendecomposition of the matrix A.
-  arma::mat eigenvalues, eigenvectors;
-  arma::vec egval;
-  eig_sym(egval, eigenvectors, ccov(x));
-  VectorPower(egval, -0.5);
-
-  eigenvalues.zeros(egval.n_elem, egval.n_elem);
-  eigenvalues.diag() = egval;
-
-  arma::mat at = (eigenvectors * eigenvalues * trans(eigenvectors));
-
-  W = at * x;
-}
+void Orthogonalize(const arma::mat& x, arma::mat& W);
 
 /**
  * Orthogonalize x in-place.  This could be sped up by a custom
  * implementation.
  */
-inline void Orthogonalize(arma::mat& x)
-{
-  Orthogonalize(x, x);
-}
+void Orthogonalize(arma::mat& x);
 
 /**
  * Remove a certain set of rows in a matrix while copying to a second matrix.
@@ -174,59 +87,9 @@ inline void Orthogonalize(arma::mat& x)
  * @param rowsToRemove Vector containing indices of rows to be removed.
  * @param output Matrix to copy non-removed rows into.
  */
-inline void RemoveRows(const arma::mat& input,
-                              const std::vector<size_t>& rowsToRemove,
-                              arma::mat& output)
-{
-  const size_t nRemove = rowsToRemove.size();
-  const size_t nKeep = input.n_rows - nRemove;
-
-  if (nRemove == 0)
-  {
-    output = input; // Copy everything.
-  }
-  else
-  {
-    output.set_size(nKeep, input.n_cols);
-
-    size_t curRow = 0;
-    size_t removeInd = 0;
-    // First, check 0 to first row to remove.
-    if (rowsToRemove[0] > 0)
-    {
-      // Note that this implies that n_rows > 1.
-      output.rows(0, rowsToRemove[0] - 1) = input.rows(0, rowsToRemove[0] - 1);
-      curRow += rowsToRemove[0];
-    }
-
-    // Now, check i'th row to remove to (i + 1)'th row to remove, until i is the
-    // penultimate row.
-    while (removeInd < nRemove - 1)
-    {
-      const size_t height = rowsToRemove[removeInd + 1] -
-          rowsToRemove[removeInd] - 1;
-
-      if (height > 0)
-      {
-        output.rows(curRow, curRow + height - 1) =
-            input.rows(rowsToRemove[removeInd] + 1,
-                       rowsToRemove[removeInd + 1] - 1);
-        curRow += height;
-      }
-
-      removeInd++;
-    }
-
-    // Now that i is the last row to remove, check last row to remove to last
-    // row.
-    if (rowsToRemove[removeInd] < input.n_rows - 1)
-    {
-      output.rows(curRow, nKeep - 1) = input.rows(rowsToRemove[removeInd] + 1,
-          input.n_rows - 1);
-    }
-  }
-}
-
+void RemoveRows(const arma::mat& input,
+                const std::vector<size_t>& rowsToRemove,
+                arma::mat& output);
 
 }; // namespace math
 }; // namespace mlpack

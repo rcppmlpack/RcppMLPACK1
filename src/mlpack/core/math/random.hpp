@@ -26,8 +26,6 @@
 #include <float.h>
 
 #include <boost/random.hpp>
-#include <boost/random/uniform_01.hpp>
-#include <boost/random/normal_distribution.hpp>
 
 namespace mlpack {
 namespace math /** Miscellaneous math routines. */ {

@@ -55,21 +55,8 @@ class NearestNeighborSort
    * @return size_t containing the position to insert into, or (size_t() - 1)
    *     if the new distance should not be inserted.
    */
-  static size_t SortDistance(const arma::vec& list, double newDistance)
-{
-  // The first element in the list is the nearest neighbor.  We only want to
-  // insert if the new distance is less than the last element in the list.
-  if (newDistance > list[list.n_elem - 1])
-    return (size_t() - 1); // Do not insert.
+  static size_t SortDistance(const arma::vec& list, double newDistance);
 
-  // Search from the beginning.  This may not be the best way.
-  for (size_t i = 0; i < list.n_elem; i++)
-    if (newDistance <= list[i])
-      return i;  
-
-  // Control should never reach here.
-  return (size_t() - 1);
-}
   /**
    * Return whether or not value is "better" than ref.  In this case, that means
    * that the value is less than the reference.

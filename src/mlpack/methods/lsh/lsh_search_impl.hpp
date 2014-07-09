@@ -232,7 +232,7 @@ Search(const size_t k,
 
   size_t avgIndicesReturned = 0;
 
-  //Timer::Start("computing_neighbors");
+  Timer::Start("computing_neighbors");
 
   // Go through every query point sequentially.
   for (size_t i = 0; i < querySet.n_cols; i++)
@@ -252,7 +252,7 @@ Search(const size_t k,
       BaseCase(i, (size_t) refIndices[j]);
   }
 
-  //Timer::Stop("computing_neighbors");
+  Timer::Stop("computing_neighbors");
 
   avgIndicesReturned /= querySet.n_cols;
   Rcpp::Rcout << avgIndicesReturned << " distinct indices returned on average." <<

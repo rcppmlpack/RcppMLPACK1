@@ -1,2 +1,9 @@
-PKG_CXXFLAGS=-I. 
-PKG_LIBS= $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
+MLPACKOBJECTS=\
+./mlpack/methods/logistic_regression/logistic_regression_function.o
+
+PKGOBJECTS = RcppExports.o kmeans.o mlpca.o ridge_regression.o
+
+OBJECTS= $(MLPACKOBJECTS) $(PWIZOBJECTS)
+
+PKG_CXXFLAGS=-I. -I/usr/include/
+PKG_LIBS= $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lxml2

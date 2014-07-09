@@ -22,7 +22,6 @@
 #ifndef __MLPACK_CORE_KERNELS_EPANECHNIKOV_KERNEL_IMPL_HPP
 #define __MLPACK_CORE_KERNELS_EPANECHNIKOV_KERNEL_IMPL_HPP
 
-#include "Rcpp.h"
 // In case it hasn't already been included.
 #include "epanechnikov_kernel.hpp"
 
@@ -77,7 +76,7 @@ double EpanechnikovKernel::ConvolutionIntegral(const VecType& a,
           std::pow(distance / bandwidth, 4.0)));
       break;
     default:
-      Rcpp::Rcerr << "EpanechnikovKernel::ConvolutionIntegral(): dimension "
+      Log::Fatal << "EpanechnikovKernel::ConvolutionIntegral(): dimension "
           << a.n_rows << " not supported.";
       return -1.0; // This line will not execute.
       break;

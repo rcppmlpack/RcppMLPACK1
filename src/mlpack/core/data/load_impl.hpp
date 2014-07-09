@@ -22,13 +22,11 @@
 #ifndef __MLPACK_CORE_DATA_LOAD_IMPL_HPP
 #define __MLPACK_CORE_DATA_LOAD_IMPL_HPP
 
-#include "Rcpp.h"
-
 // In case it hasn't already been included.
 #include "load.hpp"
 
 #include <algorithm>
-//#include <mlpack/core/util/timers.hpp>
+#include <mlpack/core/util/timers.hpp>
 
 namespace mlpack {
 namespace data {
@@ -39,20 +37,20 @@ bool Load(const std::string& filename,
           bool fatal,
           bool transpose)
 {
-  //Timer::Start("loading_data");
+  Timer::Start("loading_data");
 
   // First we will try to discriminate by file extension.
   size_t ext = filename.rfind('.');
   if (ext == std::string::npos)
   {
     if (fatal)
-      Rcpp::Rcerr << "Cannot determine type of file '" << filename << "'; "
+      Log::Fatal << "Cannot determine type of file '" << filename << "'; "
           << "no extension is present." << std::endl;
     else
-      Rcpp::Rcerr << "Cannot determine type of file '" << filename << "'; "
+      Log::Warn << "Cannot determine type of file '" << filename << "'; "
           << "no extension is present.  Load failed." << std::endl;
 
-    //Timer::Stop("loading_data");
+    Timer::Stop("loading_data");
     return false;
   }
 
@@ -68,12 +66,12 @@ bool Load(const std::string& filename,
   if (!stream.is_open())
   {
     if (fatal)
-      Rcpp::Rcerr << "Cannot open file '" << filename << "'. " << std::endl;
+      Log::Fatal << "Cannot open file '" << filename << "'. " << std::endl;
     else
-      Rcpp::Rcerr << "Cannot open file '" << filename << "'; load failed."
+      Log::Warn << "Cannot open file '" << filename << "'; load failed."
           << std::endl;
 
-    //Timer::Stop("loading_data");
+    Timer::Stop("loading_data");
     return false;
   }
 
@@ -161,15 +159,15 @@ bool Load(const std::string& filename,
     stringType = "HDF5 data";
 #else
     if (fatal)
-      Rcpp::Rcerr << "Attempted to load '" << filename << "' as HDF5 data, but "
+      Log::Fatal << "Attempted to load '" << filename << "' as HDF5 data, but "
           << "Armadillo was compiled without HDF5 support.  Load failed."
           << std::endl;
     else
-      Rcpp::Rcerr << "Attempted to load '" << filename << "' as HDF5 data, but "
+      Log::Warn << "Attempted to load '" << filename << "' as HDF5 data, but "
           << "Armadillo was compiled without HDF5 support.  Load failed."
           << std::endl;
 
-    //Timer::Stop("loading_data");
+    Timer::Stop("loading_data");
     return false;
 #endif
   }
@@ -184,43 +182,43 @@ bool Load(const std::string& filename,
   if (unknownType)
   {
     if (fatal)
-      Rcpp::Rcerr << "Unable to detect type of '" << filename << "'; "
+      Log::Fatal << "Unable to detect type of '" << filename << "'; "
           << "incorrect extension?" << std::endl;
     else
-      Rcpp::Rcerr << "Unable to detect type of '" << filename << "'; load failed."
+      Log::Warn << "Unable to detect type of '" << filename << "'; load failed."
           << " Incorrect extension?" << std::endl;
 
-    //Timer::Stop("loading_data");
+    Timer::Stop("loading_data");
     return false;
   }
 
   // Try to load the file; but if it's raw_binary, it could be a problem.
   if (loadType == arma::raw_binary)
-    Rcpp::Rcerr << "Loading '" << filename << "' as " << stringType << "; "
+    Log::Warn << "Loading '" << filename << "' as " << stringType << "; "
         << "but this may not be the actual filetype!" << std::endl;
   else
-    Rcpp::Rcout << "Loading '" << filename << "' as " << stringType << ".  "
+    Log::Info << "Loading '" << filename << "' as " << stringType << ".  "
         << std::flush;
 
   const bool success = matrix.load(stream, loadType);
 
   if (!success)
   {
-    Rcpp::Rcout << std::endl;
+    Log::Info << std::endl;
     if (fatal)
-      Rcpp::Rcerr << "Loading from '" << filename << "' failed." << std::endl;
+      Log::Fatal << "Loading from '" << filename << "' failed." << std::endl;
     else
-      Rcpp::Rcerr << "Loading from '" << filename << "' failed." << std::endl;
+      Log::Warn << "Loading from '" << filename << "' failed." << std::endl;
   }
   else
-    Rcpp::Rcout << "Size is " << (transpose ? matrix.n_cols : matrix.n_rows)
+    Log::Info << "Size is " << (transpose ? matrix.n_cols : matrix.n_rows)
         << " x " << (transpose ? matrix.n_rows : matrix.n_cols) << ".\n";
 
   // Now transpose the matrix, if necessary.
   if (transpose)
     matrix = trans(matrix);
 
-  //Timer::Stop("loading_data");
+  Timer::Stop("loading_data");
 
   // Finally, return the success indicator.
   return success;

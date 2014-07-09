@@ -45,7 +45,7 @@ LogisticRegression<OptimizerType>::LogisticRegression(
   const double out = optimizer.Optimize(parameters);
   Timer::Stop("logistic_regression_optimization");
 
-  Log::Info << "LogisticRegression::LogisticRegression(): final objective of "
+  Rcpp::Rcout << "LogisticRegression::LogisticRegression(): final objective of "
       << "trained model is " << out << "." << std::endl;
 }
 
@@ -67,7 +67,7 @@ LogisticRegression<OptimizerType>::LogisticRegression(
   const double out = optimizer.Optimize(parameters);
   Timer::Stop("logistic_regression_optimization");
 
-  Log::Info << "LogisticRegression::LogisticRegression(): final objective of "
+  Rcpp::Rcout << "LogisticRegression::LogisticRegression(): final objective of "
       << "trained model is " << out << "." << std::endl;
 }
 
@@ -81,7 +81,7 @@ LogisticRegression<OptimizerType>::LogisticRegression(
   const double out = optimizer.Optimize(parameters);
   Timer::Stop("logistic_regression_optimization");
 
-  Log::Info << "LogisticRegression::LogisticRegression(): final objective of "
+  Rcpp::Rcout << "LogisticRegression::LogisticRegression(): final objective of "
       << "trained model is " << out << "." << std::endl;
 }
 
