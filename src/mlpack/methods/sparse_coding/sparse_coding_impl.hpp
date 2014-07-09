@@ -49,61 +49,61 @@ void SparseCoding<DictionaryInitializer>::Encode(const size_t maxIterations,
                                                  const double objTolerance,
                                                  const double newtonTolerance)
 {
-  Timer::Start("sparse_coding");
+  //Timer::Start("sparse_coding");
 
   double lastObjVal = DBL_MAX;
 
   // Take the initial coding step, which has to happen before entering the main
   // optimization loop.
-  Log::Info << "Initial Coding Step." << std::endl;
+  Rcpp::Rcout << "Initial Coding Step." << std::endl;
 
   OptimizeCode();
   arma::uvec adjacencies = find(codes);
 
-  Log::Info << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
+  Rcpp::Rcout << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
       / ((double) (atoms * data.n_cols)) << "%." << std::endl;
-  Log::Info << "  Objective value: " << Objective() << "." << std::endl;
+  Rcpp::Rcout << "  Objective value: " << Objective() << "." << std::endl;
 
   for (size_t t = 1; t != maxIterations; ++t)
   {
     // Print current iteration, and maximum number of iterations (if it isn't
     // 0).
-    Log::Info << "Iteration " << t;
+    Rcpp::Rcout << "Iteration " << t;
     if (maxIterations != 0)
-      Log::Info << " of " << maxIterations;
-    Log::Info << "." << std::endl;
+      Rcpp::Rcout << " of " << maxIterations;
+    Rcpp::Rcout << "." << std::endl;
 
     // First step: optimize the dictionary.
-    Log::Info << "Performing dictionary step... " << std::endl;
+    Rcpp::Rcout << "Performing dictionary step... " << std::endl;
     OptimizeDictionary(adjacencies, newtonTolerance);
-    Log::Info << "  Objective value: " << Objective() << "." << std::endl;
+    Rcpp::Rcout << "  Objective value: " << Objective() << "." << std::endl;
 
     // Second step: perform the coding.
-    Log::Info << "Performing coding step..." << std::endl;
+    Rcpp::Rcout << "Performing coding step..." << std::endl;
     OptimizeCode();
     // Get the indices of all the nonzero elements in the codes.
     adjacencies = find(codes);
-    Log::Info << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
+    Rcpp::Rcout << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
         / ((double) (atoms * data.n_cols)) << "%." << std::endl;
 
     // Find the new objective value and improvement so we can check for
     // convergence.
     double curObjVal = Objective();
     double improvement = lastObjVal - curObjVal;
-    Log::Info << "  Objective value: " << curObjVal << " (improvement "
+    Rcpp::Rcout << "  Objective value: " << curObjVal << " (improvement "
         << std::scientific << improvement << ")." << std::endl;
 
     // Have we converged?
     if (improvement < objTolerance)
     {
-      Log::Info << "Converged within tolerance " << objTolerance << ".\n";
+      Rcpp::Rcout << "Converged within tolerance " << objTolerance << ".\n";
       break;
     }
 
     lastObjVal = curObjVal;
   }
 
-  Timer::Stop("sparse_coding");
+  //Timer::Stop("sparse_coding");
 }
 
 template<typename DictionaryInitializer>
@@ -117,7 +117,7 @@ void SparseCoding<DictionaryInitializer>::OptimizeCode()
   {
     // Report progress.
     if ((i % 100) == 0)
-      Log::Debug << "Optimization at point " << i << "." << std::endl;
+      Rcpp::Rcerr << "Optimization at point " << i << "." << std::endl;
 
     bool useCholesky = true;
     regression::LARS lars(useCholesky, matGram, lambda1, lambda2);
@@ -180,11 +180,11 @@ double SparseCoding<DictionaryInitializer>::OptimizeDictionary(
 
   if (nInactiveAtoms > 0)
   {
-    Log::Warn << "There are " << nInactiveAtoms
+    Rcpp::Rcerr << "There are " << nInactiveAtoms
         << " inactive atoms. They will be re-initialized randomly.\n";
   }
 
-  Log::Debug << "Solving Dual via Newton's Method.\n";
+  Rcpp::Rcerr << "Solving Dual via Newton's Method.\n";
 
   // Solve using Newton's method in the dual - note that the final dot
   // multiplication with inv(A) seems to be unavoidable. Although more
@@ -265,10 +265,10 @@ double SparseCoding<DictionaryInitializer>::OptimizeDictionary(
     // Take step and print useful information.
     dualVars += searchDirection;
     normGradient = norm(gradient, 2);
-    Log::Debug << "Newton Method iteration " << t << ":" << std::endl;
-    Log::Debug << "  Gradient norm: " << std::scientific << normGradient
+    Rcpp::Rcerr << "Newton Method iteration " << t << ":" << std::endl;
+    Rcpp::Rcerr << "  Gradient norm: " << std::scientific << normGradient
         << "." << std::endl;
-    Log::Debug << "  Improvement: " << std::scientific << improvement << ".\n";
+    Rcpp::Rcerr << "  Improvement: " << std::scientific << improvement << ".\n";
 
     if (improvement < newtonTolerance)
       converged = true;
@@ -320,7 +320,7 @@ void SparseCoding<DictionaryInitializer>::ProjectDictionary()
     double atomNorm = norm(dictionary.col(j), 2);
     if (atomNorm > 1)
     {
-      Log::Info << "Norm of atom " << j << " exceeds 1 (" << std::scientific
+      Rcpp::Rcout << "Norm of atom " << j << " exceeds 1 (" << std::scientific
           << atomNorm << ").  Shrinking...\n";
       dictionary.col(j) /= atomNorm;
     }

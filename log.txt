@@ -1,22 +1,3 @@
-./methods/sparse_coding/sparse_coding_impl.hpp:  Log::Info << "Initial Coding Step." << std::endl;
-./methods/sparse_coding/sparse_coding_impl.hpp:  Log::Info << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
-./methods/sparse_coding/sparse_coding_impl.hpp:  Log::Info << "  Objective value: " << Objective() << "." << std::endl;
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "Iteration " << t;
-./methods/sparse_coding/sparse_coding_impl.hpp:      Log::Info << " of " << maxIterations;
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "." << std::endl;
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "Performing dictionary step... " << std::endl;
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "  Objective value: " << Objective() << "." << std::endl;
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "Performing coding step..." << std::endl;
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "  Objective value: " << curObjVal << " (improvement "
-./methods/sparse_coding/sparse_coding_impl.hpp:      Log::Info << "Converged within tolerance " << objTolerance << ".\n";
-./methods/sparse_coding/sparse_coding_impl.hpp:      Log::Debug << "Optimization at point " << i << "." << std::endl;
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Warn << "There are " << nInactiveAtoms
-./methods/sparse_coding/sparse_coding_impl.hpp:  Log::Debug << "Solving Dual via Newton's Method.\n";
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Debug << "Newton Method iteration " << t << ":" << std::endl;
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Debug << "  Gradient norm: " << std::scientific << normGradient
-./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Debug << "  Improvement: " << std::scientific << improvement << ".\n";
-./methods/sparse_coding/sparse_coding_impl.hpp:      Log::Info << "Norm of atom " << j << " exceeds 1 (" << std::scientific
 ./methods/rann/ra_search_rules_impl.hpp:    Log::Warn << "Rank-approximation percentile " << tau << " corresponds to "
 ./methods/rann/ra_search_rules_impl.hpp:    Log::Fatal << "Cannot return " << k << " approximate nearest neighbors "
 ./methods/rann/ra_search_rules_impl.hpp:    Log::Warn << "Rank-approximation percentile " << tau << " corresponds to "
