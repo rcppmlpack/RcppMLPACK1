@@ -100,7 +100,7 @@ void LinearRegression::Predict(const arma::mat& points, arma::vec& predictions)
     const
 {
   // We want to be sure we have the correct number of dimensions in the dataset.
-  //Log::Assert(points.n_rows == parameters.n_rows - 1);
+  Log::Assert(points.n_rows == parameters.n_rows - 1);
 
   // Get the predictions, but this ignores the intercept value (parameters[0]).
   predictions = arma::trans(arma::trans(
@@ -121,7 +121,7 @@ double LinearRegression::ComputeError(const arma::mat& predictors,
   // Ensure that we have the correct number of dimensions in the dataset.
   if (nRows != parameters.n_rows - 1)
   {
-    Rcpp::Rcerr << "The test data must have the same number of columns as the "
+    Log::Fatal << "The test data must have the same number of columns as the "
         "training file." << std::endl;
   }
 

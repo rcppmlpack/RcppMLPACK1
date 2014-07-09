@@ -149,12 +149,6 @@
  *   - Sumedh Ghaisas <sumedhghaisas@gmail.com>
  */
 
-#if defined(__MINGW32__)
-#undef Realloc
-#undef Free
-#include <windows.h>
-#endif
-
 // First, standard includes.
 #include <stdlib.h>
 #include <stdio.h>
@@ -191,10 +185,11 @@
 
 // Now MLPACK-specific includes.
 #include <mlpack/core/arma_extend/arma_extend.hpp> // Includes Armadillo.
+#include <mlpack/core/util/string_util.hpp>
 //#include <mlpack/core/util/log.hpp>
 //#include <mlpack/core/util/cli.hpp>
-#include <mlpack/core/data/load.hpp>
-#include <mlpack/core/data/save.hpp>
+//#include <mlpack/core/data/load.hpp>
+//#include <mlpack/core/data/save.hpp>
 #include <mlpack/core/data/normalize_labels.hpp>
 #include <mlpack/core/math/clamp.hpp>
 #include <mlpack/core/math/random.hpp>

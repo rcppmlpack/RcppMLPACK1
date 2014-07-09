@@ -1,0 +1,292 @@
+./methods/sparse_coding/sparse_coding_impl.hpp:  Log::Info << "Initial Coding Step." << std::endl;
+./methods/sparse_coding/sparse_coding_impl.hpp:  Log::Info << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
+./methods/sparse_coding/sparse_coding_impl.hpp:  Log::Info << "  Objective value: " << Objective() << "." << std::endl;
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "Iteration " << t;
+./methods/sparse_coding/sparse_coding_impl.hpp:      Log::Info << " of " << maxIterations;
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "." << std::endl;
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "Performing dictionary step... " << std::endl;
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "  Objective value: " << Objective() << "." << std::endl;
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "Performing coding step..." << std::endl;
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Info << "  Objective value: " << curObjVal << " (improvement "
+./methods/sparse_coding/sparse_coding_impl.hpp:      Log::Info << "Converged within tolerance " << objTolerance << ".\n";
+./methods/sparse_coding/sparse_coding_impl.hpp:      Log::Debug << "Optimization at point " << i << "." << std::endl;
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Warn << "There are " << nInactiveAtoms
+./methods/sparse_coding/sparse_coding_impl.hpp:  Log::Debug << "Solving Dual via Newton's Method.\n";
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Debug << "Newton Method iteration " << t << ":" << std::endl;
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Debug << "  Gradient norm: " << std::scientific << normGradient
+./methods/sparse_coding/sparse_coding_impl.hpp:    Log::Debug << "  Improvement: " << std::scientific << improvement << ".\n";
+./methods/sparse_coding/sparse_coding_impl.hpp:      Log::Info << "Norm of atom " << j << " exceeds 1 (" << std::scientific
+./methods/rann/ra_search_rules_impl.hpp:    Log::Warn << "Rank-approximation percentile " << tau << " corresponds to "
+./methods/rann/ra_search_rules_impl.hpp:    Log::Fatal << "Cannot return " << k << " approximate nearest neighbors "
+./methods/rann/ra_search_rules_impl.hpp:    Log::Warn << "Rank-approximation percentile " << tau << " corresponds to "
+./methods/rann/ra_search_rules_impl.hpp:  Log::Info << "Minimum samples required per query: " << numSamplesReqd <<
+./methods/rann/ra_search_rules_impl.hpp:  Log::Assert(alpha <= 1.0);
+./methods/rann/ra_search_impl.hpp:      Log::Info << "Performing single-tree traversal..." << std::endl;
+./methods/rann/ra_search_impl.hpp:      Log::Info << "Single-tree traversal complete." << std::endl;
+./methods/rann/ra_search_impl.hpp:      Log::Info << "Average number of distance calculations per query point: "
+./methods/rann/ra_search_impl.hpp:    Log::Info << "Performing dual-tree traversal..." << std::endl;
+./methods/rann/ra_search_impl.hpp:      Log::Info << "Query statistic pre-search: "
+./methods/rann/ra_search_impl.hpp:      Log::Info << "Query statistic pre-search: "
+./methods/rann/ra_search_impl.hpp:    Log::Info << "Dual-tree traversal complete." << std::endl;
+./methods/rann/ra_search_impl.hpp:    Log::Info << "Average number of distance calculations per query point: "
+./methods/rann/ra_search_impl.hpp:  Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
+./methods/nmf/nmf_impl.hpp:    Log::Warn << "NMF::NMF(): minResidue must be a positive value ("
+./methods/nmf/nmf_impl.hpp:  Log::Info << "Initialized W and H." << std::endl;
+./methods/nmf/nmf_impl.hpp:  Log::Info << "NMF converged to residue of " << sqrt(residue) << " in "
+./methods/nmf/random_acol_init.hpp:      Log::Warn << "Number of random columns is more than the number of columns"
+./methods/local_coordinate_coding/lcc_impl.hpp:  Log::Info << "Initial Coding Step." << std::endl;
+./methods/local_coordinate_coding/lcc_impl.hpp:  Log::Info << "  Sparsity level: " << 100.0 * ((double)(adjacencies.n_elem)) /
+./methods/local_coordinate_coding/lcc_impl.hpp:  Log::Info << "  Objective value: " << Objective(adjacencies) << "."
+./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "Iteration " << t << " of " << maxIterations << "."
+./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "Performing dictionary step..." << std::endl;
+./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "  Objective value: " << Objective(adjacencies) << "."
+./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "Performing coding step..." << std::endl;
+./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
+./methods/local_coordinate_coding/lcc_impl.hpp:      Log::Warn << "Objective increased in coding step!  Terminating."
+./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Info << "Objective value: " << curObjVal << " (improvement "
+./methods/local_coordinate_coding/lcc_impl.hpp:      Log::Info << "Converged within tolerance " << objTolerance << ".\n";
+./methods/local_coordinate_coding/lcc_impl.hpp:      Log::Debug << "Optimization at point " << i << "." << std::endl;
+./methods/local_coordinate_coding/lcc_impl.hpp:    Log::Warn << "There are " << nInactiveAtoms
+./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
+./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
+./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): varRetained (" << varRetained << ") must be "
+./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): varRetained (" << varRetained << ") should be "
+./methods/lsh/lsh_search_impl.hpp:  Log::Info << "Hash width chosen as: " << hashWidth << std::endl;
+./methods/lsh/lsh_search_impl.hpp:  Log::Info << "Hash width chosen as: " << hashWidth << std::endl;
+./methods/lsh/lsh_search_impl.hpp:  Log::Assert(hashVec.n_elem == numTablesToSearch);
+./methods/lsh/lsh_search_impl.hpp:  Log::Info << avgIndicesReturned << " distinct indices returned on average." <<
+./methods/lsh/lsh_search_impl.hpp:    Log::Assert(secondHashVec.n_elem == referenceSet.n_cols);
+./methods/lsh/lsh_search_impl.hpp:  Log::Info << "Final hash table size: (" << numRowsInTable << " x "
+./methods/range_search/range_search_rules_impl.hpp://    Log::Warn << "base case 0 0 called!\n";
+./methods/det/dtree.cpp:        Log::Assert((points - i - 1) >= minLeafSize);
+./methods/det/dtree.cpp:  Log::Assert(data.n_rows == maxVals.n_elem);
+./methods/det/dtree.cpp:  Log::Assert(data.n_rows == minVals.n_elem);
+./methods/det/dtree.cpp:      Log::Assert(gT < std::numeric_limits<double>::max());
+./methods/det/dtree.cpp:  Log::Assert(query.n_elem == maxVals.n_elem);
+./methods/det/dtree.cpp:  Log::Assert(query.n_elem == maxVals.n_elem);
+./methods/det/dt_utils.cpp:    Log::Info << "Leaf membership; row represents leaf id, column represents "
+./methods/det/dt_utils.cpp:      Log::Info << "Leaf membership printed to '" << leafClassMembershipFile
+./methods/det/dt_utils.cpp:      Log::Warn << "Can't open '" << leafClassMembershipFile << "' to write "
+./methods/det/dt_utils.cpp:  Log::Info << "Maximum variable importance: " << max << "." << std::endl;
+./methods/det/dt_utils.cpp:    Log::Info << "Variable importance: " << std::endl << imps.t() << std::endl;
+./methods/det/dt_utils.cpp:      Log::Info << "Variable importance printed to '" << viFile << "'."
+./methods/det/dt_utils.cpp:      Log::Warn << "Can't open '" << viFile << "' to write variable importance "
+./methods/det/dt_utils.cpp:  Log::Info << dtree->SubtreeLeaves() << " leaf nodes in the tree using full "
+./methods/det/dt_utils.cpp:      Log::Warn << "Can't open '" << unprunedTreeOutput << "' to write computed"
+./methods/det/dt_utils.cpp:    Log::Assert((alpha < std::numeric_limits<double>::max()) ||
+./methods/det/dt_utils.cpp:    Log::Assert(alpha > oldAlpha);
+./methods/det/dt_utils.cpp:    Log::Assert(dtree->SubtreeLeavesLogNegError() < treeSeq.second);
+./methods/det/dt_utils.cpp:  Log::Info << prunedSequence.size() << " trees in the sequence; maximum alpha:"
+./methods/det/dt_utils.cpp:  Log::Info << "Optimal alpha: " << optimalAlpha << "." << std::endl;
+./methods/det/dt_utils.cpp:    Log::Assert((alpha < std::numeric_limits<double>::max()) ||
+./methods/det/dt_utils.cpp:    Log::Assert(alpha > oldAlpha);
+./methods/det/dt_utils.cpp:  Log::Info << dtreeOpt->SubtreeLeaves() << " leaf nodes in the optimally "
+./methods/linear_regression/linear_regression.cpp:  Log::Assert(points.n_rows == parameters.n_rows - 1);
+./methods/linear_regression/linear_regression.cpp:    Log::Fatal << "The test data must have the same number of columns as the "
+./methods/radical/radical.cpp:    Log::Info << "RADICAL: sweep " << sweepNum << "." << std::endl;
+./methods/radical/radical.cpp:        Log::Debug << "RADICAL 2D on dimensions " << i << " and " << j << "."
+./methods/nca/nca_softmax_error_function_impl.hpp:    Log::Warn << "Denominator of p_" << i << " is 0!" << std::endl;
+./methods/nca/nca_softmax_error_function_impl.hpp:    Log::Warn << "Denominator of p_" << i << " is 0!" << std::endl;
+./methods/nca/nca_softmax_error_function_impl.hpp:      Log::Debug << "Denominator of p_{" << i << ", j} is 0." << std::endl;
+./methods/cf/cf.cpp:  Log::Info<<"Constructor (param: input data, default: numRecs;neighbourhood)"<<endl;
+./methods/cf/cf.cpp:    Log::Warn << "CF::CF(): number of recommendations shoud be > 0("
+./methods/cf/cf.cpp:    Log::Warn << "CF::CF(): number of recommendations shoud be > 0("
+./methods/cf/cf.cpp:    Log::Warn << "CF::CF(): neighbourhood size shoud be > 0("
+./methods/cf/cf.cpp:      Log::Warn << "Could not provide " << values.n_rows << " recommendations "
+./methods/cf/cf.hpp:      Log::Warn << "CF::NumRecs(): invalid value (< 1) "
+./methods/cf/cf.hpp:      Log::Warn << "CF::NumUsersForSimilarity(): invalid value (< 1) "
+./methods/hmm/hmm_impl.hpp:    Log::Warn << "HMM::HMM(): no emission distributions given; assuming a "
+./methods/hmm/hmm_impl.hpp:      Log::Fatal << "HMM::Train(): data sequence " << seq << " has "
+./methods/hmm/hmm_impl.hpp:    Log::Debug << "Iteration " << iter << ": log-likelihood " << loglik
+./methods/hmm/hmm_impl.hpp:      Log::Debug << "Converged after " << iter << " iterations." << std::endl;
+./methods/hmm/hmm_impl.hpp:    Log::Fatal << "HMM::Train(): number of data sequences (" << dataSeq.size()
+./methods/hmm/hmm_impl.hpp:      Log::Fatal << "HMM::Train(): number of observations ("
+./methods/hmm/hmm_impl.hpp:      Log::Fatal << "HMM::Train(): data sequence " << seq << " has "
+./methods/hmm/hmm_util_impl.hpp:  Log::Fatal << "HMM save not implemented for arbitrary distributions."
+./methods/hmm/hmm_util_impl.hpp:  Log::Fatal << "HMM load not implemented for arbitrary distributions."
+./methods/hmm/hmm_util_impl.hpp:    Log::Fatal << "Cannot load non-discrete HMM (of type " << type << ") as "
+./methods/hmm/hmm_util_impl.hpp:    Log::Fatal << "Cannot load non-Gaussian HMM (of type " << type << ") as "
+./methods/hmm/hmm_util_impl.hpp:    Log::Fatal << "Cannot load non-GMM HMM (of type " << type << ") as "
+./methods/naive_bayes/naive_bayes_classifier_impl.hpp:  Log::Info << "Training Naive Bayes classifier on " << data.n_cols
+./methods/naive_bayes/naive_bayes_classifier_impl.hpp:  Log::Assert(data.n_rows == means.n_rows);
+./methods/naive_bayes/naive_bayes_classifier_impl.hpp:  Log::Info << "Running Naive Bayes classifier on " << data.n_cols
+./methods/fastmks/fastmks_impl.hpp:    Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
+./methods/fastmks/fastmks_impl.hpp:    Log::Info << rules.BaseCases() << " base cases." << std::endl;
+./methods/fastmks/fastmks_impl.hpp:    Log::Info << rules.Scores() << " scores." << std::endl;
+./methods/fastmks/fastmks_impl.hpp:  Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
+./methods/fastmks/fastmks_impl.hpp:  Log::Info << rules.BaseCases() << " base cases." << std::endl;
+./methods/fastmks/fastmks_impl.hpp:  Log::Info << rules.Scores() << " scores." << std::endl;
+./methods/fastmks/fastmks_impl.hpp:  Log::Warn << "Alternate implementation!" << std::endl;
+./methods/fastmks/fastmks_impl.hpp:    Log::Info << "Kernel evaluations: " << kernelEvaluations << "." << std::endl;
+./methods/fastmks/fastmks_impl.hpp:      Log::Assert(nextFrame.eval <= 1);
+./methods/fastmks/fastmks_impl.hpp:    Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
+./methods/fastmks/fastmks_impl.hpp:    Log::Info << "Kernel evaluations: " << kernelEvaluations << "."
+./methods/fastmks/fastmks_impl.hpp:    Log::Info << "Distance evaluations: " << distanceEvaluations << "."
+./methods/fastmks/fastmks_impl.hpp:  Log::Fatal << "Dual-tree search not implemented yet... oops..." << std::endl;
+./methods/neighbor_search/neighbor_search_impl.hpp:    Log::Info << traverser.NumVisited() << " node combinations were visited.\n";
+./methods/neighbor_search/neighbor_search_impl.hpp:    Log::Info << traverser.NumScores() << " node combinations were scored.\n";
+./methods/neighbor_search/neighbor_search_impl.hpp:    Log::Info << traverser.NumBaseCases() << " base cases were calculated.\n";
+./methods/gmm/gmm_impl.hpp:    Log::Fatal << "GMM::Load(): could not read file '" << filename << "'!\n";
+./methods/gmm/gmm_impl.hpp:    Log::Fatal << "GMM::Load('" << filename << "'): file reports " << gaussians
+./methods/gmm/gmm_impl.hpp:    Log::Warn << "GMM::Save(): error saving to '" << filename << "'.\n";
+./methods/gmm/gmm_impl.hpp:    Log::Info << "GMM::Estimate(): Log-likelihood of trial 0 is "
+./methods/gmm/gmm_impl.hpp:      Log::Info << "GMM::Estimate(): Log-likelihood of trial " << trial
+./methods/gmm/gmm_impl.hpp:  Log::Info << "GMM::Estimate(): log-likelihood of trained GMM is "
+./methods/gmm/gmm_impl.hpp:    Log::Debug << "GMM::Estimate(): Log-likelihood of trial 0 is "
+./methods/gmm/gmm_impl.hpp:      Log::Debug << "GMM::Estimate(): Log-likelihood of trial " << trial
+./methods/gmm/gmm_impl.hpp:  Log::Info << "GMM::Estimate(): log-likelihood of trained GMM is "
+./methods/gmm/em_fit_impl.hpp:  Log::Debug << "EMFit::Estimate(): initial clustering log-likelihood: "
+./methods/gmm/em_fit_impl.hpp:    Log::Info << "EMFit::Estimate(): iteration " << iteration << ", "
+./methods/gmm/em_fit_impl.hpp:  Log::Debug << "EMFit::Estimate(): initial clustering log-likelihood: "
+./methods/gmm/em_fit_impl.hpp:      Log::Info << "Likelihood of point " << j << " is 0!  It is probably an "
+./methods/gmm/gmm.hpp:    Log::Debug << "GMM::GMM(): no parameters given; Estimate() may fail "
+./methods/gmm/eigenvalue_ratio_constraint.hpp:      Log::Fatal << "EigenvalueRatioConstraint::EigenvalueRatioConstraint(): "
+./methods/gmm/eigenvalue_ratio_constraint.hpp:        Log::Fatal << "EigenvalueRatioConstraint::EigenvalueRatioConstraint(): "
+./methods/gmm/eigenvalue_ratio_constraint.hpp:        Log::Warn << "EigenvalueRatioConstraint::EigenvalueRatioConstraint(): "
+./methods/gmm/positive_definite_constraint.hpp:      Log::Debug << "Covariance matrix is not positive definite.  Adding "
+./methods/emst/dtb_rules_impl.hpp:      Log::Assert(queryIndex != referenceIndex);
+./methods/emst/dtb_rules_impl.hpp:  Log::Assert(newUpperBound >= 0.0);
+./methods/emst/edge_pair.hpp:    Log::Assert(lesser != greater,
+./methods/emst/dtb_impl.hpp:    Log::Info << edges.size() << " edges found so far." << std::endl;
+./methods/emst/dtb_impl.hpp:    Log::Info << traverser.NumPrunes() << " nodes pruned." << std::endl;
+./methods/emst/dtb_impl.hpp:  Log::Info << "Total spanning tree length: " << totalDist << std::endl;
+./methods/emst/dtb_impl.hpp:  Log::Assert((distance >= 0.0),
+./methods/emst/dtb_impl.hpp:  Log::Assert(edges.size() == data.n_cols - 1);
+./methods/emst/dtb_impl.hpp:        Log::Assert(tree->Stat().ComponentMembership() < 0);
+./methods/logistic_regression/logistic_regression_impl.hpp:  Log::Info << "LogisticRegression::LogisticRegression(): final objective of "
+./methods/logistic_regression/logistic_regression_impl.hpp:  Log::Info << "LogisticRegression::LogisticRegression(): final objective of "
+./methods/logistic_regression/logistic_regression_impl.hpp:  Log::Info << "LogisticRegression::LogisticRegression(): final objective of "
+./core/data/load_impl.hpp:      Log::Fatal << "Cannot determine type of file '" << filename << "'; "
+./core/data/load_impl.hpp:      Log::Warn << "Cannot determine type of file '" << filename << "'; "
+./core/data/load_impl.hpp:      Log::Fatal << "Cannot open file '" << filename << "'. " << std::endl;
+./core/data/load_impl.hpp:      Log::Warn << "Cannot open file '" << filename << "'; load failed."
+./core/data/load_impl.hpp:      Log::Fatal << "Attempted to load '" << filename << "' as HDF5 data, but "
+./core/data/load_impl.hpp:      Log::Warn << "Attempted to load '" << filename << "' as HDF5 data, but "
+./core/data/load_impl.hpp:      Log::Fatal << "Unable to detect type of '" << filename << "'; "
+./core/data/load_impl.hpp:      Log::Warn << "Unable to detect type of '" << filename << "'; load failed."
+./core/data/load_impl.hpp:    Log::Warn << "Loading '" << filename << "' as " << stringType << "; "
+./core/data/load_impl.hpp:    Log::Info << "Loading '" << filename << "' as " << stringType << ".  "
+./core/data/load_impl.hpp:    Log::Info << std::endl;
+./core/data/load_impl.hpp:      Log::Fatal << "Loading from '" << filename << "' failed." << std::endl;
+./core/data/load_impl.hpp:      Log::Warn << "Loading from '" << filename << "' failed." << std::endl;
+./core/data/load_impl.hpp:    Log::Info << "Size is " << (transpose ? matrix.n_cols : matrix.n_rows)
+./core/data/save_impl.hpp:      Log::Fatal << "No extension given with filename '" << filename << "'; "
+./core/data/save_impl.hpp:      Log::Warn << "No extension given with filename '" << filename << "'; "
+./core/data/save_impl.hpp:      Log::Fatal << "Cannot open file '" << filename << "' for writing. "
+./core/data/save_impl.hpp:      Log::Warn << "Cannot open file '" << filename << "' for writing; save "
+./core/data/save_impl.hpp:      Log::Fatal << "Attempted to save HDF5 data to '" << filename << "', but "
+./core/data/save_impl.hpp:      Log::Warn << "Attempted to save HDF5 data to '" << filename << "', but "
+./core/data/save_impl.hpp:      Log::Fatal << "Unable to determine format to save to from filename '"
+./core/data/save_impl.hpp:      Log::Warn << "Unable to determine format to save to from filename '"
+./core/data/save_impl.hpp:  Log::Info << "Saving " << stringType << " to '" << filename << "'."
+./core/data/save_impl.hpp:        Log::Fatal << "Save to '" << filename << "' failed." << std::endl;
+./core/data/save_impl.hpp:        Log::Warn << "Save to '" << filename << "' failed." << std::endl;
+./core/data/save_impl.hpp:        Log::Fatal << "Save to '" << filename << "' failed." << std::endl;
+./core/data/save_impl.hpp:        Log::Warn << "Save to '" << filename << "' failed." << std::endl;
+./core/kernels/pspectrum_string_kernel.cpp:  Log::Info << "Assembling counts of substrings of length " << p << "."
+./core/kernels/pspectrum_string_kernel.cpp:  Log::Info << "Substring extraction complete." << std::endl;
+./core/optimizers/lbfgs/lbfgs_impl.hpp:    Log::Warn << "L-BFGS line search direction is not a descent direction "
+./core/optimizers/lbfgs/lbfgs_impl.hpp:    Log::Debug << "L-BFGS iteration " << itNum << "; objective " <<
+./core/optimizers/lbfgs/lbfgs_impl.hpp:      Log::Debug << "L-BFGS gradient norm too small (terminating successfully)."
+./core/optimizers/lbfgs/lbfgs_impl.hpp:      Log::Debug << "Line search failed.  Stopping optimization." << std::endl;
+./core/optimizers/lbfgs/lbfgs_impl.hpp:      Log::Debug << "L-BFGS step size of 0 (terminating successfully)."
+./core/optimizers/lrsdp/lrsdp_impl.hpp:  Log::Fatal << "LRSDP::Gradient() called!  Uh-oh..." << std::endl;
+./core/optimizers/lrsdp/lrsdp_impl.hpp:  Log::Fatal << "LRSDP::GradientConstraint() called!  Uh-oh..." << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp:  Log::Debug << "Penalty is " << penalty << " (threshold " << penaltyThreshold
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp:    Log::Warn << "AugLagrangian on iteration " << it
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp: //   Log::Warn << coordinates << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp://    Log::Warn << trans(coordinates) * coordinates << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp:      Log::Warn << "L-BFGS reported an error during optimization."
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp://      Log::Debug << "Constraint " << i << " is " <<
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp:    Log::Warn << "Penalty is " << penalty << " (threshold "
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp://      Log::Debug << "Gradient of constraint " << i << " is " << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp://      Log::Debug << tmpgrad << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp:      Log::Warn << "Lagrange multiplier estimates updated." << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_impl.hpp:      Log::Warn << "Updated sigma to " << augfunc.Sigma() << "." << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << vertices << " vertices in graph." << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "Evaluting objective function with coordinates:" << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "trans(coord) * coord:" << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "Objective function is " << obj << "." << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp: // Log::Warn << "Using stupid specialization for gradient calculation!"
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://      Log::Debug << "Constraint " << i << " matrix to add is " << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://      Log::Debug << zz << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://      Log::Debug << "Constraint " << i << " matrix to add is " << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://      Log::Debug << zz << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Warn << "Calculated S is: " << std::endl << s << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Warn << "Calculated gradient is: " << std::endl << gradient << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "Evaluating gradient. " << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "Done with gradient." << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://    Log::Debug << "Constraint " << index << " evaluates to " << sum << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "Constraint " << index << " evaluates to " <<
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "Gradient of constraint " << index << " is " << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "Evaluating gradient of constraint " << index << " with ";
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "i = " << i << " and j = " << j << "." << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp://  Log::Debug << "Calculating initial point." << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp:  Log::Debug << "Dimension will be " << ceil(r) << " x " << vertices << "."
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp:  Log::Debug << "Initial matrix " << std::endl << initialPoint << std::endl;
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp:  Log::Warn << "X " << std::endl << trans(initialPoint) * initialPoint
+./core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.cpp:  Log::Warn << "accu " << accu(trans(initialPoint) * initialPoint) << std::endl;
+./core/optimizers/sgd/sgd_impl.hpp:      Log::Info << "SGD: iteration " << i << ", objective " << overallObjective
+./core/optimizers/sgd/sgd_impl.hpp:        Log::Warn << "SGD: converged to " << overallObjective << "; terminating"
+./core/optimizers/sgd/sgd_impl.hpp:        Log::Info << "SGD: minimized within tolerance " << tolerance << "; "
+./core/optimizers/sgd/sgd_impl.hpp:  Log::Info << "SGD: maximum iterations (" << maxIterations << ") reached; "
+./core/dists/gaussian_distribution.cpp:    Log::Debug << "GaussianDistribution::Estimate(): Covariance matrix is not "
+./core/dists/gaussian_distribution.cpp:    Log::Debug << "GaussianDistribution::Estimate(): Covariance matrix is not "
+./core/util/timers.cpp:  Log::Info << t.tv_sec << "." << std::setw(6) << std::setfill('0')
+./core/util/timers.cpp:    Log::Info << " (";
+./core/util/timers.cpp:      Log::Info << days << " days";
+./core/util/timers.cpp:        Log::Info << ", ";
+./core/util/timers.cpp:      Log::Info << hours << " hrs";
+./core/util/timers.cpp:        Log::Info << ", ";
+./core/util/timers.cpp:      Log::Info << minutes << " mins";
+./core/util/timers.cpp:        Log::Info << ", ";
+./core/util/timers.cpp:      Log::Info << seconds << "." << std::setw(1) << (t.tv_usec / 100000) <<
+./core/util/timers.cpp:    Log::Info << ")";
+./core/util/timers.cpp:  Log::Info << std::endl;
+./core/util/nulloutstream.hpp: * Used for Log::Debug when not compiled with debugging symbols.  This class
+./core/util/save_restore_utility_impl.hpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+./core/util/save_restore_utility_impl.hpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+./core/util/cli.cpp:    Log::Info << std::endl << "Execution parameters:" << std::endl;
+./core/util/cli.cpp:    Log::Info << "Program timers:" << std::endl;
+./core/util/cli.cpp:      Log::Info << "  " << i << ": ";
+./core/util/cli.cpp:    Log::Debug << "Compiled with debugging symbols." << std::endl;
+./core/util/cli.cpp:    Log::Info.ignoreInput = false;
+./core/util/cli.cpp:    Log::Info.ignoreInput = false;
+./core/util/cli.cpp:    Log::Info.ignoreInput = false;
+./core/util/cli.cpp:  Log::Debug << "Compiled with debugging symbols." << std::endl;
+./core/util/cli.cpp:  Log::Fatal << "Parameter '--" << key << "' does not exist in this program."
+./core/util/cli.cpp:    Log::Fatal << "Caught exception from parsing command line:\t";
+./core/util/cli.cpp:    Log::Fatal << ex.what() << std::endl;
+./core/util/cli.cpp:          Log::Fatal << "\"" << bpo.options[j].original_tokens[0] << "\""
+./core/util/cli.cpp:    Log::Fatal << ex.what() << std::endl;
+./core/util/cli.cpp:    Log::Info << "  " << key << ": ";
+./core/util/cli.cpp:        Log::Info << "\"\"";
+./core/util/cli.cpp:      Log::Info << value;
+./core/util/cli.cpp:      Log::Info << value;
+./core/util/cli.cpp:      Log::Info << (value ? "true" : "false");
+./core/util/cli.cpp:      Log::Info << value;
+./core/util/cli.cpp:      Log::Info << value;
+./core/util/cli.cpp:      Log::Info << "(Unknown data type - " << data.tname << ")";
+./core/util/cli.cpp:    Log::Info << std::endl;
+./core/util/cli.cpp:  Log::Info << std::endl;
+./core/util/cli.cpp:      Log::Fatal << "Required option --" << str << " is undefined."
+./core/util/save_restore_utility.cpp:    Log::Fatal << "Could not load XML file '" << filename << "'!" << std::endl;
+./core/util/save_restore_utility.cpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+./core/util/save_restore_utility.cpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+./core/util/save_restore_utility.cpp:    Log::Fatal << "LoadParameter(): node '" << name << "' not found.\n";
+./core/util/cli.hpp: *   Log::Info << "Naive has been passed!" << std::endl;
+./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"Constructor"<<std::endl;
+./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"LSSampling"<<std::endl;
+./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"CalculateCentroid"<<std::endl;
+./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"CTNode"<<std::endl;
+./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"GetPivot"<<std::endl;
+./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"SplitData"<<std::endl;
+./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"CreateCosineSimilarityArray"<<std::endl;
+./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"GetMinSimilarity"<<std::endl;
+./core/tree/cosine_tree/cosine_tree_builder_impl.hpp:  Log::Info<<"GetMaxSimilarity"<<std::endl;
+./core/tree/cover_tree/cover_tree_impl.hpp:  Log::Info << distanceComps << " distance computations during tree "
+./core/tree/cover_tree/cover_tree_impl.hpp:  Log::Info << distanceComps << " distance computations during tree "
+./core/tree/cover_tree/cover_tree_impl.hpp:  Log::Assert(originalSum == (nearSetSize + farSetSize + usedSetSize));
+./core/tree/cover_tree/dual_tree_traverser_impl.hpp:  Log::Assert((*referenceMap.begin()).first == INT_MIN);
+./core/tree/cover_tree/dual_tree_traverser_impl.hpp:  Log::Assert(queryNode.Scale() == INT_MIN);

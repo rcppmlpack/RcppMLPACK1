@@ -123,10 +123,10 @@ double PCA::Apply(arma::mat& data, const size_t newDimension) const
 {
   // Parameter validation.
   if (newDimension == 0)
-    Rcpp::Rcerr << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
+    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
         << "be zero!" << endl;
   if (newDimension > data.n_rows)
-    Rcpp::Rcerr << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
+    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
         << "be greater than the existing dimensionality of the data ("
         << data.n_rows << ")!" << endl;
 
@@ -157,10 +157,10 @@ double PCA::Apply(arma::mat& data, const double varRetained) const
 {
   // Parameter validation.
   if (varRetained < 0)
-    Rcpp::Rcerr << "PCA::Apply(): varRetained (" << varRetained << ") must be "
+    Log::Fatal << "PCA::Apply(): varRetained (" << varRetained << ") must be "
         << "greater than or equal to 0." << endl;
   if (varRetained > 1)
-    Rcpp::Rcerr << "PCA::Apply(): varRetained (" << varRetained << ") should be "
+    Log::Fatal << "PCA::Apply(): varRetained (" << varRetained << ") should be "
         << "less than or equal to 1." << endl;
 
   arma::mat coeffs;

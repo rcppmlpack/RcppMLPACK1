@@ -54,7 +54,7 @@ KMeans(const size_t maxIterations,
   // Validate overclustering factor.
   if (overclusteringFactor < 1.0)
   {
-    Rcpp::Rcerr << "KMeans::KMeans(): overclustering factor must be >= 1.0 ("
+    Rcpp::Rcout << "KMeans::KMeans(): overclustering factor must be >= 1.0 ("
         << overclusteringFactor << " given). Setting factor to 1.0.\n";
     this->overclusteringFactor = 1.0;
   }
@@ -79,7 +79,7 @@ FastCluster(MatType& data,
   size_t actualClusters = size_t(overclusteringFactor * clusters);
   if (actualClusters > data.n_cols)
   {
-    Rcpp::Rcerr << "KMeans::Cluster(): overclustering factor is too large.  No "
+    Rcpp::Rcout << "KMeans::Cluster(): overclustering factor is too large.  No "
         << "overclustering will be done." << std::endl;
     actualClusters = clusters;
   }
@@ -541,14 +541,14 @@ Cluster(const MatType& data,
 {
   // Make sure we have more points than clusters.
   if (clusters > data.n_cols)
-    Rcpp::Rcerr << "KMeans::Cluster(): more clusters requested than points given."
+    Rcpp::Rcout << "KMeans::Cluster(): more clusters requested than points given."
         << std::endl;
 
   // Make sure our overclustering factor is valid.
   size_t actualClusters = size_t(overclusteringFactor * clusters);
   if (actualClusters > data.n_cols && overclusteringFactor != 1.0)
   {
-    Rcpp::Rcerr << "KMeans::Cluster(): overclustering factor is too large.  No "
+    Rcpp::Rcout << "KMeans::Cluster(): overclustering factor is too large.  No "
         << "overclustering will be done." << std::endl;
     actualClusters = clusters;
   }
