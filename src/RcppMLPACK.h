@@ -8,6 +8,11 @@
 #include <RcppArmadillo.h>
 #include <Rcpp.h>
 
+#include <mlpack/methods/linear_regression/linear_regression.hpp>
 #include <mlpack/methods/kmeans/kmeans.hpp>
+#include <mlpack/methods/kmeans/allow_empty_clusters.hpp>
+#include <mlpack/methods/kmeans/refined_start.hpp>
+#include <mlpack/methods/pca/pca.hpp>
+#include <mlpack/methods/range_search/range_search.hpp>
 
 #endif
