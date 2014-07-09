@@ -1,8 +1,4 @@
 ./methods/nmf/random_acol_init.hpp:      Log::Warn << "Number of random columns is more than the number of columns"
-./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
-./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
-./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): varRetained (" << varRetained << ") must be "
-./methods/pca/pca.cpp:    Log::Fatal << "PCA::Apply(): varRetained (" << varRetained << ") should be "
 ./methods/lsh/lsh_search_impl.hpp:  Log::Info << "Hash width chosen as: " << hashWidth << std::endl;
 ./methods/lsh/lsh_search_impl.hpp:  Log::Info << "Hash width chosen as: " << hashWidth << std::endl;
 ./methods/lsh/lsh_search_impl.hpp:  Log::Assert(hashVec.n_elem == numTablesToSearch);

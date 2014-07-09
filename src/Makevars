@@ -1,7 +1,8 @@
 MLPACKOBJECTS=\
 ./mlpack/core/math/lin_alg.o \
 ./mlpack/core/math/random.o \
-./mlpack/core/dists/discrete_distribution.o
+./mlpack/core/dists/discrete_distribution.o \
+./mlpack/methods/pca/pca.o
 
 PKGOBJECTS = RcppExports.o kmeans.o
 

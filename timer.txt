@@ -10,8 +10,6 @@
 ./methods/rann/ra_search_impl.hpp:  Timer::Stop("computing_neighbors");
 ./methods/local_coordinate_coding/lcc_impl.hpp:  Timer::Start("local_coordinate_coding");
 ./methods/local_coordinate_coding/lcc_impl.hpp:  Timer::Stop("local_coordinate_coding");
-./methods/pca/pca.cpp:  Timer::Start("pca");
-./methods/pca/pca.cpp:  Timer::Stop("pca");
 ./methods/lsh/lsh_search_impl.hpp:  Timer::Start("computing_neighbors");
 ./methods/lsh/lsh_search_impl.hpp:  Timer::Stop("computing_neighbors");
 ./methods/range_search/range_search_impl.hpp:  //Timer::Start("range_search/tree_building");
@@ -80,34 +78,3 @@
 ./core/data/save_impl.hpp:      Timer::Stop("saving_data");
 ./core/data/save_impl.hpp:      Timer::Stop("saving_data");
 ./core/data/save_impl.hpp:  Timer::Stop("saving_data");
-./core/util/timers.cpp:void Timer::Start(const std::string& name)
-./core/util/timers.cpp:  CLI::GetSingleton().timer.StartTimer(name);
-./core/util/timers.cpp:void Timer::Stop(const std::string& name)
-./core/util/timers.cpp:  CLI::GetSingleton().timer.StopTimer(name);
-./core/util/timers.cpp:timeval Timer::Get(const std::string& name)
-./core/util/timers.cpp:  return CLI::GetSingleton().timer.GetTimer(name);
-./core/util/timers.cpp:std::map<std::string, timeval>& Timers::GetAllTimers()
-./core/util/timers.cpp:timeval Timers::GetTimer(const std::string& timerName)
-./core/util/timers.cpp:void Timers::PrintTimer(const std::string& timerName)
-./core/util/timers.cpp:void Timers::GetTime(timeval* tv)
-./core/util/timers.cpp:void Timers::StartTimer(const std::string& timerName)
-./core/util/timers.cpp:void Timers::FileTimeToTimeVal(timeval* tv)
-./core/util/timers.cpp:void Timers::StopTimer(const std::string& timerName)
-./core/util/timers.hpp: * Timers for MLPACK.
-./core/util/timers.hpp:class Timer
-./core/util/timers.hpp:class Timers
-./core/util/timers.hpp:  Timers() { }
-./core/util/timers.hpp:  std::map<std::string, timeval>& GetAllTimers();
-./core/util/timers.hpp:  timeval GetTimer(const std::string& timerName);
-./core/util/timers.hpp:  void PrintTimer(const std::string& timerName);
-./core/util/timers.hpp:   * the command line.  Timers are of type timeval.  If a timer is started, then
-./core/util/timers.hpp:  void StartTimer(const std::string& timerName);
-./core/util/timers.hpp:  void StopTimer(const std::string& timerName);
-./core/util/cli.cpp:  Timer::Stop("total_time");
-./core/util/cli.cpp:    for (it = timer.GetAllTimers().begin(); it != timer.GetAllTimers().end();
-./core/util/cli.cpp:      timer.PrintTimer((*it).first);
-./core/util/cli.cpp:  Timer::Start("total_time");
-./core/util/cli.cpp:  Timer::Start("total_time");
-./core/util/cli.hpp:  Timers timer;
-./core/util/cli.hpp:  //! So that Timer::Start() and Timer::Stop() can access the timer variable.
-./core/util/cli.hpp:  friend class Timer;

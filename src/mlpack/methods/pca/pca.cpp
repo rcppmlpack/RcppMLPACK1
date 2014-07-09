@@ -46,7 +46,7 @@ void PCA::Apply(const arma::mat& data,
                 arma::vec& eigVal,
                 arma::mat& coeff) const
 {
-  Timer::Start("pca");
+  //Timer::Start("pca");
 
   // This matrix will store the right singular values; we do not need them.
   arma::mat v;
@@ -90,7 +90,7 @@ void PCA::Apply(const arma::mat& data,
   // Project the samples to the principals.
   transformedData = arma::trans(coeff) * centeredData;
 
-  Timer::Stop("pca");
+  //Timer::Stop("pca");
 }
 
 /**
@@ -123,10 +123,10 @@ double PCA::Apply(arma::mat& data, const size_t newDimension) const
 {
   // Parameter validation.
   if (newDimension == 0)
-    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
+    Rcpp::Rcerr << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
         << "be zero!" << endl;
   if (newDimension > data.n_rows)
-    Log::Fatal << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
+    Rcpp::Rcerr << "PCA::Apply(): newDimension (" << newDimension << ") cannot "
         << "be greater than the existing dimensionality of the data ("
         << data.n_rows << ")!" << endl;
 
@@ -157,10 +157,10 @@ double PCA::Apply(arma::mat& data, const double varRetained) const
 {
   // Parameter validation.
   if (varRetained < 0)
-    Log::Fatal << "PCA::Apply(): varRetained (" << varRetained << ") must be "
+    Rcpp::Rcerr << "PCA::Apply(): varRetained (" << varRetained << ") must be "
         << "greater than or equal to 0." << endl;
   if (varRetained > 1)
-    Log::Fatal << "PCA::Apply(): varRetained (" << varRetained << ") should be "
+    Rcpp::Rcerr << "PCA::Apply(): varRetained (" << varRetained << ") should be "
         << "less than or equal to 1." << endl;
 
   arma::mat coeffs;
