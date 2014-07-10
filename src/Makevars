@@ -2,11 +2,17 @@ MLPACKOBJECTS=\
 ./mlpack/core/math/lin_alg.o \
 ./mlpack/core/math/random.o \
 ./mlpack/core/dists/discrete_distribution.o \
-./mlpack/methods/pca/pca.o
+./mlpack/methods/pca/pca.o \
+./mlpack/methods/cf/cf.o \
+./mlpack/methods/det/dtree.o \
+./mlpack/methods/linear_regression/linear_regression.o \
+./mlpack/methods/neighbor_search/unmap.o \
+./mlpack/methods/neighbor_search/sort_policies/furthest_neighbor_sort.o \
+./mlpack/methods/neighbor_search/sort_policies/nearest_neighbor_sort.o
 
 PKGOBJECTS = RcppExports.o kmeans.o
 
 OBJECTS= $(MLPACKOBJECTS) $(PKGOBJECTS)
 
-PKG_CXXFLAGS=-I. -I/usr/include/
+PKG_CXXFLAGS=-I. ##-I/usr/include/
 PKG_LIBS= $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS) -lxml2

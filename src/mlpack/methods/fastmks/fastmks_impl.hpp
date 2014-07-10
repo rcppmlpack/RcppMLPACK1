@@ -46,7 +46,7 @@ FastMKS<KernelType, TreeType>::FastMKS(const arma::mat& referenceSet,
     single(single),
     naive(naive)
 {
-  Timer::Start("tree_building");
+  //Timer::Start("tree_building");
 
   if (!naive)
     referenceTree = new TreeType(referenceSet);
@@ -54,7 +54,7 @@ FastMKS<KernelType, TreeType>::FastMKS(const arma::mat& referenceSet,
   if (!naive && !single)
     queryTree = new TreeType(referenceSet);
 
-  Timer::Stop("tree_building");
+  //Timer::Stop("tree_building");
 }
 
 // Two datasets, no instantiated kernel.
@@ -71,7 +71,7 @@ FastMKS<KernelType, TreeType>::FastMKS(const arma::mat& referenceSet,
     single(single),
     naive(naive)
 {
-  Timer::Start("tree_building");
+  //Timer::Start("tree_building");
 
   // If necessary, the trees should be built.
   if (!naive)
@@ -80,7 +80,7 @@ FastMKS<KernelType, TreeType>::FastMKS(const arma::mat& referenceSet,
   if (!naive && !single)
     queryTree = new TreeType(querySet);
 
-  Timer::Stop("tree_building");
+  //Timer::Stop("tree_building");
 }
 
 // One dataset, instantiated kernel.
@@ -98,7 +98,7 @@ FastMKS<KernelType, TreeType>::FastMKS(const arma::mat& referenceSet,
     naive(naive),
     metric(kernel)
 {
-  Timer::Start("tree_building");
+  //Timer::Start("tree_building");
 
   // If necessary, the reference tree should be built.  There is no query tree.
   if (!naive)
@@ -107,7 +107,7 @@ FastMKS<KernelType, TreeType>::FastMKS(const arma::mat& referenceSet,
   if (!naive && !single)
     queryTree = new TreeType(referenceSet, metric);
 
-  Timer::Stop("tree_building");
+  //Timer::Stop("tree_building");
 }
 
 // Two datasets, instantiated kernel.
@@ -126,7 +126,7 @@ FastMKS<KernelType, TreeType>::FastMKS(const arma::mat& referenceSet,
     naive(naive),
     metric(kernel)
 {
-  Timer::Start("tree_building");
+  //Timer::Start("tree_building");
 
   // If necessary, the trees should be built.
   if (!naive)
@@ -135,7 +135,7 @@ FastMKS<KernelType, TreeType>::FastMKS(const arma::mat& referenceSet,
   if (!naive && !single)
     queryTree = new TreeType(querySet, metric);
 
-  Timer::Stop("tree_building");
+  //Timer::Stop("tree_building");
 }
 
 // One dataset, pre-built tree.
@@ -207,7 +207,7 @@ void FastMKS<KernelType, TreeType>::Search(const size_t k,
   products.set_size(k, querySet.n_cols);
   products.fill(-DBL_MAX);
 
-  Timer::Start("computing_products");
+  //Timer::Start("computing_products");
 
   // Naive implementation.
   if (naive)
@@ -234,7 +234,7 @@ void FastMKS<KernelType, TreeType>::Search(const size_t k,
       }
     }
 
-    Timer::Stop("computing_products");
+    //Timer::Stop("computing_products");
 
     return;
   }
@@ -255,12 +255,12 @@ void FastMKS<KernelType, TreeType>::Search(const size_t k,
     // Save the number of pruned nodes.
     const size_t numPrunes = traverser.NumPrunes();
 
-    Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
+    Rcpp::Rcout << "Pruned " << numPrunes << " nodes." << std::endl;
 
-    Log::Info << rules.BaseCases() << " base cases." << std::endl;
-    Log::Info << rules.Scores() << " scores." << std::endl;
+    Rcpp::Rcout << rules.BaseCases() << " base cases." << std::endl;
+    Rcpp::Rcout << rules.Scores() << " scores." << std::endl;
 
-    Timer::Stop("computing_products");
+    //Timer::Stop("computing_products");
     return;
   }
 
@@ -274,11 +274,11 @@ void FastMKS<KernelType, TreeType>::Search(const size_t k,
 
   const size_t numPrunes = traverser.NumPrunes();
 
-  Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
-  Log::Info << rules.BaseCases() << " base cases." << std::endl;
-  Log::Info << rules.Scores() << " scores." << std::endl;
+  Rcpp::Rcout << "Pruned " << numPrunes << " nodes." << std::endl;
+  Rcpp::Rcout << rules.BaseCases() << " base cases." << std::endl;
+  Rcpp::Rcout << rules.Scores() << " scores." << std::endl;
 
-  Timer::Stop("computing_products");
+  //Timer::Stop("computing_products");
   return;
 }
 
@@ -359,7 +359,7 @@ void FastMKS<kernel::GaussianKernel>::Search(const size_t k,
 
     Timer::Stop("computing_products");
 
-    Log::Info << "Kernel evaluations: " << kernelEvaluations << "." << std::endl;
+    Rcpp::Rcout << "Kernel evaluations: " << kernelEvaluations << "." << std::endl;
     return;
   }
 
@@ -515,10 +515,10 @@ void FastMKS<kernel::GaussianKernel>::Search(const size_t k,
       }
     }
 
-    Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
-    Log::Info << "Kernel evaluations: " << kernelEvaluations << "."
+    Rcpp::Rcout << "Pruned " << numPrunes << " nodes." << std::endl;
+    Rcpp::Rcout << "Kernel evaluations: " << kernelEvaluations << "."
         << std::endl;
-    Log::Info << "Distance evaluations: " << distanceEvaluations << "."
+    Rcpp::Rcout << "Distance evaluations: " << distanceEvaluations << "."
         << std::endl;
 
     Timer::Stop("computing_products");

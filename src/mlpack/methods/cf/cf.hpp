@@ -101,7 +101,7 @@ class CF
   {
     if (recs < 1)
     {
-      Log::Warn << "CF::NumRecs(): invalid value (< 1) "
+      Rcpp::Rcerr << "CF::NumRecs(): invalid value (< 1) "
           "ignored." << std::endl;
       return;
     }
@@ -119,7 +119,7 @@ class CF
   {
     if (num < 1)
     {
-      Log::Warn << "CF::NumUsersForSimilarity(): invalid value (< 1) "
+      Rcpp::Rcerr << "CF::NumUsersForSimilarity(): invalid value (< 1) "
           "ignored." << std::endl;
       return;
     }

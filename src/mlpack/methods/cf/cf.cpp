@@ -39,7 +39,7 @@ namespace cf {
 CF::CF(arma::mat& data) :
      data(data)
 {
-  Log::Info<<"Constructor (param: input data, default: numRecs;neighbourhood)"<<endl;
+  Rcpp::Rcout<<"Constructor (param: input data, default: numRecs;neighbourhood)"<<endl;
   this->numRecs = 5;
   this->numUsersForSimilarity = 5;
 
@@ -52,7 +52,7 @@ CF::CF(const size_t numRecs,arma::mat& data) :
   // Validate number of recommendation factor.
   if (numRecs < 1)
   {
-    Log::Warn << "CF::CF(): number of recommendations shoud be > 0("
+    Rcpp::Rcerr << "CF::CF(): number of recommendations shoud be > 0("
         << numRecs << " given). Setting value to 5.\n";
     //Setting Default Value of 5
     this->numRecs = 5;
@@ -71,7 +71,7 @@ CF::CF(const size_t numRecs, const size_t numUsersForSimilarity,
   // Validate number of recommendation factor.
   if (numRecs < 1)
   {
-    Log::Warn << "CF::CF(): number of recommendations shoud be > 0("
+    Rcpp::Rcerr << "CF::CF(): number of recommendations shoud be > 0("
         << numRecs << " given). Setting value to 5.\n";
     //Setting Default Value of 5
     this->numRecs = 5;
@@ -81,7 +81,7 @@ CF::CF(const size_t numRecs, const size_t numUsersForSimilarity,
   // Validate neighbourhood size.
   if (numUsersForSimilarity < 1)
   {
-    Log::Warn << "CF::CF(): neighbourhood size shoud be > 0("
+    Rcpp::Rcerr << "CF::CF(): neighbourhood size shoud be > 0("
         << numUsersForSimilarity << " given). Setting value to 5.\n";
     //Setting Default Value of 5
     this->numUsersForSimilarity = 5;
@@ -195,7 +195,7 @@ void CF::GetRecommendations(arma::Mat<size_t>& recommendations,
     // If we were not able to come up with enough recommendations, issue a
     // warning.
     if (recommendations(values.n_rows - 1, i) == cleanedData.n_rows + 1)
-      Log::Warn << "Could not provide " << values.n_rows << " recommendations "
+      Rcpp::Rcerr << "Could not provide " << values.n_rows << " recommendations "
           << "for user " << users(i) << " (not enough un-rated items)!" << endl;
   }
 }

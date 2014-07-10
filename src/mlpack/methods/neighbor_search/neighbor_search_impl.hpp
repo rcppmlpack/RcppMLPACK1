@@ -55,7 +55,7 @@ NeighborSearch(const typename TreeType::Mat& referenceSet,
   // copypasta problem.
 
   // We'll time tree building, but only if we are building trees.
-  Timer::Start("tree_building");
+  //Timer::Start("tree_building");
 
   // Construct as a naive object if we need to.
   referenceTree = new TreeType(referenceCopy, oldFromNewReferences,
@@ -66,7 +66,7 @@ NeighborSearch(const typename TreeType::Mat& referenceSet,
         (naive ? querySet.n_cols : leafSize));
 
   // Stop the timer we started above (if we need to).
-  Timer::Stop("tree_building");
+  //Timer::Stop("tree_building");
 }
 
 // Construct the object.
@@ -90,7 +90,7 @@ NeighborSearch(const typename TreeType::Mat& referenceSet,
     numberOfPrunes(0)
 {
   // We'll time tree building, but only if we are building trees.
-  Timer::Start("tree_building");
+  //Timer::Start("tree_building");
 
   // Construct as a naive object if we need to.
   referenceTree = new TreeType(referenceCopy, oldFromNewReferences,
@@ -99,7 +99,7 @@ NeighborSearch(const typename TreeType::Mat& referenceSet,
     queryTree = new TreeType(*referenceTree);
 
   // Stop the timer we started above.
-  Timer::Stop("tree_building");
+  //Timer::Stop("tree_building");
 }
 
 // Construct the object.
@@ -143,13 +143,13 @@ NeighborSearch<SortPolicy, MetricType, TreeType>::NeighborSearch(
     metric(metric),
     numberOfPrunes(0)
 {
-  Timer::Start("tree_building");
+  //Timer::Start("tree_building");
 
   // The query tree cannot be the same as the reference tree.
   if (referenceTree && !singleMode)
     queryTree = new TreeType(*referenceTree);
 
-  Timer::Stop("tree_building");
+  //Timer::Stop("tree_building");
 }
 
 /**
@@ -183,7 +183,7 @@ void NeighborSearch<SortPolicy, MetricType, TreeType>::Search(
     arma::Mat<size_t>& resultingNeighbors,
     arma::mat& distances)
 {
-  Timer::Start("computing_neighbors");
+  //Timer::Start("computing_neighbors");
 
   // If we have built the trees ourselves, then we will have to map all the
   // indices back to their original indices when this computation is finished.
@@ -224,12 +224,12 @@ void NeighborSearch<SortPolicy, MetricType, TreeType>::Search(
 
     traverser.Traverse(*queryTree, *referenceTree);
 
-    Log::Info << traverser.NumVisited() << " node combinations were visited.\n";
-    Log::Info << traverser.NumScores() << " node combinations were scored.\n";
-    Log::Info << traverser.NumBaseCases() << " base cases were calculated.\n";
+    Rcpp::Rcout << traverser.NumVisited() << " node combinations were visited.\n";
+    Rcpp::Rcout << traverser.NumScores() << " node combinations were scored.\n";
+    Rcpp::Rcout << traverser.NumBaseCases() << " base cases were calculated.\n";
   }
 
-  Timer::Stop("computing_neighbors");
+  //Timer::Stop("computing_neighbors");
 
   // Now, do we need to do mapping of indices?
   if (!treeOwner)

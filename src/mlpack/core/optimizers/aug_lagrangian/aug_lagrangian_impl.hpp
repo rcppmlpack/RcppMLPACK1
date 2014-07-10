@@ -79,7 +79,7 @@ bool AugLagrangian<LagrangianFunction>::Optimize(arma::mat& coordinates,
   for (size_t i = 0; i < function.NumConstraints(); i++)
     penalty += std::pow(function.EvaluateConstraint(i, coordinates), 2);
 
-  Log::Debug << "Penalty is " << penalty << " (threshold " << penaltyThreshold
+  Rcpp::Rcerr << "Penalty is " << penalty << " (threshold " << penaltyThreshold
       << ")." << std::endl;
 
   // The odd comparison allows user to pass maxIterations = 0 (i.e. no limit on
@@ -87,15 +87,15 @@ bool AugLagrangian<LagrangianFunction>::Optimize(arma::mat& coordinates,
   size_t it;
   for (it = 0; it != (maxIterations - 1); it++)
   {
-    Log::Warn << "AugLagrangian on iteration " << it
+    Rcpp::Rcerr << "AugLagrangian on iteration " << it
         << ", starting with objective "  << lastObjective << "." << std::endl;
 
- //   Log::Warn << coordinates << std::endl;
+ //   Rcpp::Rcerr << coordinates << std::endl;
 
-//    Log::Warn << trans(coordinates) * coordinates << std::endl;
+//    Rcpp::Rcerr << trans(coordinates) * coordinates << std::endl;
 
     if (!lbfgs.Optimize(coordinates))
-      Log::Warn << "L-BFGS reported an error during optimization."
+      Rcpp::Rcerr << "L-BFGS reported an error during optimization."
           << std::endl;
 
     // Check if we are done with the entire optimization (the threshold we are
@@ -115,19 +115,19 @@ bool AugLagrangian<LagrangianFunction>::Optimize(arma::mat& coordinates,
     for (size_t i = 0; i < function.NumConstraints(); i++)
     {
       penalty += std::pow(function.EvaluateConstraint(i, coordinates), 2);
-//      Log::Debug << "Constraint " << i << " is " <<
+//      Rcpp::Rcerr << "Constraint " << i << " is " <<
 //          function.EvaluateConstraint(i, coordinates) << std::endl;
     }
 
-    Log::Warn << "Penalty is " << penalty << " (threshold "
+    Rcpp::Rcerr << "Penalty is " << penalty << " (threshold "
         << penaltyThreshold << ")." << std::endl;
 
     for (size_t i = 0; i < function.NumConstraints(); ++i)
     {
 //      arma::mat tmpgrad;
 //      function.GradientConstraint(i, coordinates, tmpgrad);
-//      Log::Debug << "Gradient of constraint " << i << " is " << std::endl;
-//      Log::Debug << tmpgrad << std::endl;
+//      Rcpp::Rcerr << "Gradient of constraint " << i << " is " << std::endl;
+//      Rcpp::Rcerr << tmpgrad << std::endl;
     }
 
     if (penalty < penaltyThreshold) // We update lambda.
@@ -142,7 +142,7 @@ bool AugLagrangian<LagrangianFunction>::Optimize(arma::mat& coordinates,
       // penalty.  TODO: this factor should be a parameter (from CLI).  The
       // value of 0.25 is taken from Burer and Monteiro (2002).
       penaltyThreshold = 0.25 * penalty;
-      Log::Warn << "Lagrange multiplier estimates updated." << std::endl;
+      Rcpp::Rcerr << "Lagrange multiplier estimates updated." << std::endl;
     }
     else
     {
@@ -150,7 +150,7 @@ bool AugLagrangian<LagrangianFunction>::Optimize(arma::mat& coordinates,
       // parameter (from CLI).  The value of 10 is taken from Burer and Monteiro
       // (2002).
       augfunc.Sigma() *= 10;
-      Log::Warn << "Updated sigma to " << augfunc.Sigma() << "." << std::endl;
+      Rcpp::Rcerr << "Updated sigma to " << augfunc.Sigma() << "." << std::endl;
     }
   }
 

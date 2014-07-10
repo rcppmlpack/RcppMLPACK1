@@ -122,8 +122,8 @@ DualTreeTraverser<RuleType>::Traverse(
 
   // If we have made it this far, all we have is a bunch of base case
   // evaluations to do.
-  Log::Assert((*referenceMap.begin()).first == INT_MIN);
-  Log::Assert(queryNode.Scale() == INT_MIN);
+  //Log::Assert((*referenceMap.begin()).first == INT_MIN);
+  //Log::Assert(queryNode.Scale() == INT_MIN);
   std::vector<MapEntryType>& pointVector = (*referenceMap.begin()).second;
 
   for (size_t i = 0; i < pointVector.size(); ++i)
