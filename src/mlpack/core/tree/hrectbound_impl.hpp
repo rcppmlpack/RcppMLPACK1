@@ -131,8 +131,6 @@ template<int Power, bool TakeRoot>
 template<typename VecType>
 double HRectBound<Power, TakeRoot>::MinDistance(const VecType& point) const
 {
-  //Log::Assert(point.n_elem == dim);
-
   double sum = 0;
 
   double lower, higher;
@@ -163,7 +161,6 @@ double HRectBound<Power, TakeRoot>::MinDistance(const VecType& point) const
 template<int Power, bool TakeRoot>
 double HRectBound<Power, TakeRoot>::MinDistance(const HRectBound& other) const
 {
-  //Log::Assert(dim == other.dim);
 
   double sum = 0;
   const math::Range* mbound = bounds;
@@ -200,8 +197,6 @@ double HRectBound<Power, TakeRoot>::MaxDistance(const VecType& point) const
 {
   double sum = 0;
 
-  //Log::Assert(point.n_elem == dim);
-
   for (size_t d = 0; d < dim; d++)
   {
     double v = std::max(fabs(point[d] - bounds[d].Lo()),
@@ -223,8 +218,6 @@ template<int Power, bool TakeRoot>
 double HRectBound<Power, TakeRoot>::MaxDistance(const HRectBound& other) const
 {
   double sum = 0;
-
-  //Log::Assert(dim == other.dim);
 
   double v;
   for (size_t d = 0; d < dim; d++)
@@ -250,8 +243,6 @@ math::Range HRectBound<Power, TakeRoot>::RangeDistance(const HRectBound& other)
 {
   double loSum = 0;
   double hiSum = 0;
-
-  //Log::Assert(dim == other.dim);
 
   double v1, v2, vLo, vHi;
   for (size_t d = 0; d < dim; d++)
@@ -291,8 +282,6 @@ math::Range HRectBound<Power, TakeRoot>::RangeDistance(const VecType& point)
 {
   double loSum = 0;
   double hiSum = 0;
-
-  //Log::Assert(point.n_elem == dim);
 
   double v1, v2, vLo, vHi;
   for (size_t d = 0; d < dim; d++)
@@ -338,8 +327,6 @@ template<typename MatType>
 HRectBound<Power, TakeRoot>& HRectBound<Power, TakeRoot>::operator|=(
     const MatType& data)
 {
-  //Log::Assert(data.n_rows == dim);
-
   arma::vec mins(min(data, 1));
   arma::vec maxs(max(data, 1));
 
@@ -356,7 +343,6 @@ template<int Power, bool TakeRoot>
 HRectBound<Power, TakeRoot>& HRectBound<Power, TakeRoot>::operator|=(
     const HRectBound& other)
 {
-  assert(other.dim == dim);
 
   for (size_t i = 0; i < dim; i++)
     bounds[i] |= other.bounds[i];

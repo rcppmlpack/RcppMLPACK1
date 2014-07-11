@@ -150,8 +150,6 @@ bool DTree::FindSplit(const arma::mat& data,
 {
   // Ensure the dimensionality of the data is the same as the dimensionality of
   // the bounding rectangle.
-  //assert(data.n_rows == maxVals.n_elem);
-  //assert(data.n_rows == minVals.n_elem);
 
   const size_t points = end - start;
 
@@ -188,8 +186,6 @@ bool DTree::FindSplit(const arma::mat& data,
     dimVec = arma::sort(dimVec);
 
     // Get ready to go through the sorted list and compute error.
-    //assert(dimVec.n_elem > maxLeafSize);
-
     // Find the best split for this dimension.  We need to figure out why
     // there are spikes if this minLeafSize is enforced here...
     for (size_t i = minLeafSize - 1; i < dimVec.n_elem - minLeafSize; ++i)
@@ -207,7 +203,6 @@ bool DTree::FindSplit(const arma::mat& data,
       {
         // Ensure that the right node will have at least the minimum number of
         // points.
-        //Log::Assert((points - i - 1) >= minLeafSize);
 
         // Now we have to see if the error will be reduced.  Simple manipulation
         // of the error function gives us the condition we must satisfy:
@@ -291,8 +286,6 @@ double DTree::Grow(arma::mat& data,
                    const size_t maxLeafSize,
                    const size_t minLeafSize)
 {
-  //Log::Assert(data.n_rows == maxVals.n_elem);
-  //Log::Assert(data.n_rows == minVals.n_elem);
 
   double leftG, rightG;
 
@@ -367,7 +360,6 @@ double DTree::Grow(arma::mat& data,
   else
   {
     // We can make this a leaf node.
-    //assert((size_t) (end - start) >= minLeafSize);
     subtreeLeaves = 1;
     subtreeLeavesLogNegError = logNegError;
   }
@@ -520,8 +512,6 @@ double DTree::PruneAndUpdate(const double oldAlpha,
         gT = alphaUpper - std::log((double) (subtreeLeaves - 1));
       }
 
-      //Log::Assert(gT < std::numeric_limits<double>::max());
-
       return std::min((double) gT, std::min(leftG, rightG));
     }
     else
@@ -560,7 +550,6 @@ bool DTree::WithinRange(const arma::vec& query) const
 
 double DTree::ComputeValue(const arma::vec& query) const
 {
-  //Log::Assert(query.n_elem == maxVals.n_elem);
 
   if (root == 1) // If we are the root...
   {
@@ -635,7 +624,6 @@ int DTree::TagTree(const int tag)
 
 int DTree::FindBucket(const arma::vec& query) const
 {
-  //Log::Assert(query.n_elem == maxVals.n_elem);
 
   if (subtreeLeaves == 1) // If we are a leaf...
   {
