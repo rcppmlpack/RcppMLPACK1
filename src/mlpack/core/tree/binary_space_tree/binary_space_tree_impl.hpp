@@ -153,7 +153,7 @@ BinarySpaceTree<BoundType, StatisticType, MatType>::BinarySpaceTree(
 {
   // Hopefully the vector is initialized correctly!  We can't check that
   // entirely but we can do a minor sanity check.
-  assert(oldFromNew.size() == data.n_cols);
+  //assert(oldFromNew.size() == data.n_cols);
 
   // Perform the actual splitting.
   SplitNode(data, oldFromNew);

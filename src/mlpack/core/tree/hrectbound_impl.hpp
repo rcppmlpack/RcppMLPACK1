@@ -356,7 +356,7 @@ template<int Power, bool TakeRoot>
 HRectBound<Power, TakeRoot>& HRectBound<Power, TakeRoot>::operator|=(
     const HRectBound& other)
 {
-  assert(other.dim == dim);
+  //assert(other.dim == dim);
 
   for (size_t i = 0; i < dim; i++)
     bounds[i] |= other.bounds[i];

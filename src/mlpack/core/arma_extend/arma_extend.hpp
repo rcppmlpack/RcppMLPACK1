@@ -16,7 +16,7 @@
 #define ARMA_EXTRA_SPMAT_PROTO mlpack/core/arma_extend/SpMat_extra_bones.hpp
 #define ARMA_EXTRA_SPMAT_MEAT  mlpack/core/arma_extend/SpMat_extra_meat.hpp
 
-#include <armadillo>
+#include <RcppArmadillo.h>
 
 namespace arma {
   // u64/s64

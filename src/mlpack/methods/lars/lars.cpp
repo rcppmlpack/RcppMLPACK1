@@ -56,7 +56,7 @@ void LARS::Regress(const arma::mat& matX,
                    arma::vec& beta,
                    const bool transposeData)
 {
-  Timer::Start("lars_regression");
+  //Timer::Start("lars_regression");
 
   // This matrix may end up holding the transpose -- if necessary.
   arma::mat dataTrans;
@@ -99,7 +99,7 @@ void LARS::Regress(const arma::mat& matX,
   if (maxCorr < lambda1)
   {
     lambdaPath[0] = lambda1;
-    Timer::Stop("lars_regression");
+    //Timer::Stop("lars_regression");
     return;
   }
 
@@ -294,7 +294,7 @@ void LARS::Regress(const arma::mat& matX,
   // Unfortunate copy...
   beta = betaPath.back();
 
-  Timer::Stop("lars_regression");
+  //Timer::Stop("lars_regression");
 }
 
 // Private functions.

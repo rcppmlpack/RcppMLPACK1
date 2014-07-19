@@ -70,7 +70,7 @@ void GaussianDistribution::Estimate(const arma::mat& observations)
   // Ensure that the covariance is positive definite.
   if (det(covariance) <= 1e-50)
   {
-    Log::Debug << "GaussianDistribution::Estimate(): Covariance matrix is not "
+    Rcpp::Rcout << "GaussianDistribution::Estimate(): Covariance matrix is not "
         << "positive definite. Adding perturbation." << std::endl;
 
     double perturbation = 1e-30;
@@ -136,7 +136,7 @@ void GaussianDistribution::Estimate(const arma::mat& observations,
   // Ensure that the covariance is positive definite.
   if (det(covariance) <= 1e-50)
   {
-    Log::Debug << "GaussianDistribution::Estimate(): Covariance matrix is not "
+    Rcpp::Rcout << "GaussianDistribution::Estimate(): Covariance matrix is not "
         << "positive definite. Adding perturbation." << std::endl;
 
     double perturbation = 1e-30;

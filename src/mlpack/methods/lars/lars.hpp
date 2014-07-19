@@ -34,7 +34,6 @@
 #ifndef __MLPACK_METHODS_LARS_LARS_HPP
 #define __MLPACK_METHODS_LARS_LARS_HPP
 
-#include <armadillo>
 #include <mlpack/core.hpp>
 
 namespace mlpack {

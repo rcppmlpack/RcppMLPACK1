@@ -187,7 +187,7 @@ ReturnIndicesFromTable(const size_t queryIndex,
   for (size_t i = 0; i < hashVec.n_elem; i++)
     hashVec[i] = (double) ((size_t) hashVec[i] % secondHashSize);
 
-  Log::Assert(hashVec.n_elem == numTablesToSearch);
+  //Log::Assert(hashVec.n_elem == numTablesToSearch);
 
   // For all the buckets that the query is hashed into, sequentially
   // collect the indices in those buckets.
@@ -202,8 +202,8 @@ ReturnIndicesFromTable(const size_t queryIndex,
     {
       // Pick the indices in the bucket corresponding to 'hashInd'.
       size_t tableRow = bucketRowInHashTable[hashInd];
-      assert(tableRow < secondHashSize);
-      assert(tableRow < secondHashTable.n_rows);
+      //assert(tableRow < secondHashSize);
+      //assert(tableRow < secondHashTable.n_rows);
 
       for (size_t j = 0; j < bucketContentSize[hashInd]; j++)
         refPointsConsidered[secondHashTable(tableRow, j)]++;
@@ -355,7 +355,7 @@ BuildHash()
     for (size_t j = 0; j < secondHashVec.n_elem; j++)
       secondHashVec[j] = (double)((size_t) secondHashVec[j] % secondHashSize);
 
-    Log::Assert(secondHashVec.n_elem == referenceSet.n_cols);
+    //Log::Assert(secondHashVec.n_elem == referenceSet.n_cols);
 
     // Insert the point in the corresponding row to its bucket in the
     // 'secondHashTable'.

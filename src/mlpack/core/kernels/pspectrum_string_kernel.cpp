@@ -44,7 +44,7 @@ mlpack::kernel::PSpectrumStringKernel::PSpectrumStringKernel(
 {
   // We have to assemble the counts of substrings.  This is not a particularly
   // fast operation, unfortunately, but it only needs to be done once.
-  Log::Info << "Assembling counts of substrings of length " << p << "."
+  Rcpp::Rcout << "Assembling counts of substrings of length " << p << "."
       << std::endl;
 
   // Resize for number of datasets.
@@ -94,5 +94,5 @@ mlpack::kernel::PSpectrumStringKernel::PSpectrumStringKernel(
     }
   }
 
-  Log::Info << "Substring extraction complete." << std::endl;
+  Rcpp::Rcout << "Substring extraction complete." << std::endl;
 }
