@@ -76,7 +76,7 @@ double EpanechnikovKernel::ConvolutionIntegral(const VecType& a,
           std::pow(distance / bandwidth, 4.0)));
       break;
     default:
-      Rcpp::Rcerr << "EpanechnikovKernel::ConvolutionIntegral(): dimension "
+      Rcpp::Rcout << "EpanechnikovKernel::ConvolutionIntegral(): dimension "
           << a.n_rows << " not supported.";
       return -1.0; // This line will not execute.
       break;

@@ -61,6 +61,7 @@ glue_ccov::direct_ccov(Mat<eT>& out, const Mat<eT>& A, const Mat<eT>& B, const u
     }
   else
     {
+    arma_debug_assert_same_size(A, B, "ccov()");
 
     const uword N = A.n_cols;
     const eT norm_val = (norm_type == 0) ? ( (N > 1) ? eT(N-1) : eT(1) ) : eT(N);
@@ -115,6 +116,7 @@ glue_ccov::direct_ccov(Mat< std::complex<T> >& out, const Mat< std::complex<T> >
     }
   else
     {
+    arma_debug_assert_same_size(A, B, "ccov()");
   
     const uword N = A.n_cols;
     const eT norm_val = (norm_type == 0) ? ( (N > 1) ? eT(N-1) : eT(1) ) : eT(N);

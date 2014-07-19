@@ -205,7 +205,7 @@ Search(const size_t k,
     // done in the RASearchRules constructor.  This happens when naive = true.
     if (!referenceTree->IsLeaf())
     {
-      Rcpp::Rcout << "Performing single-tree traversal..." << std::endl;
+      Log::Info << "Performing single-tree traversal..." << std::endl;
 
       // Create the traverser.
       typename TreeType::template SingleTreeTraverser<RuleType>
@@ -217,15 +217,15 @@ Search(const size_t k,
 
       numPrunes = traverser.NumPrunes();
 
-      Rcpp::Rcout << "Single-tree traversal complete." << std::endl;
-      Rcpp::Rcout << "Average number of distance calculations per query point: "
+      Log::Info << "Single-tree traversal complete." << std::endl;
+      Log::Info << "Average number of distance calculations per query point: "
           << (rules.NumDistComputations() / querySet.n_cols) << "."
           << std::endl;
     }
   }
   else // Dual-tree recursion.
   {
-    Rcpp::Rcout << "Performing dual-tree traversal..." << std::endl;
+    Log::Info << "Performing dual-tree traversal..." << std::endl;
 
     typedef RASearchRules<SortPolicy, MetricType, TreeType> RuleType;
     RuleType rules(referenceSet, querySet, *neighborPtr, *distancePtr,
@@ -236,26 +236,26 @@ Search(const size_t k,
 
     if (queryTree)
     {
-      Rcpp::Rcout << "Query statistic pre-search: "
+      Log::Info << "Query statistic pre-search: "
           << queryTree->Stat().NumSamplesMade() << std::endl;
       traverser.Traverse(*queryTree, *referenceTree);
     }
     else
     {
-      Rcpp::Rcout << "Query statistic pre-search: "
+      Log::Info << "Query statistic pre-search: "
           << referenceTree->Stat().NumSamplesMade() << std::endl;
       traverser.Traverse(*referenceTree, *referenceTree);
     }
 
     numPrunes = traverser.NumPrunes();
 
-    Rcpp::Rcout << "Dual-tree traversal complete." << std::endl;
-    Rcpp::Rcout << "Average number of distance calculations per query point: "
+    Log::Info << "Dual-tree traversal complete." << std::endl;
+    Log::Info << "Average number of distance calculations per query point: "
         << (rules.NumDistComputations() / querySet.n_cols) << "." << std::endl;
   }
 
   Timer::Stop("computing_neighbors");
-  Rcpp::Rcout << "Pruned " << numPrunes << " nodes." << std::endl;
+  Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
 
   // Now, do we need to do mapping of indices?
   if ((!ownReferenceTree && !ownQueryTree) || naive)

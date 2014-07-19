@@ -32,7 +32,7 @@ namespace tree {
 // Empty Constructor
 CosineTreeBuilder::CosineTreeBuilder()
 {
-  Rcpp::Rcout<<"Constructor"<<std::endl;
+  Log::Info<<"Constructor"<<std::endl;
 }
 
 // Destructor
@@ -40,7 +40,7 @@ CosineTreeBuilder::~CosineTreeBuilder() {}
 
 void CosineTreeBuilder::LSSampling(arma::mat A, arma::vec& probability)
 {
-  Rcpp::Rcout<<"LSSampling"<<std::endl;
+  Log::Info<<"LSSampling"<<std::endl;
   //Saving the frobenious norm of the matrix
   double normA = arma::norm(A,"fro");
   //Calculating probability of each point to be sampled
@@ -50,7 +50,7 @@ void CosineTreeBuilder::LSSampling(arma::mat A, arma::vec& probability)
 
 arma::rowvec CosineTreeBuilder::CalculateCentroid(arma::mat A) const
 {
-  Rcpp::Rcout<<"CalculateCentroid"<<std::endl;
+  Log::Info<<"CalculateCentroid"<<std::endl;
   //Summing over all coloumns
   arma::rowvec colsum = arma::sum(A,0);
   //Averaging
@@ -61,7 +61,7 @@ arma::rowvec CosineTreeBuilder::CalculateCentroid(arma::mat A) const
 void CosineTreeBuilder::CTNode(arma::mat A, CosineTree& root)
 {
   A = A.t();
-  Rcpp::Rcout<<"CTNode"<<std::endl;
+  Log::Info<<"CTNode"<<std::endl;
   //Calculating Centroid
   arma::rowvec centroid = CalculateCentroid(A);
   //Calculating sampling probabilities
@@ -75,7 +75,7 @@ void CosineTreeBuilder::CTNode(arma::mat A, CosineTree& root)
 
 size_t CosineTreeBuilder::GetPivot(arma::vec prob)
 {
-  Rcpp::Rcout<<"GetPivot"<<std::endl;
+  Log::Info<<"GetPivot"<<std::endl;
   //Setting firtst value as the pivot
   double maxPivot=prob(0,0);
   size_t pivot=0;
@@ -95,7 +95,7 @@ size_t CosineTreeBuilder::GetPivot(arma::vec prob)
 void CosineTreeBuilder::SplitData(std::vector<double> c, arma::mat& ALeft,
                                   arma::mat& ARight,arma::mat A)
 {
-  Rcpp::Rcout<<"SplitData"<<std::endl;
+  Log::Info<<"SplitData"<<std::endl;
   double cMax,cMin;
   //Calculating the lower and the Upper Limit
   cMin = GetMaxSimilarity(c);
@@ -123,7 +123,7 @@ void CosineTreeBuilder::SplitData(std::vector<double> c, arma::mat& ALeft,
 void CosineTreeBuilder::CreateCosineSimilarityArray(std::vector<double>& c,
                                                     arma::mat A, size_t pivot)
 {
-  Rcpp::Rcout<<"CreateCosineSimilarityArray"<<std::endl;
+  Log::Info<<"CreateCosineSimilarityArray"<<std::endl;
   for (size_t i = 0; i < A.n_rows; i++)
   {
     const double similarity =
@@ -133,7 +133,7 @@ void CosineTreeBuilder::CreateCosineSimilarityArray(std::vector<double>& c,
 }
 double CosineTreeBuilder::GetMinSimilarity(std::vector<double> c)
 {
-  Rcpp::Rcout<<"GetMinSimilarity"<<std::endl;
+  Log::Info<<"GetMinSimilarity"<<std::endl;
   double cMin = c[0];
   for(size_t i=1;i<c.size();i++)
     if(cMin<c[i])
@@ -142,7 +142,7 @@ double CosineTreeBuilder::GetMinSimilarity(std::vector<double> c)
 }
 double CosineTreeBuilder::GetMaxSimilarity(std::vector<double> c)
 {
-  Rcpp::Rcout<<"GetMaxSimilarity"<<std::endl;
+  Log::Info<<"GetMaxSimilarity"<<std::endl;
   double cMax = c[0];
   for(size_t i=1;i<c.size();i++)
     if(cMax<c[i])

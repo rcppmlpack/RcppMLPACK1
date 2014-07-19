@@ -44,10 +44,10 @@ bool Load(const std::string& filename,
   if (ext == std::string::npos)
   {
     if (fatal)
-      Rcpp::Rcerr << "Cannot determine type of file '" << filename << "'; "
+      Rcpp::Rcout << "Cannot determine type of file '" << filename << "'; "
           << "no extension is present." << std::endl;
     else
-      Rcpp::Rcerr << "Cannot determine type of file '" << filename << "'; "
+      Rcpp::Rcout << "Cannot determine type of file '" << filename << "'; "
           << "no extension is present.  Load failed." << std::endl;
 
     //Timer::Stop("loading_data");
@@ -66,9 +66,9 @@ bool Load(const std::string& filename,
   if (!stream.is_open())
   {
     if (fatal)
-      Rcpp::Rcerr << "Cannot open file '" << filename << "'. " << std::endl;
+      Rcpp::Rcout << "Cannot open file '" << filename << "'. " << std::endl;
     else
-      Rcpp::Rcerr << "Cannot open file '" << filename << "'; load failed."
+      Rcpp::Rcout << "Cannot open file '" << filename << "'; load failed."
           << std::endl;
 
     //Timer::Stop("loading_data");
@@ -159,11 +159,11 @@ bool Load(const std::string& filename,
     stringType = "HDF5 data";
 #else
     if (fatal)
-      Rcpp::Rcerr << "Attempted to load '" << filename << "' as HDF5 data, but "
+      Rcpp::Rcout << "Attempted to load '" << filename << "' as HDF5 data, but "
           << "Armadillo was compiled without HDF5 support.  Load failed."
           << std::endl;
     else
-      Rcpp::Rcerr << "Attempted to load '" << filename << "' as HDF5 data, but "
+      Rcpp::Rcout << "Attempted to load '" << filename << "' as HDF5 data, but "
           << "Armadillo was compiled without HDF5 support.  Load failed."
           << std::endl;
 
@@ -182,10 +182,10 @@ bool Load(const std::string& filename,
   if (unknownType)
   {
     if (fatal)
-      Rcpp::Rcerr << "Unable to detect type of '" << filename << "'; "
+      Rcpp::Rcout << "Unable to detect type of '" << filename << "'; "
           << "incorrect extension?" << std::endl;
     else
-      Rcpp::Rcerr << "Unable to detect type of '" << filename << "'; load failed."
+      Rcpp::Rcout << "Unable to detect type of '" << filename << "'; load failed."
           << " Incorrect extension?" << std::endl;
 
     //Timer::Stop("loading_data");
@@ -194,7 +194,7 @@ bool Load(const std::string& filename,
 
   // Try to load the file; but if it's raw_binary, it could be a problem.
   if (loadType == arma::raw_binary)
-    Rcpp::Rcerr << "Loading '" << filename << "' as " << stringType << "; "
+    Rcpp::Rcout << "Loading '" << filename << "' as " << stringType << "; "
         << "but this may not be the actual filetype!" << std::endl;
   else
     Rcpp::Rcout << "Loading '" << filename << "' as " << stringType << ".  "
@@ -206,9 +206,9 @@ bool Load(const std::string& filename,
   {
     Rcpp::Rcout << std::endl;
     if (fatal)
-      Rcpp::Rcerr << "Loading from '" << filename << "' failed." << std::endl;
+      Rcpp::Rcout << "Loading from '" << filename << "' failed." << std::endl;
     else
-      Rcpp::Rcerr << "Loading from '" << filename << "' failed." << std::endl;
+      Rcpp::Rcout << "Loading from '" << filename << "' failed." << std::endl;
   }
   else
     Rcpp::Rcout << "Size is " << (transpose ? matrix.n_cols : matrix.n_rows)

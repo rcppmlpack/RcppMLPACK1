@@ -79,7 +79,7 @@ class SphericalKernel
           distance / 4.0 * sqrt(4.0*bandwidth*bandwidth-distance*distance));
         break;
       default:
-        Rcpp::Rcerr << "The spherical kernel does not support convolution\
+        Rcpp::Rcout << "The spherical kernel does not support convolution\
           integrals above dimension two, yet..." << std::endl;
         return -1.0;
         break;

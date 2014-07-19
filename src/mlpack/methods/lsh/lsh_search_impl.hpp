@@ -60,7 +60,7 @@ LSHSearch(const arma::mat& referenceSet,
     hashWidth /= 25;
   }
 
-  Rcpp::Rcout << "Hash width chosen as: " << hashWidth << std::endl;
+  Log::Info << "Hash width chosen as: " << hashWidth << std::endl;
 
   BuildHash();
 }
@@ -96,7 +96,7 @@ LSHSearch(const arma::mat& referenceSet,
     hashWidth /= 25;
   }
 
-  Rcpp::Rcout << "Hash width chosen as: " << hashWidth << std::endl;
+  Log::Info << "Hash width chosen as: " << hashWidth << std::endl;
 
   BuildHash();
 }
@@ -187,6 +187,8 @@ ReturnIndicesFromTable(const size_t queryIndex,
   for (size_t i = 0; i < hashVec.n_elem; i++)
     hashVec[i] = (double) ((size_t) hashVec[i] % secondHashSize);
 
+  Log::Assert(hashVec.n_elem == numTablesToSearch);
+
   // For all the buckets that the query is hashed into, sequentially
   // collect the indices in those buckets.
   arma::Col<size_t> refPointsConsidered;
@@ -200,6 +202,8 @@ ReturnIndicesFromTable(const size_t queryIndex,
     {
       // Pick the indices in the bucket corresponding to 'hashInd'.
       size_t tableRow = bucketRowInHashTable[hashInd];
+      assert(tableRow < secondHashSize);
+      assert(tableRow < secondHashTable.n_rows);
 
       for (size_t j = 0; j < bucketContentSize[hashInd]; j++)
         refPointsConsidered[secondHashTable(tableRow, j)]++;
@@ -228,7 +232,7 @@ Search(const size_t k,
 
   size_t avgIndicesReturned = 0;
 
-  //Timer::Start("computing_neighbors");
+  Timer::Start("computing_neighbors");
 
   // Go through every query point sequentially.
   for (size_t i = 0; i < querySet.n_cols; i++)
@@ -248,10 +252,10 @@ Search(const size_t k,
       BaseCase(i, (size_t) refIndices[j]);
   }
 
-  //Timer::Stop("computing_neighbors");
+  Timer::Stop("computing_neighbors");
 
   avgIndicesReturned /= querySet.n_cols;
-  Rcpp::Rcout << avgIndicesReturned << " distinct indices returned on average." <<
+  Log::Info << avgIndicesReturned << " distinct indices returned on average." <<
       std::endl;
 }
 
@@ -351,6 +355,8 @@ BuildHash()
     for (size_t j = 0; j < secondHashVec.n_elem; j++)
       secondHashVec[j] = (double)((size_t) secondHashVec[j] % secondHashSize);
 
+    Log::Assert(secondHashVec.n_elem == referenceSet.n_cols);
+
     // Insert the point in the corresponding row to its bucket in the
     // 'secondHashTable'.
     for (size_t j = 0; j < secondHashVec.n_elem; j++)
@@ -392,7 +398,7 @@ BuildHash()
     if (bucketContentSize[i] > maxBucketSize)
       maxBucketSize = bucketContentSize[i];
 
-  Rcpp::Rcout << "Final hash table size: (" << numRowsInTable << " x "
+  Log::Info << "Final hash table size: (" << numRowsInTable << " x "
             << maxBucketSize << ")" << std::endl;
   secondHashTable.resize(numRowsInTable, maxBucketSize);
 }

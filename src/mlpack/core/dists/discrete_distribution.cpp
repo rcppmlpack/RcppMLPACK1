@@ -67,7 +67,7 @@ void DiscreteDistribution::Estimate(const arma::mat& observations)
     // Ensure that the observation is within the bounds.
     if (obs >= probabilities.n_elem)
     {
-      Rcpp::Rcerr << "DiscreteDistribution::Estimate(): observation " << i
+      Rcpp::Rcout << "DiscreteDistribution::Estimate(): observation " << i
           << " (" << obs << ") is invalid; observation must be in [0, "
           << probabilities.n_elem << "] for this distribution." << std::endl;
     }
@@ -103,7 +103,7 @@ void DiscreteDistribution::Estimate(const arma::mat& observations,
     // Ensure that the observation is within the bounds.
     if (obs >= probabilities.n_elem)
     {
-      Rcpp::Rcerr << "DiscreteDistribution::Estimate(): observation " << i
+      Rcpp::Rcout << "DiscreteDistribution::Estimate(): observation " << i
           << " (" << obs << ") is invalid; observation must be in [0, "
           << probabilities.n_elem << "] for this distribution." << std::endl;
     }

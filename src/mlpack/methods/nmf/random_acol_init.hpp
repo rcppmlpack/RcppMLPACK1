@@ -57,7 +57,7 @@ class RandomAcolInitialization
 
     if (p > m)
     {
-      Rcpp::Rcerr << "Number of random columns is more than the number of columns"
+      Log::Warn << "Number of random columns is more than the number of columns"
           << "available in the V matrix; weird results may ensue!" << std::endl;
     }
 

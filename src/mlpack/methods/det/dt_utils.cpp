@@ -47,7 +47,7 @@ void mlpack::det::PrintLeafMembership(DTree* dtree,
 
   if (leafClassMembershipFile == "")
   {
-    Rcpp::Rcout << "Leaf membership; row represents leaf id, column represents "
+    Log::Info << "Leaf membership; row represents leaf id, column represents "
         << "class id; value represents number of points in leaf in class."
         << std::endl << table;
   }
@@ -58,12 +58,12 @@ void mlpack::det::PrintLeafMembership(DTree* dtree,
     if (outfile.good())
     {
       outfile << table;
-      Rcpp::Rcout << "Leaf membership printed to '" << leafClassMembershipFile
+      Log::Info << "Leaf membership printed to '" << leafClassMembershipFile
           << "'." << std::endl;
     }
     else
     {
-      Rcpp::Rcerr << "Can't open '" << leafClassMembershipFile << "' to write "
+      Log::Warn << "Can't open '" << leafClassMembershipFile << "' to write "
           << "leaf membership to." << std::endl;
     }
     outfile.close();
@@ -84,11 +84,11 @@ void mlpack::det::PrintVariableImportance(const DTree* dtree,
     if (imps[i] > max)
       max = imps[i];
 
-  Rcpp::Rcout << "Maximum variable importance: " << max << "." << std::endl;
+  Log::Info << "Maximum variable importance: " << max << "." << std::endl;
 
   if (viFile == "")
   {
-    Rcpp::Rcout << "Variable importance: " << std::endl << imps.t() << std::endl;
+    Log::Info << "Variable importance: " << std::endl << imps.t() << std::endl;
   }
   else
   {
@@ -96,12 +96,12 @@ void mlpack::det::PrintVariableImportance(const DTree* dtree,
     if (outfile.good())
     {
       outfile << imps;
-      Rcpp::Rcout << "Variable importance printed to '" << viFile << "'."
+      Log::Info << "Variable importance printed to '" << viFile << "'."
           << std::endl;
     }
     else
     {
-      Rcpp::Rcerr << "Can't open '" << viFile << "' to write variable importance "
+      Log::Warn << "Can't open '" << viFile << "' to write variable importance "
           << "to." << std::endl;
     }
     outfile.close();
@@ -134,7 +134,7 @@ DTree* mlpack::det::Trainer(arma::mat& dataset,
   double alpha = dtree->Grow(newDataset, oldFromNew, useVolumeReg, maxLeafSize,
       minLeafSize);
 
-  Rcpp::Rcout << dtree->SubtreeLeaves() << " leaf nodes in the tree using full "
+  Log::Info << dtree->SubtreeLeaves() << " leaf nodes in the tree using full "
       << "dataset; minimum alpha: " << alpha << "." << std::endl;
 
   // Compute densities for the training points in the full tree, if we were
@@ -152,7 +152,7 @@ DTree* mlpack::det::Trainer(arma::mat& dataset,
     }
     else
     {
-      Rcpp::Rcerr << "Can't open '" << unprunedTreeOutput << "' to write computed"
+      Log::Warn << "Can't open '" << unprunedTreeOutput << "' to write computed"
           << " densities to." << std::endl;
     }
 
@@ -170,14 +170,17 @@ DTree* mlpack::det::Trainer(arma::mat& dataset,
     alpha = dtree->PruneAndUpdate(oldAlpha, dataset.n_cols, useVolumeReg);
 
     // Some sanity checks.
-
+    Log::Assert((alpha < std::numeric_limits<double>::max()) ||
+        (dtree->SubtreeLeaves() == 1));
+    Log::Assert(alpha > oldAlpha);
+    Log::Assert(dtree->SubtreeLeavesLogNegError() < treeSeq.second);
   }
 
   std::pair<double, double> treeSeq(oldAlpha,
       dtree->SubtreeLeavesLogNegError());
   prunedSequence.push_back(treeSeq);
 
-  Rcpp::Rcout << prunedSequence.size() << " trees in the sequence; maximum alpha:"
+  Log::Info << prunedSequence.size() << " trees in the sequence; maximum alpha:"
       << " " << oldAlpha << "." << std::endl;
 
   delete dtree;
@@ -278,7 +281,7 @@ DTree* mlpack::det::Trainer(arma::mat& dataset,
     }
   }
 
-  Rcpp::Rcout << "Optimal alpha: " << optimalAlpha << "." << std::endl;
+  Log::Info << "Optimal alpha: " << optimalAlpha << "." << std::endl;
 
   // Initialize the tree.
   DTree* dtreeOpt = new DTree(dataset);
@@ -302,10 +305,12 @@ DTree* mlpack::det::Trainer(arma::mat& dataset,
     alpha = dtreeOpt->PruneAndUpdate(oldAlpha, newDataset.n_cols, useVolumeReg);
 
     // Some sanity checks.
-
+    Log::Assert((alpha < std::numeric_limits<double>::max()) ||
+        (dtreeOpt->SubtreeLeaves() == 1));
+    Log::Assert(alpha > oldAlpha);
   }
 
-  Rcpp::Rcout << dtreeOpt->SubtreeLeaves() << " leaf nodes in the optimally "
+  Log::Info << dtreeOpt->SubtreeLeaves() << " leaf nodes in the optimally "
       << "pruned tree; optimal alpha: " << oldAlpha << "." << std::endl;
 
   return dtreeOpt;

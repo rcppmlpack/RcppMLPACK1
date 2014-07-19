@@ -59,13 +59,13 @@ RASearchRules(const arma::mat& referenceSet,
   const size_t t = (size_t) std::ceil(tau * (double) n / 100.0);
   if (t < k)
   {
-    Rcpp::Rcerr << "Rank-approximation percentile " << tau << " corresponds to "
+    Log::Warn << "Rank-approximation percentile " << tau << " corresponds to "
         << t << " points, which is less than k (" << k << ").";
-    Rcpp::Rcerr << "Cannot return " << k << " approximate nearest neighbors "
+    Log::Fatal << "Cannot return " << k << " approximate nearest neighbors "
         << "from the nearest " << t << " points.  Increase tau!" << std::endl;
   }
   else if (t == k)
-    Rcpp::Rcerr << "Rank-approximation percentile " << tau << " corresponds to "
+    Log::Warn << "Rank-approximation percentile " << tau << " corresponds to "
         << t << " points; because k = " << k << ", this is exact search!"
         << std::endl;
 
@@ -78,7 +78,7 @@ RASearchRules(const arma::mat& referenceSet,
   numDistComputations = 0;
   samplingRatio = (double) numSamplesReqd / (double) n;
 
-  Rcpp::Rcout << "Minimum samples required per query: " << numSamplesReqd <<
+  Log::Info << "Minimum samples required per query: " << numSamplesReqd <<
     ", sampling ratio: " << samplingRatio << std::endl;
 
   if (naive) // No tree traversal; just do naive sampling here.
@@ -130,7 +130,7 @@ MinimumSamplesReqd(const size_t n,
   const size_t t = (size_t) std::ceil(tau * (double) n / 100.0);
 
   double prob;
-  //Log::Assert(alpha <= 1.0);
+  Log::Assert(alpha <= 1.0);
 
   // going through all values of sample sizes
   // to find the minimum samples required to satisfy the

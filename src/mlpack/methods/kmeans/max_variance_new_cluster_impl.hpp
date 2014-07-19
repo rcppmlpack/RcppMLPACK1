@@ -79,7 +79,7 @@ size_t MaxVarianceNewCluster::EmptyCluster(const MatType& data,
   assignments[furthestPoint] = emptyCluster;
 
   // Output some debugging information.
-  Rcpp::Rcerr << "Point " << furthestPoint << " assigned to empty cluster " <<
+  Rcpp::Rcout << "Point " << furthestPoint << " assigned to empty cluster " <<
       emptyCluster << ".\n";
 
   return 1; // We only changed one point.

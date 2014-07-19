@@ -6,7 +6,7 @@
 #endif
 
 #include <RcppArmadillo.h>
-#include <Rcpp.h>
+
 
 #include <mlpack/methods/linear_regression/linear_regression.hpp>
 #include <mlpack/methods/kmeans/kmeans.hpp>

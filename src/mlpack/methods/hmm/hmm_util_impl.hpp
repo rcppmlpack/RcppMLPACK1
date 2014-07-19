@@ -33,7 +33,7 @@ namespace hmm {
 template<typename Distribution>
 void SaveHMM(const HMM<Distribution>& hmm, util::SaveRestoreUtility& sr)
 {
-  Rcpp::Rcerr << "HMM save not implemented for arbitrary distributions."
+  Log::Fatal << "HMM save not implemented for arbitrary distributions."
       << std::endl;
 }
 
@@ -122,7 +122,7 @@ void SaveHMM(const HMM<gmm::GMM<> >& hmm,
 template<typename Distribution>
 void LoadHMM(HMM<Distribution>& hmm, util::SaveRestoreUtility& sr)
 {
-  Rcpp::Rcerr << "HMM load not implemented for arbitrary distributions."
+  Log::Fatal << "HMM load not implemented for arbitrary distributions."
       << std::endl;
 }
 
@@ -136,7 +136,7 @@ void LoadHMM(HMM<distribution::DiscreteDistribution>& hmm,
   sr.LoadParameter(type, "hmm_type");
   if (type != "discrete")
   {
-    Rcpp::Rcerr << "Cannot load non-discrete HMM (of type " << type << ") as "
+    Log::Fatal << "Cannot load non-discrete HMM (of type " << type << ") as "
         << "discrete HMM!" << std::endl;
   }
 
@@ -167,7 +167,7 @@ void LoadHMM(HMM<distribution::GaussianDistribution>& hmm,
   sr.LoadParameter(type, "hmm_type");
   if (type != "gaussian")
   {
-    Rcpp::Rcerr << "Cannot load non-Gaussian HMM (of type " << type << ") as "
+    Log::Fatal << "Cannot load non-Gaussian HMM (of type " << type << ") as "
         << "a Gaussian HMM!" << std::endl;
   }
 
@@ -202,7 +202,7 @@ void LoadHMM(HMM<gmm::GMM<> >& hmm,
   sr.LoadParameter(type, "hmm_type");
   if (type != "gmm")
   {
-    Rcpp::Rcerr << "Cannot load non-GMM HMM (of type " << type << ") as "
+    Log::Fatal << "Cannot load non-GMM HMM (of type " << type << ") as "
         << "a Gaussian Mixture Model HMM!" << std::endl;
   }
 

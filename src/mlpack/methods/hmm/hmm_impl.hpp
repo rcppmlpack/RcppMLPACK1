@@ -60,7 +60,7 @@ HMM<Distribution>::HMM(const arma::mat& transition,
     dimensionality = emission[0].Dimensionality();
   else
   {
-    Rcpp::Rcerr << "HMM::HMM(): no emission distributions given; assuming a "
+    Log::Warn << "HMM::HMM(): no emission distributions given; assuming a "
         << "dimensionality of 0 and hoping it gets set right later."
         << std::endl;
     dimensionality = 0;
@@ -99,7 +99,7 @@ void HMM<Distribution>::Train(const std::vector<arma::mat>& dataSeq)
     totalLength += dataSeq[seq].n_cols;
 
     if (dataSeq[seq].n_rows != dimensionality)
-      Rcpp::Rcerr << "HMM::Train(): data sequence " << seq << " has "
+      Log::Fatal << "HMM::Train(): data sequence " << seq << " has "
           << "dimensionality " << dataSeq[seq].n_rows << " (expected "
           << dimensionality << " dimensions)." << std::endl;
   }
@@ -177,12 +177,12 @@ void HMM<Distribution>::Train(const std::vector<arma::mat>& dataSeq)
     for (size_t state = 0; state < transition.n_cols; state++)
       emission[state].Estimate(emissionList, emissionProb[state]);
 
-    Rcpp::Rcerr << "Iteration " << iter << ": log-likelihood " << loglik
+    Log::Debug << "Iteration " << iter << ": log-likelihood " << loglik
         << std::endl;
 
     if (std::abs(oldLoglik - loglik) < tolerance)
     {
-      Rcpp::Rcerr << "Converged after " << iter << " iterations." << std::endl;
+      Log::Debug << "Converged after " << iter << " iterations." << std::endl;
       break;
     }
 
@@ -201,7 +201,7 @@ void HMM<Distribution>::Train(const std::vector<arma::mat>& dataSeq,
   // Simple error checking.
   if (dataSeq.size() != stateSeq.size())
   {
-    Rcpp::Rcerr << "HMM::Train(): number of data sequences (" << dataSeq.size()
+    Log::Fatal << "HMM::Train(): number of data sequences (" << dataSeq.size()
         << ") not equal to number of state sequences (" << stateSeq.size()
         << ")." << std::endl;
   }
@@ -218,7 +218,7 @@ void HMM<Distribution>::Train(const std::vector<arma::mat>& dataSeq,
     // Simple error checking.
     if (dataSeq[seq].n_cols != stateSeq[seq].n_elem)
     {
-      Rcpp::Rcerr << "HMM::Train(): number of observations ("
+      Log::Fatal << "HMM::Train(): number of observations ("
           << dataSeq[seq].n_cols << ") in sequence " << seq
           << " not equal to number of states (" << stateSeq[seq].n_cols
           << ") in sequence " << seq << "." << std::endl;
@@ -226,7 +226,7 @@ void HMM<Distribution>::Train(const std::vector<arma::mat>& dataSeq,
 
     if (dataSeq[seq].n_rows != dimensionality)
     {
-      Rcpp::Rcerr << "HMM::Train(): data sequence " << seq << " has "
+      Log::Fatal << "HMM::Train(): data sequence " << seq << " has "
           << "dimensionality " << dataSeq[seq].n_rows << " (expected "
           << dimensionality << " dimensions)." << std::endl;
     }

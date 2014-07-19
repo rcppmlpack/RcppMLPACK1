@@ -44,7 +44,7 @@ NMF<InitializationRule, WUpdateRule, HUpdateRule>::NMF(
 {
   if (minResidue < 0.0)
   {
-    Rcpp::Rcerr << "NMF::NMF(): minResidue must be a positive value ("
+    Rcpp::Rcout << "NMF::NMF(): minResidue must be a positive value ("
         << minResidue << " given). Setting to the default value of 1e-10.\n";
     this->minResidue = 1e-10;
   }

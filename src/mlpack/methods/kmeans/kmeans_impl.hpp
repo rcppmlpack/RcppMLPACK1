@@ -97,7 +97,7 @@ FastCluster(MatType& data,
   // Build the mrkd-tree on this dataset.
   tree::BinarySpaceTree<typename bound::HRectBound<2>, tree::MRKDStatistic>
       tree(data, 1);
-  Rcpp::Rcerr << "Tree Built." << std::endl;
+  Rcpp::Rcout << "Tree Built." << std::endl;
   // A pointer for traversing the mrkd-tree.
   tree::BinarySpaceTree<typename bound::HRectBound<2>, tree::MRKDStatistic>*
       node;
@@ -557,19 +557,19 @@ Cluster(const MatType& data,
   if (initialAssignmentGuess)
   {
     if (assignments.n_elem != data.n_cols)
-      Rcpp::Rcerr << "KMeans::Cluster(): initial cluster assignments (length "
+      Rcpp::Rcout << "KMeans::Cluster(): initial cluster assignments (length "
           << assignments.n_elem << ") not the same size as the dataset (size "
           << data.n_cols << ")!" << std::endl;
   }
   else if (initialCentroidGuess)
   {
     if (centroids.n_cols != clusters)
-      Rcpp::Rcerr << "KMeans::Cluster(): wrong number of initial cluster "
+      Rcpp::Rcout << "KMeans::Cluster(): wrong number of initial cluster "
         << "centroids (" << centroids.n_cols << ", should be " << clusters
         << ")!" << std::endl;
 
     if (centroids.n_rows != data.n_rows)
-      Rcpp::Rcerr << "KMeans::Cluster(): initial cluster centroids have wrong "
+      Rcpp::Rcout << "KMeans::Cluster(): initial cluster centroids have wrong "
         << " dimensionality (" << centroids.n_rows << ", should be "
         << data.n_rows << ")!" << std::endl;
 
@@ -674,12 +674,12 @@ Cluster(const MatType& data,
 
   if (iteration != maxIterations)
   {
-    Rcpp::Rcerr << "KMeans::Cluster(): converged after " << iteration
+    Rcpp::Rcout << "KMeans::Cluster(): converged after " << iteration
         << " iterations." << std::endl;
   }
   else
   {
-    Rcpp::Rcerr << "KMeans::Cluster(): terminated after limit of " << iteration
+    Rcpp::Rcout << "KMeans::Cluster(): terminated after limit of " << iteration
         << " iterations." << std::endl;
 
     // Recalculate final clusters.

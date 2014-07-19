@@ -153,6 +153,8 @@ BinarySpaceTree<BoundType, StatisticType, MatType>::BinarySpaceTree(
 {
   // Hopefully the vector is initialized correctly!  We can't check that
   // entirely but we can do a minor sanity check.
+  assert(oldFromNew.size() == data.n_cols);
+
   // Perform the actual splitting.
   SplitNode(data, oldFromNew);
 
@@ -180,6 +182,7 @@ BinarySpaceTree<BoundType, StatisticType, MatType>::BinarySpaceTree(
 {
   // Hopefully the vector is initialized correctly!  We can't check that
   // entirely but we can do a minor sanity check.
+  //Log::Assert(oldFromNew.size() == data.n_cols);
 
   // Perform the actual splitting.
   SplitNode(data, oldFromNew);
@@ -272,6 +275,8 @@ BinarySpaceTree<BoundType, StatisticType, MatType>::FindByBeginCount(
     size_t queryBegin,
     size_t queryCount) const
 {
+  //Log::Assert(queryBegin >= begin);
+  //Log::Assert(queryCount <= count);
 
   if (begin == queryBegin && count == queryCount)
     return this;
@@ -300,6 +305,8 @@ BinarySpaceTree<BoundType, StatisticType, MatType>::FindByBeginCount(
     const size_t queryBegin,
     const size_t queryCount)
 {
+  //mlpack::Log::Assert(begin >= queryBegin);
+  //mlpack::Log::Assert(count <= queryCount);
 
   if (begin == queryBegin && count == queryCount)
     return this;
@@ -623,6 +630,8 @@ size_t BinarySpaceTree<BoundType, StatisticType, MatType>::GetSplitIndex(
       right--;
   }
 
+  //Log::Assert(left == right + 1);
+
   return left;
 }
 
@@ -670,6 +679,8 @@ size_t BinarySpaceTree<BoundType, StatisticType, MatType>::GetSplitIndex(
     while ((data(splitDim, right) >= splitVal) && (left <= right))
       right--;
   }
+
+  //Log::Assert(left == right + 1);
 
   return left;
 }

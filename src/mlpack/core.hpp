@@ -148,7 +148,7 @@
  *   - Mudit Raj Gupta <mudit.raaj.gupta@gmail.com>
  *   - Sumedh Ghaisas <sumedhghaisas@gmail.com>
  */
-
+#include "Rcpp.h"
 // First, standard includes.
 #include <stdlib.h>
 #include <stdio.h>
@@ -157,7 +157,7 @@
 #include <limits.h>
 #include <float.h>
 #include <stdint.h>
-#include <iostream>
+//#include <iostream>
 
 // Defining _USE_MATH_DEFINES should set M_PI.
 #define _USE_MATH_DEFINES
@@ -181,15 +181,13 @@
   #define force_inline __forceinline
 #endif
 
-#include "Rcpp.h"
-
 // Now MLPACK-specific includes.
 #include <mlpack/core/arma_extend/arma_extend.hpp> // Includes Armadillo.
-#include <mlpack/core/util/string_util.hpp>
 //#include <mlpack/core/util/log.hpp>
 //#include <mlpack/core/util/cli.hpp>
 #include <mlpack/core/data/load.hpp>
 //#include <mlpack/core/data/save.hpp>
+#include <mlpack/core/util/string_util.hpp>
 #include <mlpack/core/data/normalize_labels.hpp>
 #include <mlpack/core/math/clamp.hpp>
 #include <mlpack/core/math/random.hpp>
