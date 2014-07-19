@@ -41,7 +41,7 @@ class PositiveDefiniteConstraint
     // TODO: make this more efficient.
     if (det(covariance) <= 1e-50)
     {
-      Log::Debug << "Covariance matrix is not positive definite.  Adding "
+      Rcpp::Rcout << "Covariance matrix is not positive definite.  Adding "
           << "perturbation." << std::endl;
 
       double perturbation = 1e-30;

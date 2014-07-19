@@ -169,7 +169,7 @@ bool L_BFGS<FunctionType>::LineSearch(double& functionValue,
   // If it is not a descent direction, just report failure.
   if (initialSearchDirectionDotGradient > 0.0)
   {
-    Log::Warn << "L-BFGS line search direction is not a descent direction "
+    Rcpp::Rcout << "L-BFGS line search direction is not a descent direction "
         << "(terminating)!" << std::endl;
     return false;
   }
@@ -388,13 +388,13 @@ double L_BFGS<FunctionType>::Optimize(arma::mat& iterate,
   for (size_t itNum = 0; optimizeUntilConvergence || (itNum != maxIterations);
        ++itNum)
   {
-    Log::Debug << "L-BFGS iteration " << itNum << "; objective " <<
+    Rcpp::Rcout << "L-BFGS iteration " << itNum << "; objective " <<
         function.Evaluate(iterate) << "." << std::endl;
 
     // Break when the norm of the gradient becomes too small.
     if (GradientNormTooSmall(gradient))
     {
-      Log::Debug << "L-BFGS gradient norm too small (terminating successfully)."
+      Rcpp::Rcout << "L-BFGS gradient norm too small (terminating successfully)."
           << std::endl;
       break;
     }
@@ -413,7 +413,7 @@ double L_BFGS<FunctionType>::Optimize(arma::mat& iterate,
     // Do a line search and take a step.
     if (!LineSearch(functionValue, iterate, gradient, searchDirection))
     {
-      Log::Debug << "Line search failed.  Stopping optimization." << std::endl;
+      Rcpp::Rcout << "Line search failed.  Stopping optimization." << std::endl;
       break; // The line search failed; nothing else to try.
     }
 
@@ -421,7 +421,7 @@ double L_BFGS<FunctionType>::Optimize(arma::mat& iterate,
     // In this case we terminate successfully.
     if (accu(iterate != oldIterate) == 0)
     {
-      Log::Debug << "L-BFGS step size of 0 (terminating successfully)."
+      Rcpp::Rcout << "L-BFGS step size of 0 (terminating successfully)."
           << std::endl;
       break;
     }

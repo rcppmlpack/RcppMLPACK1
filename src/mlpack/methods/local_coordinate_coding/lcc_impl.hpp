@@ -53,40 +53,40 @@ void LocalCoordinateCoding<DictionaryInitializer>::Encode(
 
   // Take the initial coding step, which has to happen before entering the main
   // loop.
-  Log::Info << "Initial Coding Step." << std::endl;
+  Rcpp::Rcout << "Initial Coding Step." << std::endl;
 
   OptimizeCode();
   arma::uvec adjacencies = find(codes);
 
-  Log::Info << "  Sparsity level: " << 100.0 * ((double)(adjacencies.n_elem)) /
+  Rcpp::Rcout << "  Sparsity level: " << 100.0 * ((double)(adjacencies.n_elem)) /
       ((double)(atoms * data.n_cols)) << "%.\n";
-  Log::Info << "  Objective value: " << Objective(adjacencies) << "."
+  Rcpp::Rcout << "  Objective value: " << Objective(adjacencies) << "."
       << std::endl;
 
   for (size_t t = 1; t != maxIterations; t++)
   {
-    Log::Info << "Iteration " << t << " of " << maxIterations << "."
+    Rcpp::Rcout << "Iteration " << t << " of " << maxIterations << "."
         << std::endl;
 
     // First step: optimize the dictionary.
-    Log::Info << "Performing dictionary step..." << std::endl;
+    Rcpp::Rcout << "Performing dictionary step..." << std::endl;
     OptimizeDictionary(adjacencies);
     double dsObjVal = Objective(adjacencies);
-    Log::Info << "  Objective value: " << Objective(adjacencies) << "."
+    Rcpp::Rcout << "  Objective value: " << Objective(adjacencies) << "."
         << std::endl;
 
     // Second step: perform the coding.
-    Log::Info << "Performing coding step..." << std::endl;
+    Rcpp::Rcout << "Performing coding step..." << std::endl;
     OptimizeCode();
     adjacencies = find(codes);
-    Log::Info << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
+    Rcpp::Rcout << "  Sparsity level: " << 100.0 * ((double) (adjacencies.n_elem))
         / ((double)(atoms * data.n_cols)) << "%.\n";
 
     // Terminate if the objective increased in the coding step.
     double curObjVal = Objective(adjacencies);
     if (curObjVal > dsObjVal)
     {
-      Log::Warn << "Objective increased in coding step!  Terminating."
+      Rcpp::Rcout << "Objective increased in coding step!  Terminating."
           << std::endl;
       break;
     }
@@ -94,12 +94,12 @@ void LocalCoordinateCoding<DictionaryInitializer>::Encode(
     // Find the new objective value and improvement so we can check for
     // convergence.
     double improvement = lastObjVal - curObjVal;
-    Log::Info << "Objective value: " << curObjVal << " (improvement "
+    Rcpp::Rcout << "Objective value: " << curObjVal << " (improvement "
         << std::scientific << improvement << ")." << std::endl;
 
     if (improvement < objTolerance)
     {
-      Log::Info << "Converged within tolerance " << objTolerance << ".\n";
+      Rcpp::Rcout << "Converged within tolerance " << objTolerance << ".\n";
       break;
     }
 
@@ -124,7 +124,7 @@ void LocalCoordinateCoding<DictionaryInitializer>::OptimizeCode()
     // report progress
     if ((i % 100) == 0)
     {
-      Log::Debug << "Optimization at point " << i << "." << std::endl;
+      Rcpp::Rcout << "Optimization at point " << i << "." << std::endl;
     }
 
     arma::vec invW = invSqDists.unsafe_col(i);
@@ -204,7 +204,7 @@ void LocalCoordinateCoding<DictionaryInitializer>::OptimizeDictionary(
 
   if (nInactiveAtoms > 0)
   {
-    Log::Warn << "There are " << nInactiveAtoms
+    Rcpp::Rcout << "There are " << nInactiveAtoms
         << " inactive atoms.  They will be re-initialized randomly.\n";
 
     // Create matrix holding only active codes.

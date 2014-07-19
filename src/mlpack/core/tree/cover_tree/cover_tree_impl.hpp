@@ -109,7 +109,7 @@ CoverTree<MetricType, RootPointPolicy, StatisticType>::CoverTree(
   // Initialize statistic.
   stat = StatisticType(*this);
 
-  Log::Info << distanceComps << " distance computations during tree "
+  Rcpp::Rcout << distanceComps << " distance computations during tree "
       << "construction." << std::endl;
 }
 
@@ -186,7 +186,7 @@ CoverTree<MetricType, RootPointPolicy, StatisticType>::CoverTree(
   // Initialize statistic.
   stat = StatisticType(*this);
 
-  Log::Info << distanceComps << " distance computations during tree "
+  Rcpp::Rcout << distanceComps << " distance computations during tree "
       << "construction." << std::endl;
 }
 
@@ -919,7 +919,6 @@ void CoverTree<MetricType, RootPointPolicy, StatisticType>::MoveToUsedSet(
   // Update used set size.
   usedSetSize += childUsedSetSize;
 
-  Log::Assert(originalSum == (nearSetSize + farSetSize + usedSetSize));
 }
 
 template<typename MetricType, typename RootPointPolicy, typename StatisticType>

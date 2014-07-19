@@ -58,7 +58,7 @@ void EMFit<InitialClusteringType, CovarianceConstraintPolicy>::Estimate(
 
   double l = LogLikelihood(observations, means, covariances, weights);
 
-  Log::Debug << "EMFit::Estimate(): initial clustering log-likelihood: "
+  Rcpp::Rcout << "EMFit::Estimate(): initial clustering log-likelihood: "
       << l << std::endl;
 
   double lOld = -DBL_MAX;
@@ -68,7 +68,7 @@ void EMFit<InitialClusteringType, CovarianceConstraintPolicy>::Estimate(
   size_t iteration = 1;
   while (std::abs(l - lOld) > tolerance && iteration != maxIterations)
   {
-    Log::Info << "EMFit::Estimate(): iteration " << iteration << ", "
+    Rcpp::Rcout << "EMFit::Estimate(): iteration " << iteration << ", "
         << "log-likelihood " << l << "." << std::endl;
 
     // Calculate the conditional probabilities of choosing a particular
@@ -144,7 +144,7 @@ void EMFit<InitialClusteringType, CovarianceConstraintPolicy>::Estimate(
 
   double l = LogLikelihood(observations, means, covariances, weights);
 
-  Log::Debug << "EMFit::Estimate(): initial clustering log-likelihood: "
+  Rcpp::Rcout << "EMFit::Estimate(): initial clustering log-likelihood: "
       << l << std::endl;
 
   double lOld = -DBL_MAX;
@@ -302,7 +302,7 @@ double EMFit<InitialClusteringType, CovarianceConstraintPolicy>::LogLikelihood(
   for (size_t j = 0; j < observations.n_cols; ++j)
   {
     if (accu(likelihoods.col(j)) == 0)
-      Log::Info << "Likelihood of point " << j << " is 0!  It is probably an "
+      Rcpp::Rcout << "Likelihood of point " << j << " is 0!  It is probably an "
           << "outlier." << std::endl;
     logLikelihood += log(accu(likelihoods.col(j)));
   }

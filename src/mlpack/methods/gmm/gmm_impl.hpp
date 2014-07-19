@@ -88,7 +88,7 @@ void GMM<FittingType>::Load(const std::string& filename)
   util::SaveRestoreUtility load;
 
   if (!load.ReadFile(filename))
-    Log::Fatal << "GMM::Load(): could not read file '" << filename << "'!\n";
+    Rcpp::Rcout << "GMM::Load(): could not read file '" << filename << "'!\n";
 
   load.LoadParameter(gaussians, "gaussians");
   load.LoadParameter(dimensionality, "dimensionality");
@@ -97,7 +97,7 @@ void GMM<FittingType>::Load(const std::string& filename)
   // We need to do a little error checking here.
   if (weights.n_elem != gaussians)
   {
-    Log::Fatal << "GMM::Load('" << filename << "'): file reports " << gaussians
+    Rcpp::Rcout << "GMM::Load('" << filename << "'): file reports " << gaussians
         << " gaussians but weights vector only contains " << weights.n_elem
         << " elements!" << std::endl;
   }
@@ -139,7 +139,7 @@ void GMM<FittingType>::Save(const std::string& filename) const
   }
 
   if (!save.WriteFile(filename))
-    Log::Warn << "GMM::Save(): error saving to '" << filename << "'.\n";
+    Rcpp::Rcout << "GMM::Save(): error saving to '" << filename << "'.\n";
 }
 
 /**
@@ -240,7 +240,7 @@ double GMM<FittingType>::Estimate(const arma::mat& observations,
 
     bestLikelihood = LogLikelihood(observations, means, covariances, weights);
 
-    Log::Info << "GMM::Estimate(): Log-likelihood of trial 0 is "
+    Rcpp::Rcout << "GMM::Estimate(): Log-likelihood of trial 0 is "
         << bestLikelihood << "." << std::endl;
 
     // Now the temporary model.
@@ -265,7 +265,7 @@ double GMM<FittingType>::Estimate(const arma::mat& observations,
       double newLikelihood = LogLikelihood(observations, meansTrial,
           covariancesTrial, weightsTrial);
 
-      Log::Info << "GMM::Estimate(): Log-likelihood of trial " << trial
+      Rcpp::Rcout << "GMM::Estimate(): Log-likelihood of trial " << trial
           << " is " << newLikelihood << "." << std::endl;
 
       if (newLikelihood > bestLikelihood)
@@ -281,7 +281,7 @@ double GMM<FittingType>::Estimate(const arma::mat& observations,
   }
 
   // Report final log-likelihood and return it.
-  Log::Info << "GMM::Estimate(): log-likelihood of trained GMM is "
+  Rcpp::Rcout << "GMM::Estimate(): log-likelihood of trained GMM is "
       << bestLikelihood << "." << std::endl;
   return bestLikelihood;
 }
@@ -331,7 +331,7 @@ double GMM<FittingType>::Estimate(const arma::mat& observations,
 
     bestLikelihood = LogLikelihood(observations, means, covariances, weights);
 
-    Log::Debug << "GMM::Estimate(): Log-likelihood of trial 0 is "
+    Rcpp::Rcout << "GMM::Estimate(): Log-likelihood of trial 0 is "
         << bestLikelihood << "." << std::endl;
 
     // Now the temporary model.
@@ -356,7 +356,7 @@ double GMM<FittingType>::Estimate(const arma::mat& observations,
       double newLikelihood = LogLikelihood(observations, meansTrial,
           covariancesTrial, weightsTrial);
 
-      Log::Debug << "GMM::Estimate(): Log-likelihood of trial " << trial
+      Rcpp::Rcout << "GMM::Estimate(): Log-likelihood of trial " << trial
           << " is " << newLikelihood << "." << std::endl;
 
       if (newLikelihood > bestLikelihood)
@@ -372,7 +372,7 @@ double GMM<FittingType>::Estimate(const arma::mat& observations,
   }
 
   // Report final log-likelihood and return it.
-  Log::Info << "GMM::Estimate(): log-likelihood of trained GMM is "
+  Rcpp::Rcout << "GMM::Estimate(): log-likelihood of trained GMM is "
       << bestLikelihood << "." << std::endl;
   return bestLikelihood;
 }

@@ -255,10 +255,10 @@ void FastMKS<KernelType, TreeType>::Search(const size_t k,
     // Save the number of pruned nodes.
     const size_t numPrunes = traverser.NumPrunes();
 
-    Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
+    Rcpp::Rcout << "Pruned " << numPrunes << " nodes." << std::endl;
 
-    Log::Info << rules.BaseCases() << " base cases." << std::endl;
-    Log::Info << rules.Scores() << " scores." << std::endl;
+    Rcpp::Rcout << rules.BaseCases() << " base cases." << std::endl;
+    Rcpp::Rcout << rules.Scores() << " scores." << std::endl;
 
     Timer::Stop("computing_products");
     return;
@@ -274,9 +274,9 @@ void FastMKS<KernelType, TreeType>::Search(const size_t k,
 
   const size_t numPrunes = traverser.NumPrunes();
 
-  Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
-  Log::Info << rules.BaseCases() << " base cases." << std::endl;
-  Log::Info << rules.Scores() << " scores." << std::endl;
+  Rcpp::Rcout << "Pruned " << numPrunes << " nodes." << std::endl;
+  Rcpp::Rcout << rules.BaseCases() << " base cases." << std::endl;
+  Rcpp::Rcout << rules.Scores() << " scores." << std::endl;
 
   Timer::Stop("computing_products");
   return;
@@ -322,7 +322,7 @@ void FastMKS<kernel::GaussianKernel>::Search(const size_t k,
                                              arma::Mat<size_t>& indices,
                                              arma::mat& products)
 {
-  Log::Warn << "Alternate implementation!" << std::endl;
+  Rcpp::Rcout << "Alternate implementation!" << std::endl;
 
   // Terrible copypasta.  Bad bad bad.
   // No remapping will be necessary.
@@ -359,7 +359,7 @@ void FastMKS<kernel::GaussianKernel>::Search(const size_t k,
 
     Timer::Stop("computing_products");
 
-    Log::Info << "Kernel evaluations: " << kernelEvaluations << "." << std::endl;
+    Rcpp::Rcout << "Kernel evaluations: " << kernelEvaluations << "." << std::endl;
     return;
   }
 
@@ -394,7 +394,7 @@ void FastMKS<kernel::GaussianKernel>::Search(const size_t k,
       nextFrame.node = referenceTree;
       nextFrame.eval = metric.Kernel().Evaluate(querySet.unsafe_col(queryIndex),
           referenceSet.unsafe_col(referenceTree->Point()));
-      Log::Assert(nextFrame.eval <= 1);
+      
       ++kernelEvaluations;
 
       // The initial evaluation will be the best so far.
@@ -515,10 +515,10 @@ void FastMKS<kernel::GaussianKernel>::Search(const size_t k,
       }
     }
 
-    Log::Info << "Pruned " << numPrunes << " nodes." << std::endl;
-    Log::Info << "Kernel evaluations: " << kernelEvaluations << "."
+    Rcpp::Rcout << "Pruned " << numPrunes << " nodes." << std::endl;
+    Rcpp::Rcout << "Kernel evaluations: " << kernelEvaluations << "."
         << std::endl;
-    Log::Info << "Distance evaluations: " << distanceEvaluations << "."
+    Rcpp::Rcout << "Distance evaluations: " << distanceEvaluations << "."
         << std::endl;
 
     Timer::Stop("computing_products");
@@ -526,7 +526,7 @@ void FastMKS<kernel::GaussianKernel>::Search(const size_t k,
   }
 
   // Double-tree implementation.
-  Log::Fatal << "Dual-tree search not implemented yet... oops..." << std::endl;
+  Rcpp::Rcout << "Dual-tree search not implemented yet... oops..." << std::endl;
 
 }
 */

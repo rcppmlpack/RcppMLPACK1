@@ -473,8 +473,6 @@ math::Range PeriodicHRectBound<t_pow>::RangeDistance(
   double sum_lo = 0;
   double sum_hi = 0;
 
-  //Log::Assert(point.n_elem == dim);
-
   double v1, v2, v_lo, v_hi;
   for (size_t d = 0; d < dim; d++)
   {
@@ -510,8 +508,6 @@ math::Range PeriodicHRectBound<t_pow>::RangeDistance(
   double sum_lo = 0;
   double sum_hi = 0;
 
-  //Log::Assert(dim == other.dim);
-
   double v1, v2, v_lo, v_hi;
   for (size_t d = 0; d < dim; d++)
   {
@@ -544,7 +540,6 @@ template<int t_pow>
 PeriodicHRectBound<t_pow>& PeriodicHRectBound<t_pow>::operator|=(
     const arma::vec& vector)
 {
-  //Log::Assert(vector.n_elem == dim);
 
   for (size_t i = 0; i < dim; i++)
     bounds[i] |= vector[i];
@@ -559,7 +554,6 @@ template<int t_pow>
 PeriodicHRectBound<t_pow>& PeriodicHRectBound<t_pow>::operator|=(
     const PeriodicHRectBound& other)
 {
-  //Log::Assert(other.dim == dim);
 
   for (size_t i = 0; i < dim; i++)
     bounds[i] |= other.bounds[i];

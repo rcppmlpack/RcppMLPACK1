@@ -152,15 +152,15 @@ void DualTreeBoruvka<MetricType, TreeType>::ComputeMST(arma::mat& results)
 
     Cleanup();
 
-    Log::Info << edges.size() << " edges found so far." << std::endl;
-    Log::Info << traverser.NumPrunes() << " nodes pruned." << std::endl;
+    Rcpp::Rcout << edges.size() << " edges found so far." << std::endl;
+    Rcpp::Rcout << traverser.NumPrunes() << " nodes pruned." << std::endl;
   }
 
   Timer::Stop("emst/mst_computation");
 
   EmitResults(results);
 
-  Log::Info << "Total spanning tree length: " << totalDist << std::endl;
+  Rcpp::Rcout << "Total spanning tree length: " << totalDist << std::endl;
 } // ComputeMST
 
 /**
@@ -171,8 +171,7 @@ void DualTreeBoruvka<MetricType, TreeType>::AddEdge(const size_t e1,
                                         const size_t e2,
                                         const double distance)
 {
-  Log::Assert((distance >= 0.0),
-      "DualTreeBoruvka::AddEdge(): distance cannot be negative.");
+
 
   if (e1 < e2)
     edges.push_back(EdgePair(e1, e2, distance));
@@ -211,7 +210,6 @@ void DualTreeBoruvka<MetricType, TreeType>::EmitResults(arma::mat& results)
   // Sort the edges.
   std::sort(edges.begin(), edges.end(), SortFun);
 
-  Log::Assert(edges.size() == data.n_cols - 1);
   results.set_size(3, edges.size());
 
   // Need to unpermute the point labels.
@@ -284,7 +282,7 @@ void DualTreeBoruvka<MetricType, TreeType>::CleanupHelper(TreeType* tree)
       if (newMembership != connections.Find(i))
       {
         newMembership = -1;
-        Log::Assert(tree->Stat().ComponentMembership() < 0);
+
         return;
       }
     }

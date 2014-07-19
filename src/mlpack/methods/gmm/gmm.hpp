@@ -113,7 +113,7 @@ class GMM
     // Warn the user.  They probably don't want to do this.  If this constructor
     // is being used (because it is required by some template classes), the user
     // should know that it is potentially dangerous.
-    Log::Debug << "GMM::GMM(): no parameters given; Estimate() may fail "
+    Rcpp::Rcout << "GMM::GMM(): no parameters given; Estimate() may fail "
         << "unless parameters are set." << std::endl;
   }
 

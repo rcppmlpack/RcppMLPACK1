@@ -55,8 +55,7 @@ class EdgePair
   EdgePair(const size_t lesser, const size_t greater, const double dist) :
       lesser(lesser), greater(greater), distance(dist)
   {
-    Log::Assert(lesser != greater,
-        "EdgePair::EdgePair(): indices cannot be equal.");
+    
   }
 
   //! Get the lesser index.

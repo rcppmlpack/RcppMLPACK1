@@ -66,7 +66,6 @@ double DTBRules<MetricType, TreeType>::BaseCase(const size_t queryIndex,
 
     if (distance < neighborsDistances[queryComponentIndex])
     {
-      Log::Assert(queryIndex != referenceIndex);
 
       neighborsDistances[queryComponentIndex] = distance;
       neighborsInComponent[queryComponentIndex] = queryIndex;
@@ -76,8 +75,6 @@ double DTBRules<MetricType, TreeType>::BaseCase(const size_t queryIndex,
 
   if (newUpperBound < neighborsDistances[queryComponentIndex])
     newUpperBound = neighborsDistances[queryComponentIndex];
-
-  Log::Assert(newUpperBound >= 0.0);
 
   return newUpperBound;
 }

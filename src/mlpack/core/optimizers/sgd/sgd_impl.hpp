@@ -71,19 +71,19 @@ double SGD<DecomposableFunctionType>::Optimize(arma::mat& iterate)
     if ((currentFunction % numFunctions) == 0)
     {
       // Output current objective function.
-      Log::Info << "SGD: iteration " << i << ", objective " << overallObjective
+      Rcpp::Rcout << "SGD: iteration " << i << ", objective " << overallObjective
           << "." << std::endl;
 
       if (overallObjective != overallObjective)
       {
-        Log::Warn << "SGD: converged to " << overallObjective << "; terminating"
+        Rcpp::Rcout << "SGD: converged to " << overallObjective << "; terminating"
             << " with failure.  Try a smaller step size?" << std::endl;
         return overallObjective;
       }
 
       if (std::abs(lastObjective - overallObjective) < tolerance)
       {
-        Log::Info << "SGD: minimized within tolerance " << tolerance << "; "
+        Rcpp::Rcout << "SGD: minimized within tolerance " << tolerance << "; "
             << "terminating optimization." << std::endl;
         return overallObjective;
       }
@@ -107,7 +107,7 @@ double SGD<DecomposableFunctionType>::Optimize(arma::mat& iterate)
     overallObjective += function.Evaluate(iterate, currentFunction);
   }
 
-  Log::Info << "SGD: maximum iterations (" << maxIterations << ") reached; "
+  Rcpp::Rcout << "SGD: maximum iterations (" << maxIterations << ") reached; "
       << "terminating optimization." << std::endl;
   return overallObjective;
 }

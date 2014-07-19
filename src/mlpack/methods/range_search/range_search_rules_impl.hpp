@@ -65,7 +65,7 @@ double RangeSearchRules<MetricType, TreeType>::BaseCase(
     return 0.0; // No value to return... this shouldn't do anything bad.
 
 //  if (queryIndex == 0 && referenceIndex == 0)
-//    Log::Warn << "base case 0 0 called!\n";
+
 
   const double distance = metric.Evaluate(querySet.unsafe_col(queryIndex),
       referenceSet.unsafe_col(referenceIndex));

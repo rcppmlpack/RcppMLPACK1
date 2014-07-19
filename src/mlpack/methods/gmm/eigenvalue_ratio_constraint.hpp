@@ -47,17 +47,17 @@ class EigenvalueRatioConstraint
   {
     // Check validity of ratios.
     if (std::abs(ratios[0] - 1.0) > 1e-20)
-      Log::Fatal << "EigenvalueRatioConstraint::EigenvalueRatioConstraint(): "
+      Rcpp::Rcout << "EigenvalueRatioConstraint::EigenvalueRatioConstraint(): "
           << "first element of ratio vector is not 1.0!" << std::endl;
 
     for (size_t i = 1; i < ratios.n_elem; ++i)
     {
       if (ratios[i] > 1.0)
-        Log::Fatal << "EigenvalueRatioConstraint::EigenvalueRatioConstraint(): "
+        Rcpp::Rcout << "EigenvalueRatioConstraint::EigenvalueRatioConstraint(): "
             << "element " << i << " of ratio vector is greater than 1.0!"
             << std::endl;
       if (ratios[i] < 0.0)
-        Log::Warn << "EigenvalueRatioConstraint::EigenvalueRatioConstraint(): "
+        Rcpp::Rcout << "EigenvalueRatioConstraint::EigenvalueRatioConstraint(): "
             << "element " << i << " of ratio vectors is negative and will "
             << "probably cause the covariance to be non-invertible..."
             << std::endl;

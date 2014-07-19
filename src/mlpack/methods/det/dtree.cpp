@@ -207,7 +207,6 @@ bool DTree::FindSplit(const arma::mat& data,
       {
         // Ensure that the right node will have at least the minimum number of
         // points.
-        //Log::Assert((points - i - 1) >= minLeafSize);
 
         // Now we have to see if the error will be reduced.  Simple manipulation
         // of the error function gives us the condition we must satisfy:
@@ -291,8 +290,6 @@ double DTree::Grow(arma::mat& data,
                    const size_t maxLeafSize,
                    const size_t minLeafSize)
 {
-  //Log::Assert(data.n_rows == maxVals.n_elem);
-  //Log::Assert(data.n_rows == minVals.n_elem);
 
   double leftG, rightG;
 
@@ -520,8 +517,6 @@ double DTree::PruneAndUpdate(const double oldAlpha,
         gT = alphaUpper - std::log((double) (subtreeLeaves - 1));
       }
 
-      //Log::Assert(gT < std::numeric_limits<double>::max());
-
       return std::min((double) gT, std::min(leftG, rightG));
     }
     else
@@ -560,7 +555,6 @@ bool DTree::WithinRange(const arma::vec& query) const
 
 double DTree::ComputeValue(const arma::vec& query) const
 {
-  //Log::Assert(query.n_elem == maxVals.n_elem);
 
   if (root == 1) // If we are the root...
   {
@@ -635,7 +629,6 @@ int DTree::TagTree(const int tag)
 
 int DTree::FindBucket(const arma::vec& query) const
 {
-  //Log::Assert(query.n_elem == maxVals.n_elem);
 
   if (subtreeLeaves == 1) // If we are a leaf...
   {

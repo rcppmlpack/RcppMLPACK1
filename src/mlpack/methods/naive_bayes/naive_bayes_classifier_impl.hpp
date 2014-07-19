@@ -46,7 +46,7 @@ NaiveBayesClassifier<MatType>::NaiveBayesClassifier(
   means.zeros(dimensionality, classes);
   variances.zeros(dimensionality, classes);
 
-  Log::Info << "Training Naive Bayes classifier on " << data.n_cols
+  Rcpp::Rcout<< "Training Naive Bayes classifier on " << data.n_cols
       << " examples with " << dimensionality << " features each." << std::endl;
 
   // Calculate the class probabilities as well as the sample mean and variance
@@ -79,13 +79,12 @@ void NaiveBayesClassifier<MatType>::Classify(const MatType& data,
 {
   // Check that the number of features in the test data is same as in the
   // training data.
-  Log::Assert(data.n_rows == means.n_rows);
 
   arma::vec probs(means.n_cols);
 
   results.zeros(data.n_cols);
 
-  Log::Info << "Running Naive Bayes classifier on " << data.n_cols
+  Rcpp::Rcout<< "Running Naive Bayes classifier on " << data.n_cols
       << " data points with " << data.n_rows << " features each." << std::endl;
 
   // Calculate the joint probability for each of the data points for each of the

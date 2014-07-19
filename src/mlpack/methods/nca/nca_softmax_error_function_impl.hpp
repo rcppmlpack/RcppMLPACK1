@@ -85,7 +85,7 @@ double SoftmaxErrorFunction<MetricType>::Evaluate(const arma::mat& coordinates,
   // denominator is not 0.
   if (denominator == 0.0)
   {
-    Log::Warn << "Denominator of p_" << i << " is 0!" << std::endl;
+    Rcpp::Rcout << "Denominator of p_" << i << " is 0!" << std::endl;
     return 0;
   }
 
@@ -193,7 +193,7 @@ void SoftmaxErrorFunction<MetricType>::Gradient(const arma::mat& coordinates,
   double p = 0;
   if (denominator == 0)
   {
-    Log::Warn << "Denominator of p_" << i << " is 0!" << std::endl;
+    Rcpp::Rcout << "Denominator of p_" << i << " is 0!" << std::endl;
     // If the denominator is zero, then all p_ik should be zero and there is
     // no gradient contribution from this point.
     gradient.zeros(coordinates.n_rows, coordinates.n_rows);
@@ -270,7 +270,7 @@ void SoftmaxErrorFunction<MetricType>::Precalculate(
   {
     if (denominators[i] == 0.0)
     {
-      Log::Debug << "Denominator of p_{" << i << ", j} is 0." << std::endl;
+      Rcpp::Rcout << "Denominator of p_{" << i << ", j} is 0." << std::endl;
 
       // Set to usable values.
       denominators[i] = std::numeric_limits<double>::infinity();

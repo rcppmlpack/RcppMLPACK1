@@ -169,11 +169,6 @@ DTree* mlpack::det::Trainer(arma::mat& dataset,
     oldAlpha = alpha;
     alpha = dtree->PruneAndUpdate(oldAlpha, dataset.n_cols, useVolumeReg);
 
-    // Some sanity checks.
-    //Log::Assert((alpha < std::numeric_limits<double>::max()) ||
-    //    (dtree->SubtreeLeaves() == 1));
-    //Log::Assert(alpha > oldAlpha);
-    //Log::Assert(dtree->SubtreeLeavesLogNegError() < treeSeq.second);
   }
 
   std::pair<double, double> treeSeq(oldAlpha,
@@ -304,10 +299,7 @@ DTree* mlpack::det::Trainer(arma::mat& dataset,
     oldAlpha = alpha;
     alpha = dtreeOpt->PruneAndUpdate(oldAlpha, newDataset.n_cols, useVolumeReg);
 
-    // Some sanity checks.
-    //Log::Assert((alpha < std::numeric_limits<double>::max()) ||
-    //    (dtreeOpt->SubtreeLeaves() == 1));
-    //Log::Assert(alpha > oldAlpha);
+
   }
 
   Rcpp::Rcout << dtreeOpt->SubtreeLeaves() << " leaf nodes in the optimally "
