@@ -148,7 +148,7 @@
  *   - Mudit Raj Gupta <mudit.raaj.gupta@gmail.com>
  *   - Sumedh Ghaisas <sumedhghaisas@gmail.com>
  */
-#include "Rcpp.h"
+#include <RcppArmadillo.h>
 // First, standard includes.
 #include <stdlib.h>
 #include <stdio.h>
