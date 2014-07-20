@@ -7,6 +7,5 @@ Author: Qiang Kou
 Maintainer: Qiang Kou <qkou@umail.iu.edu>
 Description: R and MLPACK integration using Rcpp
 License: GPL (>= 2)
-LazyLoad: yes
-Depends: Rcpp, RcppArmadillo, BH
+Imports: Rcpp (>= 0.11.2)
 LinkingTo: Rcpp, RcppArmadillo, BH
