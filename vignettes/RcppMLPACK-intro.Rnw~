@@ -26,8 +26,6 @@
     captionpos=b,
     aboveskip=1em,
 }
-\usepackage{indentfirst}
-\setlength{\parindent}{2em}
 \linespread{1.2}
 \begin{document}
 
@@ -57,20 +55,18 @@ RcppArmadillo\cite{eddelbuettel2014rcpparmadillo}
 \begin{itemize}
 \item Fast Hierarchical Clustering (Euclidean Minimum Spanning Trees)
 \item Gaussian Mixture Models (trained via EM)
-\item Hidden Markov Models (training, prediction, and classification)
-\item Kernel Principal Components Analysis
-\item K-Means clustering
-\item LARS/Lasso Regression
-\item Least-squares Linear Regression
-\item Maximum Variance Unfolding (using LRSDP)
-\item Naive Bayes Classifier
-\item Neighborhood Components Analysis (using LRSDP)
-\item RADICAL (Robust, Accurate, Direct ICA aLgorithm)
-\item Tree-based k-nearest-neighbors search and classifier
-\item Tree-based range search
+\item  Hidden Markov Models (training, prediction, and classiﬁcation)
+\item  Kernel Principal Components Analysis
+\item  K-Means clustering
+\item  LARS/Lasso Regression
+\item  Least-squares Linear Regression
+\item  Maximum Variance Unfolding (using LRSDP)
+\item  Naive Bayes Classiﬁer
+\item  Neighborhood Components Analysis (using LRSDP)
+\item  RADICAL (Robust, Accurate, Direct ICA aLgorithm)
+\item  Tree-based k-nearest-neighbors search and classiﬁer
+\item  Tree-based range search
 \end{itemize}
-
-\url{http://www.mlpack.org/tutorial.html}
 
 \section{Examples}
 
@@ -100,8 +96,6 @@ List ridge(const arma::mat& data, const arma::vec& responses, const int& lambda)
 \section{Performance}
 
 \section{Acknowledgement}
-
-\url{https://github.com/thirdwing/RcppMLPACK}
 
 \bibliography{ref}
 \bibliographystyle{unsrt}
