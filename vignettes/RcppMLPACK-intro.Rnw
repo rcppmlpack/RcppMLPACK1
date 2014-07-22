@@ -41,18 +41,10 @@
 
 \section{Introduction}
 
-MLPACL\cite{curtin2013mlpack} is a scalable C++ machine learning library.
-
-Rcpp\cite{Eddelbuettel:Francois:2011:JSSOBK:v40i08}
+MLPACK~\cite{curtin2013mlpack} is a C++ machine learning library with emphasis on scalability, speed, and ease-of-use. It outperforms competing machine learning libraries by large margins, for detailed results of benchmarking, please refer to Ref~\cite{curtin2013mlpack}.
 
 
-\section{Input/Ouput using Armadillo}
-
-Armadillo\cite{arma}
-
-RcppArmadillo\cite{eddelbuettel2014rcpparmadillo}
-
-\section{Available algorithms}
+\subsection{Available algorithms in MLPACK}
 
 \begin{itemize}
 \item Fast Hierarchical Clustering (Euclidean Minimum Spanning Trees)
@@ -71,6 +63,16 @@ RcppArmadillo\cite{eddelbuettel2014rcpparmadillo}
 \end{itemize}
 
 \url{http://www.mlpack.org/tutorial.html}
+
+Rcpp\cite{Eddelbuettel:Francois:2011:JSSOBK:v40i08}
+
+
+\section{Input/Ouput using Armadillo}
+
+Armadillo\cite{arma}
+
+RcppArmadillo\cite{eddelbuettel2014rcpparmadillo}
+
 
 \section{Examples}
 
