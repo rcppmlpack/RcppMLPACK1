@@ -2,7 +2,7 @@
 \alias{mlKmeans}
 \title{kmeans from MLPACK}
 \description{
-  kmeans from MLPACK.
+  kmeans example for using MLPACK with R.
 }
 \usage{
 mlKmeans(X, y)
@@ -12,14 +12,16 @@ mlKmeans(X, y)
   \item{y}{number of clusters.}
 }
 \details{
-  kmeans from MLPACK.
+  This is a kmeans example using RcppMLPACK. It uses the Kmeans method in MLPACK and integrates with R.
 }
 \value{
   \code{mlKmeans} returns a list with cluster assignment:
 }
 \references{MLPACK project: \url{http://www.mlpack.org/}}
 \author{
-  MLPACK is written by Ryan Curtin. RcppMLPACK is written by Qiang Kou.
+  For RcppMLPACK: Qiang Kou
+  
+  For MLPACK: Ryan Curtin
 }
 \examples{
   data(trees, package="datasets")

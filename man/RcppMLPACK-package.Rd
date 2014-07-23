@@ -3,17 +3,17 @@
 \alias{RcppMLPACK}
 \docType{package}
 \title{
-  Rcpp/MLPACK bridge
+  R integration with MLPACK using Rcpp
 }
 \description{
-  The package eases the integration of MLPACK types with Rcpp.
+  The package eases the integration of MLPACK types with R.
 }
 \author{
   For RcppMLPACK: Qiang Kou
-	
+  
+  For MLPACK: Ryan Curtin	
+  
   Maintainer: Qiang Kou <qkou@umail.iu.edu>
-
-  For MLPACK: Ryan Curtin
 }
 \references{
   MLPACK project: \url{http://www.mlpack.org/}

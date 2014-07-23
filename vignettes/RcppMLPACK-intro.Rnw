@@ -1,9 +1,12 @@
 \documentclass[letterpaper]{article}
+%\VignetteIndexEntry{RcppMLPACK-introduction}
+%\VignetteKeywords{R, C++, Armadillo, MLPACK, machine learning}
+%\VignettePackage{RcppMLPACK}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath,amsthm, amsfonts, array}
 \usepackage{graphicx,booktabs,xcolor,color}
 \usepackage{geometry}
-\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\geometry{left=2.5cm,right=2.5cm,top=2.3cm,bottom=2.3cm}
 \usepackage{url}
 \usepackage{amsmath}
 \usepackage{multirow}
@@ -42,30 +45,36 @@
 
 \section{MLPACK}
 
-MLPACK~\cite{curtin2013mlpack} is a C++ machine learning library with emphasis on scalability, speed, and ease-of-use. It outperforms competing machine learning libraries by large margins, for detailed results of benchmarking, please refer to Ref~\cite{curtin2013mlpack}.
+MLPACK\cite{curtin2013mlpack} is a C++ machine learning library with emphasis on scalability, speed, and ease-of-use. It outperforms competing machine learning libraries by large margins, for detailed results of benchmarking, please refer to Ref\cite{curtin2013mlpack}.
 
-\subsection{Input/Ouput using Armadillo}
-Armadillo~\cite{arma}
+\subsection{Input/Output using Armadillo}
+MLPACK uses Armadillo as input and output, which provides vector, matrix and cube types (integer, floating point and complex numbers are supported)\cite{arma}. By providing Matlab-like syntax and various matrix decompositions through integration with LAPACK or other high performance libraries (such as Intel MKL, AMD ACML, or OpenBLAS), Armadillo keeps a good balance between speed and ease of use. 
 
-Armadillo matrices are stored in a column-major format; this means that on disk, each column is located in contiguous memory.
+Armadillo is widely used in C++ libraries like MLPACK. However, there is one point we need to pay attention to: Armadillo matrices in MLPACK are stored in a column-major format for speed. That means observations are stored as columns and dimensions as rows. 
+So when using MLPACK, additional transpose may be needed.
 
 \subsection{Simple API}
+Although MLPACK relies on template techniques in C++,
+it provides an intuitive and simple API.
+For the standard usage of methods,
+default arguments are provided.
 
-
-the following line initializes an object which will perform the standard k-means clustering in Euclidean space
-
-\begin{lstlisting}[caption={k-means example}, language=C++]
+The MLPACK paper\cite{curtin2013mlpack} provides a good example: standard k-means clustering in Euclidean space can be initialized like below:
+\begin{lstlisting}[caption={k-means with all default arguments}, language=C++]
 KMeans<> k();
 \end{lstlisting}
-
-
-Manhattan distance, a different cluster initialization policy, and allow empty clusters
-
-\begin{lstlisting}[caption={k-means example}, language=C++]
+If we want to use Manhattan distance, a different cluster initialization policy, and allow empty clusters,
+the object can be initialized with additional arguments:
+\begin{lstlisting}[caption={k-means with additional arguments}, language=C++]
 KMeans<ManhattanDistance, KMeansPlusPlusInitialization, AllowEmptyClusters> k();
 \end{lstlisting}
 
-\subsection{Available algorithms in MLPACK}
+\subsection{Available methods in MLPACK}
+
+Commonly used machine learning methods are all implemented in MLPACK.
+Besides, it contains a strong set of tree-building and tree-query routines.
+
+Available methods in MLPACK:
 
 \begin{itemize}
 \item Fast Hierarchical Clustering (Euclidean Minimum Spanning Trees)
@@ -77,27 +86,29 @@ KMeans<ManhattanDistance, KMeansPlusPlusInitialization, AllowEmptyClusters> k();
 \item Least-squares Linear Regression
 \item Maximum Variance Unfolding (using LRSDP)
 \item Naive Bayes Classifier
-\item Neighborhood Components Analysis (using LRSDP)
+\item Neighbourhood Components Analysis (using LRSDP)
 \item RADICAL (Robust, Accurate, Direct ICA aLgorithm)
-\item Tree-based k-nearest-neighbors search and classifier
+\item Tree-based k-nearest-neighbours search and classifier
 \item Tree-based range search
 \end{itemize}
 
-For the details of each algorithm and usage, please vist the tutorial page of MLPACK (\url{http://www.mlpack.org/tutorial.html}).
-
-
-
+For the details of each algorithm and usage, please visit the tutorial page of MLPACK (\url{http://www.mlpack.org/tutorial.html}).
 
 
 \section{RcppMLPACK}
 
 \subsection{Rcpp and RcppArmadillo}
-Rcpp~\cite{Eddelbuettel:Francois:2011:JSSOBK:v40i08} 
 
-RcppArmadillo~\cite{eddelbuettel2014rcpparmadillo}
+As said above, MLPACK is a C++ library using Armadillo.
+Since we \textbf{Rcpp}\cite{Eddelbuettel:Francois:2011:JSSOBK:v40i08} and \textbf{RcppArmadillo}\cite{eddelbuettel2014rcpparmadillo},
+which can used to integrate C++ and Armadillo with R seamlessly,
+\textbf{RcppMLPACK} becomes something very natural.
+
 \subsection{k-means example}
 
-\begin{lstlisting}[caption={k-means example}, language=C++]
+Here we continue the k-means example above. By using \textbf{RcppMLPACK}, a k-means method which can be called by R can be implemented like Listing \ref{kmeans}. The interfere between R and C++ is handled by \textbf{Rcpp} and \textbf{RcppArmadillo}.
+
+\begin{lstlisting}[caption={k-means example}, language=C++, label={kmeans}]
 #include "RcppMLPACK.h"
 
 using namespace mlpack::kmeans;
@@ -118,6 +129,13 @@ List kmeans(const arma::mat& data, const int& clusters) {
 }
 \end{lstlisting}
 
+\subsection{Using inline package}
+
+\textbf{inline}\cite{inline} package provides a complete
+wrapper around the compilation, linking, and loading steps.
+So all the steps can be done in an R session.
+There is no reason that \textbf{RcppMLPACK} doesn't support the inline compilation.
+
 \begin{lstlisting}[caption={k-means example, inline version}, language=R]
 library(inline)
 library(RcppMLPACK)
@@ -136,7 +154,12 @@ data(trees, package="datasets")
 mlKmeans(t(trees), 3)
 \end{lstlisting}
 
+As said above, MLPACK uses a column-major format of matrix, so when we pass data from R to MLPACK, a transpose may be needed.
+
 \subsection{RcppMLPACK.package.skeleton}
+
+The package also contains a \texttt{RcppMLPACK.package.skeleton()} function for people who want to
+use MLPACK code in their own package. It follows the structure of \texttt{RcppArmadillo.package.skeleton()}.
 
 \begin{lstlisting}[caption={RcppMLPACK.package.skeleton}, language=R]
 library(RcppMLPACK)
@@ -160,7 +183,7 @@ Adding RcppMLPACK settings
  >> invoked Rcpp::compileAttributes to create wrappers
 \end{lstlisting}
 
-\textbf{inline}~\cite{inline}
+By using \texttt{RcppMLPACK.package.skeleton()}, a package skeleton is generated and files are list below.
 
 \begin{lstlisting}[caption={RcppMLPACK.package.skeleton result}, language=R]
 system("ls -R foobar")
@@ -177,9 +200,12 @@ foobar/src:
 kmeans.cpp  Makevars  Makevars.win  RcppExports.cpp
 \end{lstlisting}
 
-\subsection{Processing files on disk directly}
+\subsection{Processing files on disk}
 
-\texttt{mlpack::data::Load()} and \texttt{mlpack::data::Save()}
+MLPACK contains two functions, \texttt{mlpack::data::Load()} and \texttt{mlpack::data::Save()}.
+They are used into load and save matrix from files.
+These can be really useful, since reading large files into R can be a nightmare.
+We can just pass the file names from R to C++, not read them first.
 
 \begin{lstlisting}[caption={Reading and writing files on disk}, language=C++]
 std::string inputFile = Rcpp::as<std::string>(input);
@@ -193,11 +219,13 @@ k.Cluster(data, clusters, assignments);
 arma::Mat<size_t> out = trans(assignments);
 mlpack::data::Save(outputFile, out);
 \end{lstlisting}
+
 \subsection{Performance}
 
-Wine data set from UCI data sets repository, you can download it from \url{https://archive.ics.uci.edu/ml/datasets/Wine}.
-
-rbenchmark~\cite{rbenchmark}
+Even without a performance testing, we are still sure the C++ implementations should be faster.
+A small wine data set from UCI data sets repository is used for benchmarking, 
+you can download it from \url{https://archive.ics.uci.edu/ml/datasets/Wine}.
+\textbf{rbenchmark}\cite{rbenchmark} package is also used.
 
 \begin{lstlisting}[caption={Benchmarking script}, language=R]
 suppressMessages(library(rbenchmark))
@@ -207,9 +235,9 @@ res <- benchmark(mlKmeans(t(wine),3),
                  "relative", "user.self", "sys.self"), order="relative")
 \end{lstlisting}
 
-\begin{table}
+\begin{table}[h!]
 \centering
-\caption{Benchmarking results}
+\caption{Benchmarking result}
 \begin{tabular}{rrrrrr}
 \hline 
 test & replications & elapsed & relative & user.self & sys.self \\ [0.3ex]
@@ -220,10 +248,16 @@ mlKmeans(t(wine), 3) &         100&   0.028 &   1.000&     0.028  &  0.000\\
 \end{tabular}
 \end{table}
 
+From benchmarking result, we can see that MLPACK version of k-means is 33-time faster than \texttt{kmeans()} in R.
+However, we should note that R returns more information than the clustering result and there are much more checking functions in R.
 
-\section{Acknowledgement}
+\section*{Acknowledgement}
 
-\url{https://github.com/thirdwing/RcppMLPACK}
+Very special thank you to developers of Rcpp and MLPACK.
+Also huge thanks to people on Rcpp-devel for the help.
+Testing and bugs reports are deeply welcome.
+If you have any questions, you can always find me by email (\url{qkou@umail.iu.edu}), or open
+issues on \url{https://github.com/thirdwing/RcppMLPACK}.
 
 \bibliography{ref}
 \bibliographystyle{unsrt}
@@ -232,10 +266,24 @@ mlKmeans(t(wine), 3) &         100&   0.028 &   1.000&     0.028  &  0.000\\
 
 \section{Modifications on original MLPACK library}
 
+To avoid the maintenance tasks, we try to minimize the modification on MLPACK.
+However, for the integration and pass \texttt{R CMD check}, there are some changes we have to make.
+There is no changes in the methods, all modifications are in utility classes and done by a script.
+
 \subsection*{\texttt{Log} class}
+
+\texttt{Log} class provides four levels of log information. The logging functions are replaced with \texttt{Rcpp::Rcout} to redirect the output stream to R session.
+
+\subsection*{\texttt{cli} class}
+
+\texttt{cli} class is used to parse the command line arguments. It relies on \texttt{boost::program\_options} which requires additional linking. Since all arguments are passed from R, this class is removed.
+
+\subsection*{\texttt{SaveRestoreUtility} class}
+
+\texttt{SaveRestoreUtility} class is used to store and restore MLPACK models from XML files. This class has been removed to avoid additional linking to libxml2.
 
 \subsection*{\texttt{Timer} class}
 
-\subsection*{\texttt{cli} class}
+In many methods, \texttt{Timer} class is used for timing and print information into log. This class has been commented.
 
 \end{document}

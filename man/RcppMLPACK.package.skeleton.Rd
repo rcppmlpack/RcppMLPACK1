@@ -1,7 +1,7 @@
 \name{RcppMLPACK.package.skeleton}
 \alias{RcppMLPACK.package.skeleton}
 \title{
-Create a skeleton for a new package that intends to use RcppArmadillo
+Create a skeleton for a new package that intends to use RcppMLPACK
 }
 \description{
 	\code{RcppMLPACK.package.skeleton} automates the creation of 
@@ -22,7 +22,7 @@ RcppMLPACK.package.skeleton(name = "anRpackage", list = character(),
 	\item{path}{See \link[utils]{package.skeleton}}
 	\item{force}{See \link[utils]{package.skeleton}}
 	\item{code_files}{See \link[utils]{package.skeleton}}
-	\item{example_code}{If TRUE, example c++ code using RcppArmadillo is added to the package}
+	\item{example_code}{If TRUE, example c++ code using RcppMLPACK is added to the package}
 }
 \details{
 	In addition to \link[utils]{package.skeleton} : 
@@ -39,10 +39,10 @@ RcppMLPACK.package.skeleton(name = "anRpackage", list = character(),
 	to link with the Rcpp library. 
 	
 	If the \code{example_code} argument is set to \code{TRUE}, 
-	example files \samp{RcppMLPACK.h} and \samp{rcpparma_hello_world.cpp}
-	are also created in the \samp{src}. An R file \samp{rcpparma_hello_world.R} is 
-	expanded in the \samp{R} directory, the \code{rcpparma_hello_world} function
-	defined in this files makes use of the C++ function \samp{rcpparma_hello_world}
+	example files \samp{RcppMLPACK.h} and \samp{kmeans.cpp}
+	are also created in the \samp{src}. An R file \samp{RcppExports.R} is 
+	expanded in the \samp{R} directory, the \code{mlkmeans} function
+	defined in this files makes use of the C++ function \samp{mlkmeans}
 	defined in the C++ file. These files are given as an example and should 
 	eventually by removed from the generated package.
 }
