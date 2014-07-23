@@ -17,18 +17,19 @@
     numbers=left,
     numberstyle=\tiny,
     backgroundcolor=\color{shadecolor},
-    keywordstyle=\bf\color{blue},
     columns=fullflexible,
     showstringspaces=false,
     breaklines=true,
     framerule=0.7pt,
     frameround=tttt,
     captionpos=b,
+    xleftmargin=-0.2em,
+    xrightmargin=-0.25em,
     aboveskip=1em,
 }
 \usepackage{indentfirst}
 \setlength{\parindent}{2em}
-\linespread{1.2}
+\linespread{1.3}
 \begin{document}
 
 \title{\textbf{RcppMLPACK}: R integration with MLPACK using Rcpp}
@@ -39,10 +40,30 @@
 
 \maketitle
 
-\section{Introduction}
+\section{MLPACK}
 
 MLPACK~\cite{curtin2013mlpack} is a C++ machine learning library with emphasis on scalability, speed, and ease-of-use. It outperforms competing machine learning libraries by large margins, for detailed results of benchmarking, please refer to Ref~\cite{curtin2013mlpack}.
 
+\subsection{Input/Ouput using Armadillo}
+Armadillo~\cite{arma}
+
+Armadillo matrices are stored in a column-major format; this means that on disk, each column is located in contiguous memory.
+
+\subsection{Simple API}
+
+
+the following line initializes an object which will perform the standard k-means clustering in Euclidean space
+
+\begin{lstlisting}[caption={k-means example}, language=C++]
+KMeans<> k();
+\end{lstlisting}
+
+
+Manhattan distance, a different cluster initialization policy, and allow empty clusters
+
+\begin{lstlisting}[caption={k-means example}, language=C++]
+KMeans<ManhattanDistance, KMeansPlusPlusInitialization, AllowEmptyClusters> k();
+\end{lstlisting}
 
 \subsection{Available algorithms in MLPACK}
 
@@ -62,44 +83,143 @@ MLPACK~\cite{curtin2013mlpack} is a C++ machine learning library with emphasis o
 \item Tree-based range search
 \end{itemize}
 
-\url{http://www.mlpack.org/tutorial.html}
-
-Rcpp\cite{Eddelbuettel:Francois:2011:JSSOBK:v40i08}
+For the details of each algorithm and usage, please vist the tutorial page of MLPACK (\url{http://www.mlpack.org/tutorial.html}).
 
 
-\section{Input/Ouput using Armadillo}
-
-Armadillo\cite{arma}
-
-RcppArmadillo\cite{eddelbuettel2014rcpparmadillo}
 
 
-\section{Examples}
 
-\subsection{Ridge regression example}
+\section{RcppMLPACK}
 
-\begin{lstlisting}[caption={Ridge Regression}, language=C++]
+\subsection{Rcpp and RcppArmadillo}
+Rcpp~\cite{Eddelbuettel:Francois:2011:JSSOBK:v40i08} 
+
+RcppArmadillo~\cite{eddelbuettel2014rcpparmadillo}
+\subsection{k-means example}
+
+\begin{lstlisting}[caption={k-means example}, language=C++]
 #include "RcppMLPACK.h"
 
+using namespace mlpack::kmeans;
 using namespace Rcpp;
-using namespace mlpack::regression;
 
 // [[Rcpp::export]]
-
-List ridge(const arma::mat& data, const arma::vec& responses, const int& lambda) {
+List kmeans(const arma::mat& data, const int& clusters) {
     
-    LinearRegression lr(data, responses, lambda);
+    arma::Col<size_t> assignments;
 
-    arma::vec parameters = lr.Parameters();
-  
-    return List::create(_["parameters"] = parameters,
-                        _["lambda"]     = lambda);
+    // Initialize with the default arguments.
+    KMeans<> k;
+
+    k.Cluster(data, clusters, assignments); 
+
+    return List::create(_["clusters"] = clusters,
+                        _["result"]   = assignments);
 }
+\end{lstlisting}
+
+\begin{lstlisting}[caption={k-means example, inline version}, language=R]
+library(inline)
+library(RcppMLPACK)
+code <- '
+  arma::mat data = as<arma::mat>(test);
+  int clusters = as<int>(n);
+  arma::Col<size_t> assignments;
+  mlpack::kmeans::KMeans<> k;
+  k.Cluster(data, clusters, assignments); 
+  return List::create(_["clusters"] = clusters,
+                      _["result"]   = assignments);
+'
+mlKmeans <- cxxfunction(signature(test="numeric", n ="integer"), code, 
+                        plugin="RcppMLPACK")
+data(trees, package="datasets")
+mlKmeans(t(trees), 3)
+\end{lstlisting}
+
+\subsection{RcppMLPACK.package.skeleton}
+
+\begin{lstlisting}[caption={RcppMLPACK.package.skeleton}, language=R]
+library(RcppMLPACK)
+RcppMLPACK.package.skeleton("foobar")
+Creating directories ...
+Creating DESCRIPTION ...
+Creating NAMESPACE ...
+Creating Read-and-delete-me ...
+Saving functions and data ...
+Making help files ...
+Done.
+Further steps are described in './foobar/Read-and-delete-me'.
+
+Adding RcppMLPACK settings
+ >> added Imports: Rcpp
+ >> added LinkingTo: Rcpp, RcppArmadillo, BH, RcppMLPACK
+ >> added useDynLib and importFrom directives to NAMESPACE
+ >> added Makevars file with RcppMLPACK settings
+ >> added Makevars.win file with RcppMLPACK settings
+ >> added example src file using MLPACK classes
+ >> invoked Rcpp::compileAttributes to create wrappers
+\end{lstlisting}
+
+\textbf{inline}~\cite{inline}
+
+\begin{lstlisting}[caption={RcppMLPACK.package.skeleton result}, language=R]
+system("ls -R foobar")
+foobar:
+DESCRIPTION  man  NAMESPACE  R  Read-and-delete-me  src
+
+foobar/man:
+foobar-package.Rd
+
+foobar/R:
+RcppExports.R
+
+foobar/src:
+kmeans.cpp  Makevars  Makevars.win  RcppExports.cpp
 \end{lstlisting}
 
 \subsection{Processing files on disk directly}
 
-\section{Performance}
+\texttt{mlpack::data::Load()} and \texttt{mlpack::data::Save()}
+
+\begin{lstlisting}[caption={Reading and writing files on disk}, language=C++]
+std::string inputFile = Rcpp::as<std::string>(input);
+std::string outputFile = Rcpp::as<std::string>(output);
+arma::mat data;
+mlpack::data::Load(inputFile, data, true);
+int clusters = as<int>(n);
+arma::Col<size_t> assignments;
+mlpack::kmeans::KMeans<> k;
+k.Cluster(data, clusters, assignments); 
+arma::Mat<size_t> out = trans(assignments);
+mlpack::data::Save(outputFile, out);
+\end{lstlisting}
+\subsection{Performance}
+
+Wine data set from UCI data sets repository, you can download it from \url{https://archive.ics.uci.edu/ml/datasets/Wine}.
+
+rbenchmark~\cite{rbenchmark}
+
+\begin{lstlisting}[caption={Benchmarking script}, language=R]
+suppressMessages(library(rbenchmark))
+res <- benchmark(mlKmeans(t(wine),3),
+                 kmeans(wine,3),
+                 columns=c("test", "replications", "elapsed",
+                 "relative", "user.self", "sys.self"), order="relative")
+\end{lstlisting}
+
+\begin{table}
+\centering
+\caption{Benchmarking results}
+\begin{tabular}{rrrrrr}
+\hline 
+test & replications & elapsed & relative & user.self & sys.self \\ [0.3ex]
+\hline 
+mlKmeans(t(wine), 3) &         100&   0.028 &   1.000&     0.028  &  0.000\\
+     kmeans(wine, 3)  &        100 &  0.947&   33.821 &    0.484 &   0.424\\[0.3ex]
+\hline %inserts single line
+\end{tabular}
+\end{table}
+
 
 \section{Acknowledgement}
 
