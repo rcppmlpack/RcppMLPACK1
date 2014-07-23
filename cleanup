@@ -2,3 +2,5 @@ find . -name \*~ -exec rm {} \;
 find . -name \*.o -exec rm {} \;
 find . -name \*.so -exec rm {} \;
 find . -name "#*#" -exec rm {} \;
+
+rm -rf ./inst/lib

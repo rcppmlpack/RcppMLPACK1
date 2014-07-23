@@ -59,10 +59,10 @@ RcppMLPACK.package.skeleton <- function(name="anRpackage", list=character(),
     x <- cbind(read.dcf( DESCRIPTION), 
                "Imports" = sprintf("Rcpp (>= %s)", 
                                    packageDescription("Rcpp")[["Version"]]), 
-               "LinkingTo" = "Rcpp, RcppArmadillo, BH")
+               "LinkingTo" = "Rcpp, RcppArmadillo, BH, RcppMLPACK")
     write.dcf(x, file=DESCRIPTION)
     message(" >> added Imports: Rcpp")
-    message(" >> added LinkingTo: Rcpp, RcppArmadillo, BH")
+    message(" >> added LinkingTo: Rcpp, RcppArmadillo, BH, RcppMLPACK")
   }
   
   ## add a useDynLib to NAMESPACE, 
@@ -81,9 +81,7 @@ RcppMLPACK.package.skeleton <- function(name="anRpackage", list=character(),
   if (!file.exists(src)) {
     dir.create(src)
   }
-  skeleton <- system.file("skl", package="RcppMLPACK")
-  file.copy(file.path(skeleton, "RcppMLPACK.h"), src)
-  file.copy(file.path(skeleton, "mlpack"), src, recursive=TRUE)
+  skeleton <- system.file("skeleton", package="RcppMLPACK")
   Makevars <- file.path(src, "Makevars")
   if (!file.exists(Makevars)) {
     file.copy(file.path(skeleton, "Makevars"), Makevars)

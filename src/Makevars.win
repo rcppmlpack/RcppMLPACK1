@@ -21,10 +21,29 @@ MLPACKOBJECTS=\
 ./mlpack/core/tree/mrkd_statistic.o \
 ./mlpack/core/util/string_util.o
 
-
 PKGOBJECTS = RcppExports.o kmeans.o
-
 OBJECTS= $(MLPACKOBJECTS) $(PKGOBJECTS)
 
 PKG_CXXFLAGS=-I. 
 PKG_LIBS= $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
+
+USERDIR	= 	../inst/lib$(R_ARCH)
+STATICLIB =	libRcppMLPACK.a
+USERLIB	= 	$(USERDIR)/$(STATICLIB)
+
+RM = 		rm -f
+
+.PHONY: 	all clean
+
+all: 		userlib $(SHLIB)
+
+clean:
+		${RM} $(OBJECTS) $(SHLIB)
+
+$(USERLIB):	$(OBJECTS)
+
+userlib:	$(STATICLIB)
+		-mkdir -p $(USERDIR)
+		-mv $(STATICLIB) $(USERLIB) 
+
+$(STATICLIB):	$(OBJECTS)
