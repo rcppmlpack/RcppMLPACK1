@@ -1,6 +1,10 @@
 #ifndef RcppMLPACK__RcppMLPACK__h
 #define RcppMLPACK__RcppMLPACK__h
 
+#if _WIN64
+#define ARMA_64BIT_WORD
+#endif
+
 #include <RcppArmadillo.h>
 
 #include <mlpack/core.hpp>
