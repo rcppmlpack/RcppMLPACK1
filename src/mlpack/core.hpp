@@ -22,6 +22,12 @@
 #ifndef __MLPACK_CORE_HPP
 #define __MLPACK_CORE_HPP
 
+#if _WIN64
+#ifndef ARMA_64BIT_WORD
+#define ARMA_64BIT_WORD
+#endif
+#endif
+
 /**
  * @mainpage MLPACK Documentation
  *

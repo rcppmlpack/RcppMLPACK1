@@ -2,7 +2,9 @@
 #define RcppMLPACK__RcppMLPACK__h
 
 #if _WIN64
+#ifndef ARMA_64BIT_WORD
 #define ARMA_64BIT_WORD
+#endif
 #endif
 
 #include <RcppArmadillo.h>

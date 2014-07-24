@@ -21,13 +21,16 @@ The algorithms implemented in MLPACK:
 * Tree-based k-nearest-neighbors search and classiﬁer
 * Tree-based range search
 
-The RcppMLPACK package includes the header files from the MLPACK library. Thus users do not need to install MLPACK itself in
-order to use RcppMLPACK. 
+The RcppMLPACK package includes the source code from the MLPACK library. Thus users do not need to install MLPACK itself in order to use RcppMLPACK. 
  
-This MLPACL integration heavily relies on [Rcpp](http://www.rcpp.org) package for seamless R and C++ integration. 
-
-You can always find me by email (qkou@umail.iu.edu) if you have any questions.
+This MLPACK integration heavily relies on [Rcpp](http://www.rcpp.org) and RcppArmadillo packages for seamless R and C++ integration. 
 
 The version number of MLPACK is used as the version number of this package. 
 
-Qiang Kou
+There are known problems in 64-bit Windows, since the **size_t** in 64-bit Windows is defined as unsigned long long int, which is not allowed by R.
+
+Testing and bug reports are deeply welcome.
+
+You can find examples in the [wiki page](https://github.com/thirdwing/RcppMLPACK/wiki). You can always find me by email (qkou@umail.iu.edu) if you have any questions.
+
+[Qiang Kou](https://www.linkedin.com/pub/qiang-kou/2a/986/6b7)
