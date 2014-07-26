@@ -60,8 +60,8 @@ class KernelTraits<CosineDistance>
   static const bool IsNormalized = true;
 };
 
-}; // namespace kernel
-}; // namespace mlpack
+} // namespace kernel
+} // namespace mlpack
 
 // Include implementation.
 #include "cosine_distance_impl.hpp"

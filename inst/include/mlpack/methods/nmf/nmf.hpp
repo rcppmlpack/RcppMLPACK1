@@ -161,8 +161,8 @@ class NMF
 
 }; // class NMF
 
-}; // namespace nmf
-}; // namespace mlpack
+} // namespace nmf
+} // namespace mlpack
 
 // Include implementation.
 #include "nmf_impl.hpp"

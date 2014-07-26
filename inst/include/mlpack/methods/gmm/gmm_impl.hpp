@@ -373,7 +373,7 @@ double GMM<FittingType>::LogLikelihood(
   return loglikelihood;
 }
 
-}; // namespace gmm
-}; // namespace mlpack
+} // namespace gmm
+} // namespace mlpack
 
 #endif

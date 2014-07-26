@@ -186,7 +186,7 @@ void AugLagrangianFunction<LRSDP>::Gradient(const arma::mat& coordinates,
   gradient = 2 * s * coordinates;
 }
 
-}; // namespace optimization
-}; // namespace mlpack
+} // namespace optimization
+} // namespace mlpack
 
 #endif

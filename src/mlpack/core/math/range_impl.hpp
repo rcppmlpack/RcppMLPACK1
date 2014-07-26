@@ -199,7 +199,7 @@ std::string Range::ToString() const
   return convert.str();
 }
 
-}; // namespace math
-}; // namespace mlpack
+} // namespace math
+} // namespace mlpack
 
 #endif

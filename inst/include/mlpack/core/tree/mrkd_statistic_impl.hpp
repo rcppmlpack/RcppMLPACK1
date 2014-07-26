@@ -102,7 +102,7 @@ MRKDStatistic::MRKDStatistic(const MatType& dataset,
 }
 */
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 #endif // __MLPACK_CORE_TREE_MRKD_STATISTIC_IMPL_HPP

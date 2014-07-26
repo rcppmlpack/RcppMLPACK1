@@ -30,7 +30,7 @@ namespace util {
 //! depending on the indentation level.
 std::string Indent(std::string input);
 
-}; // namespace util
-}; // namespace mlpack
+} // namespace util
+} // namespace mlpack
 
 #endif

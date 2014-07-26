@@ -250,7 +250,7 @@ void LoadHMM(HMM<gmm::GMM<> >& hmm,
   hmm.Dimensionality() = hmm.Emission()[0].Dimensionality();
 }
 
-}; // namespace hmm
-}; // namespace mlpack
+} // namespace hmm
+} // namespace mlpack
 
 #endif

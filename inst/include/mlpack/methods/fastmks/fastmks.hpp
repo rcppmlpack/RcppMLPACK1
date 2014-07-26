@@ -226,8 +226,8 @@ class FastMKS
                       const double distance);
 };
 
-}; // namespace fastmks
-}; // namespace mlpack
+} // namespace fastmks
+} // namespace mlpack
 
 // Include implementation.
 #include "fastmks_impl.hpp"

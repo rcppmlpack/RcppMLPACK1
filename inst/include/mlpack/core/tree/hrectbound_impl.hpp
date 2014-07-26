@@ -401,7 +401,7 @@ std::string HRectBound<Power, TakeRoot>::ToString() const
   return convert.str();
 }
 
-}; // namespace bound
-}; // namespace mlpack
+} // namespace bound
+} // namespace mlpack
 
 #endif // __MLPACK_CORE_TREE_HRECTBOUND_IMPL_HPP

@@ -65,7 +65,7 @@ class TreeTraits<CoverTree<MetricType, RootPointPolicy, StatisticType> >
   static const bool HasSelfChildren = true;
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 #endif

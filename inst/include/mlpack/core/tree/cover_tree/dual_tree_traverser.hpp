@@ -90,8 +90,8 @@ class CoverTree<MetricType, RootPointPolicy, StatisticType>::DualTreeTraverser
                               referenceMap);
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 // Include implementation.
 #include "dual_tree_traverser_impl.hpp"

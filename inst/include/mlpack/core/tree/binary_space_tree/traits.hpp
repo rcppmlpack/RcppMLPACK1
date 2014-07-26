@@ -63,7 +63,7 @@ class TreeTraits<BinarySpaceTree<BoundType, StatisticType, MatType> >
   static const bool HasSelfChildren = false;
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 #endif

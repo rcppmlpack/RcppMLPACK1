@@ -89,7 +89,7 @@ class EigenvalueRatioConstraint
   const arma::vec& ratios;
 };
 
-}; // namespace gmm
-}; // namespace mlpack
+} // namespace gmm
+} // namespace mlpack
 
 #endif

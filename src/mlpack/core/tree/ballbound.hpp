@@ -145,8 +145,8 @@ class BallBound
 
 };
 
-}; // namespace bound
-}; // namespace mlpack
+} // namespace bound
+} // namespace mlpack
 
 #include "ballbound_impl.hpp"
 

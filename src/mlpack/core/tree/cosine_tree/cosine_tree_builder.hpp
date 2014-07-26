@@ -114,8 +114,8 @@ class CosineTreeBuilder
    */
   void CTNodeSplit(CosineTree& root, CosineTree& left, CosineTree& right);
 };
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 // Include implementation.
 #include "cosine_tree_builder_impl.hpp"

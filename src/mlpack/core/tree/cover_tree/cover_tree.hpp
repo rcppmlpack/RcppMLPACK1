@@ -479,8 +479,8 @@ class CoverTree
   size_t distanceComps;
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 // Include implementation.
 #include "cover_tree_impl.hpp"

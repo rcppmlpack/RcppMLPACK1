@@ -516,7 +516,7 @@ void FastMKS<kernel::GaussianKernel>::Search(const size_t k,
 }
 */
 
-}; // namespace fastmks
-}; // namespace mlpack
+} // namespace fastmks
+} // namespace mlpack
 
 #endif

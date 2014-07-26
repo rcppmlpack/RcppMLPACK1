@@ -108,7 +108,7 @@ void RefinedStart::Cluster(const MatType& data,
   }
 }
 
-}; // namespace kmeans
-}; // namespace mlpack
+} // namespace kmeans
+} // namespace mlpack
 
 #endif

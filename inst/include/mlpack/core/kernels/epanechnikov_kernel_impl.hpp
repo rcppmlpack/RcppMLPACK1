@@ -83,7 +83,7 @@ double EpanechnikovKernel::ConvolutionIntegral(const VecType& a,
   }
 }
 
-}; // namespace kernel
-}; // namespace mlpack
+} // namespace kernel
+} // namespace mlpack
 
 #endif

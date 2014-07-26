@@ -69,8 +69,8 @@ bool Load(const std::string& filename,
           bool fatal = false,
           bool transpose = true);
 
-}; // namespace data
-}; // namespace mlpack
+} // namespace data
+} // namespace mlpack
 
 // Include implementation.
 #include "load_impl.hpp"

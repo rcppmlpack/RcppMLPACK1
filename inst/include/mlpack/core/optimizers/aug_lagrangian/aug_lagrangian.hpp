@@ -149,8 +149,8 @@ class AugLagrangian
   L_BFGSType& lbfgs;
 };
 
-}; // namespace optimization
-}; // namespace mlpack
+} // namespace optimization
+} // namespace mlpack
 
 #include "aug_lagrangian_impl.hpp"
 

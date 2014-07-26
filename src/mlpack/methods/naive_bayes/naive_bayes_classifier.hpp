@@ -121,8 +121,8 @@ class NaiveBayesClassifier
   arma::vec& Probabilities() { return probabilities; }
 };
 
-}; // namespace naive_bayes
-}; // namespace mlpack
+} // namespace naive_bayes
+} // namespace mlpack
 
 // Include implementation.
 #include "naive_bayes_classifier_impl.hpp"

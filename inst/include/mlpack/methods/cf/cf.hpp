@@ -218,7 +218,7 @@ class CF
 
 }; // class CF
 
-}; // namespace cf
-}; // namespace mlpack
+} // namespace cf
+} // namespace mlpack
 
 #endif

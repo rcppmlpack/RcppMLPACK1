@@ -54,7 +54,7 @@ class PositiveDefiniteConstraint
   }
 };
 
-}; // namespace gmm
-}; // namespace mlpack
+} // namespace gmm
+} // namespace mlpack
 
 #endif

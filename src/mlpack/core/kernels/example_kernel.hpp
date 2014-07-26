@@ -145,7 +145,7 @@ class ExampleKernel
   static double Normalizer(size_t dimension) { return 0; }
 };
 
-}; // namespace kernel
-}; // namespace mlpack
+} // namespace kernel
+} // namespace mlpack
 
 #endif

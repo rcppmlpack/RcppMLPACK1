@@ -490,8 +490,8 @@ class BinarySpaceTree
 
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 // Include implementation.
 #include "binary_space_tree_impl.hpp"

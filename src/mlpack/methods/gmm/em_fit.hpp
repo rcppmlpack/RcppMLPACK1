@@ -179,8 +179,8 @@ class EMFit
   CovarianceConstraintPolicy constraint;
 };
 
-}; // namespace gmm
-}; // namespace mlpack
+} // namespace gmm
+} // namespace mlpack
 
 // Include implementation.
 #include "em_fit_impl.hpp"

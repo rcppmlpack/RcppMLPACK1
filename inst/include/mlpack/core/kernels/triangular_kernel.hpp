@@ -90,7 +90,7 @@ class KernelTraits<TriangularKernel>
   static const bool IsNormalized = true;
 };
 
-}; // namespace kernel
-}; // namespace mlpack
+} // namespace kernel
+} // namespace mlpack
 
 #endif

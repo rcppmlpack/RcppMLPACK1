@@ -303,7 +303,7 @@ void DualTreeBoruvka<MetricType, TreeType>::Cleanup()
   }
 }
 
-}; // namespace emst
-}; // namespace mlpack
+} // namespace emst
+} // namespace mlpack
 
 #endif

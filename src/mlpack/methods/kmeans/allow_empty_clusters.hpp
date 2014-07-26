@@ -63,7 +63,7 @@ class AllowEmptyClusters
   }
 };
 
-}; // namespace kmeans
-}; // namespace mlpack
+} // namespace kmeans
+} // namespace mlpack
 
 #endif

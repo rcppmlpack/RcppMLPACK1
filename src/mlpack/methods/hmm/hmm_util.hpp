@@ -48,8 +48,8 @@ void SaveHMM(const HMM<Distribution>& hmm, util::SaveRestoreUtility& sr);
 template<typename Distribution>
 void LoadHMM(HMM<Distribution>& hmm, util::SaveRestoreUtility& sr);
 
-}; // namespace hmm
-}; // namespace mlpack
+} // namespace hmm
+} // namespace mlpack
 
 // Include implementation.
 #include "hmm_util_impl.hpp"

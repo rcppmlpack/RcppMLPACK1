@@ -98,7 +98,7 @@ class NeighborSearchStat
   double& LastDistance() { return lastDistance; }
 };
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 #endif

@@ -181,7 +181,7 @@ void CosineTreeBuilder::CTNodeSplit(CosineTree& root, CosineTree& left,
   }
 }
 
-}; // namespace cosinetreebuilder
-}; // namespace mlpack
+} // namespace cosinetreebuilder
+} // namespace mlpack
 
 #endif

@@ -145,8 +145,8 @@ class LRSDP
   AugLagrangian<LRSDP>& augLag;
 };
 
-}; // namespace optimization
-}; // namespace mlpack
+} // namespace optimization
+} // namespace mlpack
 
 // Include implementation.
 #include "lrsdp_impl.hpp"

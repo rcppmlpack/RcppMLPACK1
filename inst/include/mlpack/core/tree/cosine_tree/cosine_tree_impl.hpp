@@ -117,7 +117,7 @@ void CosineTree::Centroid(arma::rowvec& centr)
     centroid = centr;
 }
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 #endif

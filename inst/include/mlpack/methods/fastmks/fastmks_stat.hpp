@@ -123,7 +123,7 @@ class FastMKSStat
   void* lastKernelNode;
 };
 
-}; // namespace fastmks
-}; // namespace mlpack
+} // namespace fastmks
+} // namespace mlpack
 
 #endif

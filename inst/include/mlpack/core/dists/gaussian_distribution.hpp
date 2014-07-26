@@ -121,7 +121,7 @@ class GaussianDistribution
   std::string ToString() const;
 };
 
-}; // namespace distribution
-}; // namespace mlpack
+} // namespace distribution
+} // namespace mlpack
 
 #endif

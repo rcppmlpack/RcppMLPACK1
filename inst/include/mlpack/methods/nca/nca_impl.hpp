@@ -54,7 +54,7 @@ void NCA<MetricType, OptimizerType>::LearnDistance(arma::mat& outputMatrix)
 
 }
 
-}; // namespace nca
-}; // namespace mlpack
+} // namespace nca
+} // namespace mlpack
 
 #endif

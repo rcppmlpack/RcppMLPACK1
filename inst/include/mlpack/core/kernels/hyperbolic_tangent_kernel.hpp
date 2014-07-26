@@ -85,7 +85,7 @@ class HyperbolicTangentKernel
   double offset;
 };
 
-}; // namespace kernel
-}; // namespace mlpack
+} // namespace kernel
+} // namespace mlpack
 
 #endif

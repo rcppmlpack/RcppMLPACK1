@@ -88,8 +88,8 @@ class RefinedStart
   double percentage;
 };
 
-}; // namespace kmeans
-}; // namespace mlpack
+} // namespace kmeans
+} // namespace mlpack
 
 // Include implementation.
 #include "refined_start_impl.hpp"

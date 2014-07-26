@@ -137,8 +137,8 @@ class RangeSearchRules
                  TreeType& referenceNode);
 };
 
-}; // namespace range
-}; // namespace mlpack
+} // namespace range
+} // namespace mlpack
 
 // Include implementation.
 #include "range_search_rules_impl.hpp"

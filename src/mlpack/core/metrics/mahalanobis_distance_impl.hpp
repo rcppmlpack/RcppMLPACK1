@@ -58,7 +58,7 @@ double MahalanobisDistance<true>::Evaluate(const VecType1& a,
   return sqrt(out[0]);
 }
 
-}; // namespace metric
-}; // namespace mlpack
+} // namespace metric
+} // namespace mlpack
 
 #endif

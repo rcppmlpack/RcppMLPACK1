@@ -60,8 +60,8 @@ class MaxVarianceNewCluster
                              arma::Col<size_t>& assignments);
 };
 
-}; // namespace kmeans
-}; // namespace mlpack
+} // namespace kmeans
+} // namespace mlpack
 
 // Include implementation.
 #include "max_variance_new_cluster_impl.hpp"

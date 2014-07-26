@@ -206,8 +206,8 @@ class KMeans
   EmptyClusterPolicy emptyClusterAction;
 };
 
-}; // namespace kmeans
-}; // namespace mlpack
+} // namespace kmeans
+} // namespace mlpack
 
 // Include implementation.
 #include "kmeans_impl.hpp"

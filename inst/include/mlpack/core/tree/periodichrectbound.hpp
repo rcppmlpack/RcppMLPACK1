@@ -157,8 +157,8 @@ class PeriodicHRectBound
   arma::vec box;
 };
 
-}; // namespace bound
-}; // namespace mlpack
+} // namespace bound
+} // namespace mlpack
 
 #include "periodichrectbound_impl.hpp"
 

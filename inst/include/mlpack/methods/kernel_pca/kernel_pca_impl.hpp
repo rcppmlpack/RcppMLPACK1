@@ -135,7 +135,7 @@ void KernelPCA<KernelType>::GetKernelMatrix(const arma::mat& data,
       kernelMatrix(i, j) = kernelMatrix(j, i);
 }
 
-}; // namespace mlpack
-}; // namespace kpca
+} // namespace mlpack
+} // namespace kpca
 
 #endif

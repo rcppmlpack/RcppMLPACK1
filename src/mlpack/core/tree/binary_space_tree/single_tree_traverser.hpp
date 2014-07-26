@@ -63,8 +63,8 @@ class BinarySpaceTree<BoundType, StatisticType, MatType>::SingleTreeTraverser
   size_t numPrunes;
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 // Include implementation.
 #include "single_tree_traverser_impl.hpp"

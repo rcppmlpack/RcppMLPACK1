@@ -156,7 +156,7 @@ inline void phi(const arma::mat& x,
       pow(det(cov), -0.5) * exponents;
 }
 
-}; // namespace gmm
-}; // namespace mlpack
+} // namespace gmm
+} // namespace mlpack
 
 #endif

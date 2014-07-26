@@ -247,8 +247,8 @@ class NeighborSearch
   size_t numberOfPrunes;
 }; // class NeighborSearch
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 // Include implementation.
 #include "neighbor_search_impl.hpp"

@@ -218,7 +218,7 @@ std::string BallBound<VecType>::ToString() const
   return convert.str();
 }
 
-}; // namespace bound
-}; // namespace mlpack
+} // namespace bound
+} // namespace mlpack
 
 #endif // __MLPACK_CORE_TREE_DBALLBOUND_IMPL_HPP

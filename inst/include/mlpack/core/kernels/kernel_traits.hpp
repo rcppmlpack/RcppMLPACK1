@@ -43,7 +43,7 @@ class KernelTraits
   static const bool IsNormalized = false;
 };
 
-}; // namespace kernel
-}; // namespace mlpack
+} // namespace kernel
+} // namespace mlpack
 
 #endif

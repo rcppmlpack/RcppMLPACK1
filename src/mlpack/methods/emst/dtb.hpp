@@ -213,8 +213,8 @@ class DualTreeBoruvka
 
 }; // class DualTreeBoruvka
 
-}; // namespace emst
-}; // namespace mlpack
+} // namespace emst
+} // namespace mlpack
 
 #include "dtb_impl.hpp"
 

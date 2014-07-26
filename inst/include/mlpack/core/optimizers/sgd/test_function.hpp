@@ -53,8 +53,8 @@ class SGDTestFunction
                 arma::mat& gradient) const;
 };
 
-}; // namespace test
-}; // namespace optimization
-}; // namespace mlpack
+} // namespace test
+} // namespace optimization
+} // namespace mlpack
 
 #endif

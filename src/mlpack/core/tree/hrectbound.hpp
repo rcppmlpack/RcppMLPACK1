@@ -179,8 +179,8 @@ class HRectBound
   math::Range* bounds;
 };
 
-}; // namespace bound
-}; // namespace mlpack
+} // namespace bound
+} // namespace mlpack
 
 #include "hrectbound_impl.hpp"
 

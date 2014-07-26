@@ -66,8 +66,8 @@ bool Save(const std::string& filename,
           bool fatal = false,
           bool transpose = true);
 
-}; // namespace data
-}; // namespace mlpack
+} // namespace data
+} // namespace mlpack
 
 // Include implementation.
 #include "save_impl.hpp"

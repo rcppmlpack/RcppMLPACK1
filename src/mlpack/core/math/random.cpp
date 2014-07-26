@@ -47,5 +47,5 @@ namespace math {
   boost::normal_distribution<> randNormalDist;
 #endif
 
-}; // namespace math
-}; // namespace mlpack
+} // namespace math
+} // namespace mlpack

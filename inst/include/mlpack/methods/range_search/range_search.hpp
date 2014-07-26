@@ -240,8 +240,8 @@ class RangeSearch
   size_t numPrunes;
 };
 
-}; // namespace range
-}; // namespace mlpack
+} // namespace range
+} // namespace mlpack
 
 // Include implementation.
 #include "range_search_impl.hpp"

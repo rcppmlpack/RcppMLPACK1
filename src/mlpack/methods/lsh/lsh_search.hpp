@@ -245,8 +245,8 @@ class LSHSearch
   arma::Mat<size_t>* neighborPtr;
 }; // class LSHSearch
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 // Include implementation.
 #include "lsh_search_impl.hpp"

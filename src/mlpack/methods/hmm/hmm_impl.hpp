@@ -499,7 +499,7 @@ void HMM<Distribution>::Backward(const arma::mat& dataSeq,
   }
 }
 
-}; // namespace hmm
-}; // namespace mlpack
+} // namespace hmm
+} // namespace mlpack
 
 #endif

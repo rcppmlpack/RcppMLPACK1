@@ -363,7 +363,7 @@ void RASearch<SortPolicy, MetricType, TreeType>::ResetRAQueryStat(
     ResetRAQueryStat(&treeNode->Child(i));
 }
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 #endif

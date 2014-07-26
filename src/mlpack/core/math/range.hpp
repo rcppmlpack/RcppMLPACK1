@@ -178,8 +178,8 @@ class Range
 
 };
 
-}; // namespace math
-}; // namespace mlpack
+} // namespace math
+} // namespace mlpack
 
 // Include inlined implementation.
 #include "range_impl.hpp"

@@ -160,8 +160,8 @@ class FurthestNeighborSort
   { return std::max(a - b, 0.0); }
 };
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 // Include implementation of templated functions.
 #include "furthest_neighbor_sort_impl.hpp"

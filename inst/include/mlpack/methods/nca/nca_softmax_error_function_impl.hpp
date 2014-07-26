@@ -49,7 +49,7 @@ double SoftmaxErrorFunction<MetricType>::Evaluate(const arma::mat& coordinates)
 
   return -accu(p); // Sum of p_i for all i.  We negate because our solver
                    // minimizes, not maximizes.
-};
+}
 
 //! The separated objective function, which does not use Precalculate().
 template<typename MetricType>
@@ -282,7 +282,7 @@ void SoftmaxErrorFunction<MetricType>::Precalculate(
   precalculated = true;
 }
 
-}; // namespace nca
-}; // namespace mlpack
+} // namespace nca
+} // namespace mlpack
 
 #endif

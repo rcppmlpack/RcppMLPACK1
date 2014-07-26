@@ -223,7 +223,7 @@ bool Load(const std::string& filename,
   return success;
 }
 
-}; // namespace data
-}; // namespace mlpack
+} // namespace data
+} // namespace mlpack
 
 #endif

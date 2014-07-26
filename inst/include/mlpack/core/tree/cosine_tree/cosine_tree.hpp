@@ -111,8 +111,8 @@ class CosineTree
    
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 // Include implementation.
 #include "cosine_tree_impl.hpp"

@@ -81,7 +81,7 @@ class RandomAcolInitialization
   }
 }; // Class RandomAcolInitialization
 
-}; // namespace nmf
-}; // namespace mlpack
+} // namespace nmf
+} // namespace mlpack
 
 #endif

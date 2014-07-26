@@ -96,7 +96,7 @@ void RevertLabels(const arma::Col<size_t>& labels,
     labelsOut[i] = mapping[labels[i]];
 }
 
-}; // namespace data
-}; // namespace mlpack
+} // namespace data
+} // namespace mlpack
 
 #endif

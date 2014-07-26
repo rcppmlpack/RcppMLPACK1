@@ -101,7 +101,7 @@ double LMetric<INT_MAX, false>::Evaluate(const VecType1& a, const VecType2& b)
   return arma::as_scalar(max(abs(a - b)));
 }
 
-}; // namespace metric
-}; // namespace mlpack
+} // namespace metric
+} // namespace mlpack
 
 #endif

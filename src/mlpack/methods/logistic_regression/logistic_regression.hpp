@@ -152,8 +152,8 @@ class LogisticRegression
   double lambda;
 };
 
-}; // namespace regression
-}; // namespace mlpack
+} // namespace regression
+} // namespace mlpack
 
 // Include implementation.
 #include "logistic_regression_impl.hpp"

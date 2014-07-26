@@ -1018,7 +1018,7 @@ std::string CoverTree<MetricType, RootPointPolicy, StatisticType>::ToString()
   return convert.str();
 }
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 #endif

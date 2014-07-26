@@ -117,7 +117,7 @@ void NaiveBayesClassifier<MatType>::Classify(const MatType& data,
   return;
 }
 
-}; // namespace naive_bayes
-}; // namespace mlpack
+} // namespace naive_bayes
+} // namespace mlpack
 
 #endif

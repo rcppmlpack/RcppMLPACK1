@@ -291,7 +291,7 @@ DualTreeTraverser<RuleType>::ReferenceRecursion(
   }
 }
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 #endif

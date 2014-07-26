@@ -400,7 +400,7 @@ BuildHash()
   secondHashTable.resize(numRowsInTable, maxBucketSize);
 }
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 #endif

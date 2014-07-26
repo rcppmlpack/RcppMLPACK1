@@ -39,7 +39,7 @@ class NoConstraint
   static void ApplyConstraint(const arma::mat& /* covariance */) { }
 };
 
-}; // namespace gmm
-}; // namespace mlpack
+} // namespace gmm
+} // namespace mlpack
 
 #endif

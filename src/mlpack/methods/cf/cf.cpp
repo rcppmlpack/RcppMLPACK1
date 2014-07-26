@@ -276,5 +276,5 @@ void CF::InsertNeighbor(const size_t queryIndex,
 }
 
 
-}; // namespace mlpack
-}; // namespace cf
+} // namespace mlpack
+} // namespace cf

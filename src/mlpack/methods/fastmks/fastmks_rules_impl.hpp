@@ -542,7 +542,7 @@ void FastMKSRules<KernelType, TreeType>::InsertNeighbor(const size_t queryIndex,
   indices(pos, queryIndex) = neighbor;
 }
 
-}; // namespace fastmks
-}; // namespace mlpack
+} // namespace fastmks
+} // namespace mlpack
 
 #endif

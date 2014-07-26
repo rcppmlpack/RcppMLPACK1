@@ -236,7 +236,7 @@ private:
   void CholeskyDelete(const size_t colToKill);
 };
 
-}; // namespace regression
-}; // namespace mlpack
+} // namespace regression
+} // namespace mlpack
 
 #endif

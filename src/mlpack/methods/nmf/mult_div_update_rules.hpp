@@ -135,7 +135,7 @@ class HMultiplicativeDivergenceRule
   }
 };
 
-}; // namespace nmf
-}; // namespace mlpack
+} // namespace nmf
+} // namespace mlpack
 
 #endif

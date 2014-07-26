@@ -104,8 +104,8 @@ class MRKDStatistic
   bool isWhitelistValid;
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 // Include implementation.
 #include "mrkd_statistic_impl.hpp"

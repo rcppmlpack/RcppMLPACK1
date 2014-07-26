@@ -109,5 +109,5 @@ void NMF<InitializationRule, WUpdateRule, HUpdateRule>::Apply(
       << iteration << " iterations." << std::endl;
 }
 
-}; // namespace nmf
-}; // namespace mlpack
+} // namespace nmf
+} // namespace mlpack

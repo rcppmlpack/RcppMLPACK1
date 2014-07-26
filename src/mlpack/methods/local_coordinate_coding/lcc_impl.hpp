@@ -322,7 +322,7 @@ double LocalCoordinateCoding<DictionaryInitializer>::Objective(
   return std::pow(froNormResidual, 2.0) + lambda * weightedL1NormZ;
 }
 
-}; // namespace lcc
-}; // namespace mlpack
+} // namespace lcc
+} // namespace mlpack
 
 #endif

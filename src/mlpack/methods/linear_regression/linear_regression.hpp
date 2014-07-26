@@ -116,7 +116,7 @@ class LinearRegression
   double lambda;
 };
 
-}; // namespace linear_regression
-}; // namespace mlpack
+} // namespace linear_regression
+} // namespace mlpack
 
 #endif // __MLPACK_METHODS_LINEAR_REGRESSCLIN_HPP

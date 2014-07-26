@@ -133,7 +133,7 @@ double LogisticRegression<OptimizerType>::ComputeAccuracy(
   return (double) (count * 100) / responses.n_rows;
 }
 
-}; // namespace regression
-}; // namespace mlpack
+} // namespace regression
+} // namespace mlpack
 
 #endif // __MLPACK_METHODS_LOGISTIC_REGRESSION_LOGISTIC_REGRESSION_IMPL_HPP

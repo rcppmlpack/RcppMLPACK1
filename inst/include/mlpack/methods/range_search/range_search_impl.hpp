@@ -286,7 +286,7 @@ void RangeSearch<MetricType, TreeType>::Search(
   }
 }
 
-}; // namespace range
-}; // namespace mlpack
+} // namespace range
+} // namespace mlpack
 
 #endif

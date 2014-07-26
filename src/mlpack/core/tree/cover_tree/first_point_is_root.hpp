@@ -46,7 +46,7 @@ class FirstPointIsRoot
   static size_t ChooseRoot(const arma::mat& /* dataset */) { return 0; }
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 #endif // __MLPACK_CORE_TREE_FIRST_POINT_IS_ROOT_HPP

@@ -85,7 +85,7 @@ size_t MaxVarianceNewCluster::EmptyCluster(const MatType& data,
   return 1; // We only changed one point.
 }
 
-}; // namespace kmeans
-}; // namespace mlpack
+} // namespace kmeans
+} // namespace mlpack
 
 #endif

@@ -87,8 +87,8 @@ class BinarySpaceTree<BoundType, StatisticType, MatType>::DualTreeTraverser
   size_t numBaseCases;
 };
 
-}; // namespace tree
-}; // namespace mlpack
+} // namespace tree
+} // namespace mlpack
 
 // Include implementation.
 #include "dual_tree_traverser_impl.hpp"
