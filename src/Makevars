@@ -1,3 +1,5 @@
+CXX_STD = CXX11
+
 MLPACKOBJECTS=\
 ./mlpack/methods/pca/pca.o \
 ./mlpack/methods/det/dtree.o \
