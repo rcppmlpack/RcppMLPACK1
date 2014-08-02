@@ -4,7 +4,7 @@
  *
  * Definition of the Epanechnikov kernel.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -73,6 +73,7 @@ class EpanechnikovKernel
    * @param b Second vector.
    * @return the convolution integral value.
    */
+  
   template<typename VecType>
   double ConvolutionIntegral(const VecType& a, const VecType& b);
 
@@ -82,12 +83,16 @@ class EpanechnikovKernel
    * @param dimension Dimension to calculate the normalizer for.
    */
   double Normalizer(const size_t dimension);
+  
+  // Returns String of O bject
+  std::string ToString() const;
 
  private:
   //! Bandwidth of the kernel.
   double bandwidth;
   //! Cached value of the inverse bandwidth squared (to speed up computation).
   double inverseBandwidthSquared;
+
 };
 
 //! Kernel traits for the Epanechnikov kernel.
@@ -99,8 +104,8 @@ class KernelTraits<EpanechnikovKernel>
   static const bool IsNormalized = true;
 };
 
-} // namespace kernel
-} // namespace mlpack
+}; // namespace kernel
+}; // namespace mlpack
 
 // Include implementation.
 #include "epanechnikov_kernel_impl.hpp"

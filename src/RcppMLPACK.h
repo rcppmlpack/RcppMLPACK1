@@ -7,8 +7,6 @@
 #endif
 #endif
 
-#include <RcppArmadillo.h>
-
 #include <mlpack/core.hpp>
 
 #include <mlpack/core/kernels/cosine_distance.hpp>
@@ -64,10 +62,6 @@
 #include <mlpack/methods/nca/nca.hpp>
 #include <mlpack/methods/neighbor_search/neighbor_search.hpp>
 #include <mlpack/methods/neighbor_search/unmap.hpp>
-#include <mlpack/methods/nmf/als_update_rules.hpp>
-#include <mlpack/methods/nmf/mult_div_update_rules.hpp>
-#include <mlpack/methods/nmf/nmf.hpp>
-#include <mlpack/methods/nmf/random_acol_init.hpp>
 #include <mlpack/methods/pca/pca.hpp>
 #include <mlpack/methods/radical/radical.hpp>
 #include <mlpack/methods/range_search/range_search.hpp>

@@ -4,7 +4,7 @@
  *
  * Implementation of template-based Epanechnikov kernel functions.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -37,6 +37,8 @@ inline double EpanechnikovKernel::Evaluate(const Vec1Type& a, const Vec2Type& b)
   return std::max(0.0, 1.0 - metric::SquaredEuclideanDistance::Evaluate(a, b)
       * inverseBandwidthSquared);
 }
+
+
 
 /**
  * Obtains the convolution integral [integral of K(||x-a||) K(||b-x||) dx]
@@ -83,7 +85,7 @@ double EpanechnikovKernel::ConvolutionIntegral(const VecType& a,
   }
 }
 
-} // namespace kernel
-} // namespace mlpack
+}; // namespace kernel
+}; // namespace mlpack
 
 #endif

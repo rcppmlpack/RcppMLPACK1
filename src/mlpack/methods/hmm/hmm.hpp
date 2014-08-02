@@ -5,7 +5,7 @@
  *
  * Definition of HMM class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -102,6 +102,9 @@ class HMM
    * Optionally, the tolerance for convergence of the Baum-Welch algorithm can
    * be set.
    *
+   * By default, the transition matrix and initial probability vector are set to
+   * contain equal probability for each state.
+   *
    * @param states Number of states.
    * @param emissions Default distribution for emissions.
    * @param tolerance Tolerance for convergence of training algorithm
@@ -112,10 +115,15 @@ class HMM
       const double tolerance = 1e-5);
 
   /**
-   * Create the Hidden Markov Model with the given transition matrix and the
-   * given emission distributions.  The dimensionality of the observations of
-   * the HMM are taken from the given emission distributions.  Alternately, the
-   * dimensionality can be set with Dimensionality().
+   * Create the Hidden Markov Model with the given initial probability vector,
+   * the given transition matrix, and the given emission distributions.  The
+   * dimensionality of the observations of the HMM are taken from the given
+   * emission distributions.  Alternately, the dimensionality can be set with
+   * Dimensionality().
+   *
+   * The initial state probability vector should have length equal to the number
+   * of states, and each entry represents the probability of being in the given
+   * state at time T = 0 (the beginning of a sequence).
    *
    * The transition matrix should be such that T(i, j) is the probability of
    * transition to state i from state j.  The columns of the matrix should sum
@@ -127,12 +135,14 @@ class HMM
    * Optionally, the tolerance for convergence of the Baum-Welch algorithm can
    * be set.
    *
+   * @param initial Initial state probabilities.
    * @param transition Transition matrix.
    * @param emission Emission distributions.
    * @param tolerance Tolerance for convergence of training algorithm
    *      (Baum-Welch).
    */
-  HMM(const arma::mat& transition,
+  HMM(const arma::vec& initial,
+      const arma::mat& transition,
       const std::vector<Distribution>& emission,
       const double tolerance = 1e-5);
 
@@ -265,6 +275,11 @@ class HMM
    */
   double LogLikelihood(const arma::mat& dataSeq) const;
 
+  //! Return the vector of initial state probabilities.
+  const arma::vec& Initial() const { return initial; }
+  //! Modify the vector of initial state probabilities.
+  arma::vec& Initial() { return initial; }
+
   //! Return the transition matrix.
   const arma::mat& Transition() const { return transition; }
   //! Return a modifiable transition matrix reference.
@@ -284,6 +299,11 @@ class HMM
   double Tolerance() const { return tolerance; }
   //! Modify the tolerance of the Baum-Welch algorithm.
   double& Tolerance() { return tolerance; }
+
+  /**
+   * Returns a string representation of this object.
+   */
+  std::string ToString() const;
 
  private:
   // Helper functions.
@@ -317,6 +337,9 @@ class HMM
                 const arma::vec& scales,
                 arma::mat& backwardProb) const;
 
+  //! Initial state probability vector.
+  arma::vec initial;
+
   //! Transition probability matrix.
   arma::mat transition;
 
@@ -330,8 +353,8 @@ class HMM
   double tolerance;
 };
 
-} // namespace hmm
-} // namespace mlpack
+}; // namespace hmm
+}; // namespace mlpack
 
 // Include implementation.
 #include "hmm_impl.hpp"

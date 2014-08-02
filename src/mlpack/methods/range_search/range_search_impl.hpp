@@ -4,7 +4,7 @@
  *
  * Implementation of the RangeSearch class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -31,19 +31,41 @@
 namespace mlpack {
 namespace range {
 
+template<typename TreeType>
+TreeType* BuildTree(
+    typename TreeType::Mat& dataset,
+    std::vector<size_t>& oldFromNew,
+    typename boost::enable_if_c<
+        tree::TreeTraits<TreeType>::RearrangesDataset == true, TreeType*
+    >::type = 0)
+{
+  return new TreeType(dataset, oldFromNew);
+}
+
+//! Call the tree constructor that does not do mapping.
+template<typename TreeType>
+TreeType* BuildTree(
+    const typename TreeType::Mat& dataset,
+    const std::vector<size_t>& /* oldFromNew */,
+    const typename boost::enable_if_c<
+        tree::TreeTraits<TreeType>::RearrangesDataset == false, TreeType*
+    >::type = 0)
+{
+  return new TreeType(dataset);
+}
+
 template<typename MetricType, typename TreeType>
 RangeSearch<MetricType, TreeType>::RangeSearch(
-    const typename TreeType::Mat& referenceSet,
-    const typename TreeType::Mat& querySet,
+    const typename TreeType::Mat& referenceSetIn,
+    const typename TreeType::Mat& querySetIn,
     const bool naive,
     const bool singleMode,
-    const size_t leafSize,
     const MetricType metric) :
-    referenceCopy(referenceSet),
-    queryCopy(querySet),
-    referenceSet(referenceCopy),
-    querySet(queryCopy),
-    treeOwner(true),
+    referenceSet(tree::TreeTraits<TreeType>::RearrangesDataset ? referenceCopy
+        : referenceSetIn),
+    querySet(tree::TreeTraits<TreeType>::RearrangesDataset ? queryCopy
+        : querySetIn),
+    treeOwner(!naive), // If in naive mode, we are not building any trees.
     hasQuerySet(true),
     naive(naive),
     singleMode(!naive && singleMode), // Naive overrides single mode.
@@ -52,27 +74,42 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
 {
   // Build the trees.
 
-  // Naive sets the leaf size such that the entire tree is one node.
-  referenceTree = new TreeType(referenceCopy, oldFromNewReferences,
-      (naive ? referenceCopy.n_cols : leafSize));
+  // Copy the datasets, if they will be modified during tree building.
+  if (tree::TreeTraits<TreeType>::RearrangesDataset)
+  {
+    referenceCopy = referenceSetIn;
+    queryCopy = querySetIn;
+  }
 
-  queryTree = new TreeType(queryCopy, oldFromNewQueries,
-      (naive ? queryCopy.n_cols : leafSize));
+  // If in naive mode, then we do not need to build trees.
+  if (!naive)
+  {
+    // The const_cast is safe; if RearrangesDataset == false, then it'll be
+    // casted back to const anyway, and if not, referenceSet points to
+    // referenceCopy, which isn't const.
+    referenceTree = BuildTree<TreeType>(
+        const_cast<typename TreeType::Mat&>(referenceSet),
+        oldFromNewReferences);
+
+    if (!singleMode)
+      queryTree = BuildTree<TreeType>(
+          const_cast<typename TreeType::Mat&>(querySet), oldFromNewQueries);
+  }
 
 }
 
 template<typename MetricType, typename TreeType>
 RangeSearch<MetricType, TreeType>::RangeSearch(
-    const typename TreeType::Mat& referenceSet,
+    const typename TreeType::Mat& referenceSetIn,
     const bool naive,
     const bool singleMode,
-    const size_t leafSize,
     const MetricType metric) :
-    referenceCopy(referenceSet),
-    referenceSet(referenceCopy),
-    querySet(referenceCopy),
+    referenceSet(tree::TreeTraits<TreeType>::RearrangesDataset ? referenceCopy
+        : referenceSetIn),
+    querySet(tree::TreeTraits<TreeType>::RearrangesDataset ? referenceCopy
+        : referenceSetIn),
     queryTree(NULL),
-    treeOwner(true),
+    treeOwner(!naive), // If in naive mode, we are not building any trees.
     hasQuerySet(false),
     naive(naive),
     singleMode(!naive && singleMode), // Naive overrides single mode.
@@ -81,14 +118,23 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
 {
   // Build the trees.
 
-  // Naive sets the leaf size such that the entire tree is one node.
-  referenceTree = new TreeType(referenceCopy, oldFromNewReferences,
-      (naive ? referenceCopy.n_cols : leafSize));
+  // Copy the dataset, if it will be modified during tree building.
+  if (tree::TreeTraits<TreeType>::RearrangesDataset)
+    referenceCopy = referenceSetIn;
 
-  // If using dual-tree mode, then we need a second tree.
-  if (!singleMode)
-    queryTree = new TreeType(*referenceTree);
+  // If in naive mode, then we do not need to build trees.
+  if (!naive)
+  {
+    // The const_cast is safe; if RearrangesDataset == false, then it'll be
+    // casted back to const anyway, and if not, referenceSet points to
+    // referenceCopy, which isn't const.
+    referenceTree = BuildTree<TreeType>(
+        const_cast<typename TreeType::Mat&>(referenceSet),
+        oldFromNewReferences);
 
+    if (!singleMode)
+      queryTree = new TreeType(*referenceTree);
+  }
 }
 
 template<typename MetricType, typename TreeType>
@@ -147,7 +193,7 @@ RangeSearch<MetricType, TreeType>::~RangeSearch()
   }
 
   // If doing dual-tree search with one dataset, we cloned the reference tree.
-  if (!treeOwner && !hasQuerySet && !singleMode)
+  if (!treeOwner && !hasQuerySet && !(singleMode || naive))
     delete queryTree;
 }
 
@@ -168,10 +214,15 @@ void RangeSearch<MetricType, TreeType>::Search(
   std::vector<std::vector<size_t> >* neighborPtr = &neighbors;
   std::vector<std::vector<double> >* distancePtr = &distances;
 
-  if (treeOwner && !(singleMode && hasQuerySet))
-    distancePtr = new std::vector<std::vector<double> >;
-  if (treeOwner)
-    neighborPtr = new std::vector<std::vector<size_t> >;
+  // Mapping is only necessary if the tree rearranges points.
+  if (tree::TreeTraits<TreeType>::RearrangesDataset)
+  {
+    if (treeOwner && !(singleMode && hasQuerySet))
+      distancePtr = new std::vector<std::vector<double> >; // Query indices need to be mapped.
+
+    if (treeOwner)
+      neighborPtr = new std::vector<std::vector<size_t> >; // All indices need mapping.
+  }
 
   // Resize each vector.
   neighborPtr->clear(); // Just in case there was anything in it.
@@ -184,7 +235,14 @@ void RangeSearch<MetricType, TreeType>::Search(
   RuleType rules(referenceSet, querySet, range, *neighborPtr, *distancePtr,
       metric);
 
-  if (singleMode)
+  if (naive)
+  {
+    // The naive brute-force solution.
+    for (size_t i = 0; i < querySet.n_cols; ++i)
+      for (size_t j = 0; j < referenceSet.n_cols; ++j)
+        rules.BaseCase(i, j);
+  }
+  else if (singleMode)
   {
     // Create the traverser.
     typename TreeType::template SingleTreeTraverser<RuleType> traverser(rules);
@@ -205,13 +263,13 @@ void RangeSearch<MetricType, TreeType>::Search(
     numPrunes = traverser.NumPrunes();
   }
 
-
   // Output number of prunes.
   Rcpp::Rcout << "Number of pruned nodes during computation: " << numPrunes
       << "." << std::endl;
 
   // Map points back to original indices, if necessary.
-  if (!treeOwner)
+
+  if (!treeOwner || !tree::TreeTraits<TreeType>::RearrangesDataset)
   {
     // No mapping needed.  We are done.
     return;
@@ -286,7 +344,21 @@ void RangeSearch<MetricType, TreeType>::Search(
   }
 }
 
-} // namespace range
-} // namespace mlpack
+template<typename MetricType, typename TreeType>
+std::string RangeSearch<MetricType, TreeType>::ToString() const
+{
+  std::ostringstream convert;
+  convert << "Range Search  [" << this << "]" << std::endl;
+  if (treeOwner)
+    convert << "  Tree Owner: TRUE" << std::endl;
+  if (naive)
+    convert << "  Naive: TRUE" << std::endl;
+  convert << "  Metric: " << std::endl <<
+      mlpack::util::Indent(metric.ToString(),2);
+  return convert.str();
+}
+
+}; // namespace range
+}; // namespace mlpack
 
 #endif

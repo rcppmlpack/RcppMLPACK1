@@ -4,7 +4,7 @@
  * Definition of the Range class, which represents a simple range with a lower
  * and upper bound.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -178,8 +178,8 @@ class Range
 
 };
 
-} // namespace math
-} // namespace mlpack
+}; // namespace math
+}; // namespace mlpack
 
 // Include inlined implementation.
 #include "range_impl.hpp"

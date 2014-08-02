@@ -3,7 +3,7 @@
  *
  * Miscellaneous math random-related routines.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -21,10 +21,7 @@
 #ifndef __MLPACK_CORE_MATH_RANDOM_HPP
 #define __MLPACK_CORE_MATH_RANDOM_HPP
 
-#include <stdlib.h>
-#include <math.h>
-#include <float.h>
-
+#include <mlpack/prereqs.hpp>
 #include <boost/random.hpp>
 
 namespace mlpack {
@@ -148,7 +145,7 @@ inline double RandNormal(const double mean, const double variance)
   return variance * randNormalDist(randGen) + mean;
 }
 
-} // namespace math
-} // namespace mlpack
+}; // namespace math
+}; // namespace mlpack
 
 #endif // __MLPACK_CORE_MATH_MATH_LIB_HPP

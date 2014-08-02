@@ -5,7 +5,7 @@
  * Defines the PCA class to perform Principal Components Analysis on the
  * specified data set.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -115,6 +115,9 @@ class PCA
   //! the data when PCA is performed.
   bool& ScaleData() { return scaleData; }
 
+  // Returns a string representation of this object. 
+  std::string ToString() const;
+
  private:
   //! Whether or not the data will be scaled by standard deviation when PCA is
   //! performed.
@@ -122,7 +125,7 @@ class PCA
 
 }; // class PCA
 
-} // namespace pca
-} // namespace mlpack
+}; // namespace pca
+}; // namespace mlpack
 
 #endif

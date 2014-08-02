@@ -4,7 +4,7 @@
  *
  * Define test functions for the augmented Lagrangian method.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -52,6 +52,9 @@ class AugLagrangianTestFunction
                           arma::mat& gradient);
 
   const arma::mat& GetInitialPoint() const { return initialPoint; }
+
+  // convert the obkect into a string
+  std::string ToString() const;
 
  private:
   arma::mat initialPoint;
@@ -149,7 +152,7 @@ class LovaszThetaSDP
   arma::mat initialPoint;
 };
 
-} // namespace optimization
-} // namespace mlpack
+}; // namespace optimization
+}; // namespace mlpack
 
 #endif // __MLPACK_CORE_OPTIMIZERS_AUG_LAGRANGIAN_TEST_FUNCTIONS_HPP

@@ -4,7 +4,7 @@
  *
  * Tree traverser rules for the DualTreeBoruvka algorithm.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -23,6 +23,8 @@
 #define __MLPACK_METHODS_EMST_DTB_RULES_HPP
 
 #include <mlpack/core.hpp>
+
+#include "../neighbor_search/ns_traversal_info.hpp"
 
 namespace mlpack {
 namespace emst {
@@ -87,7 +89,7 @@ class DTBRules
    * @param queryNode Candidate query node to recurse into.
    * @param referenceNode Candidate reference node to recurse into.
    */
-  double Score(TreeType& queryNode, TreeType& referenceNode) const;
+  double Score(TreeType& queryNode, TreeType& referenceNode);
 
   /**
    * Get the score for recursion order, passing the base case result (in the
@@ -101,7 +103,7 @@ class DTBRules
    */
   double Score(TreeType& queryNode,
                TreeType& referenceNode,
-               const double baseCaseResult) const;
+               const double baseCaseResult);
 
   /**
    * Re-evaluate the score for recursion order.  A low score indicates priority
@@ -117,6 +119,21 @@ class DTBRules
   double Rescore(TreeType& queryNode,
                  TreeType& referenceNode,
                  const double oldScore) const;
+
+  typedef neighbor::NeighborSearchTraversalInfo<TreeType> TraversalInfoType;
+
+  const TraversalInfoType& TraversalInfo() const { return traversalInfo; }
+  TraversalInfoType& TraversalInfo() { return traversalInfo; }
+
+  //! Get the number of base cases performed.
+  size_t BaseCases() const { return baseCases; }
+  //! Modify the number of base cases performed.
+  size_t& BaseCases() { return baseCases; }
+
+  //! Get the number of node combinations that have been scored.
+  size_t Scores() const { return scores; }
+  //! Modify the number of node combinations that have been scored.
+  size_t& Scores() { return scores; }
 
  private:
   //! The data points.
@@ -143,6 +160,13 @@ class DTBRules
    * Update the bound for the given query node.
    */
   inline double CalculateBound(TreeType& queryNode) const;
+
+  TraversalInfoType traversalInfo;
+
+  //! The number of base cases calculated.
+  size_t baseCases;
+  //! The number of node combinations that have been scored.
+  size_t scores;
 
 }; // class DTBRules
 

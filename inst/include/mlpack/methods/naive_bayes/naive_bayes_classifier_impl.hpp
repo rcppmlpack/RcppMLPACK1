@@ -1,12 +1,14 @@
 /**
- * @file simple_nbc_impl.hpp
+ * @file naive_bayes_classifier_impl.hpp
  * @author Parikshit Ram (pram@cc.gatech.edu)
+ * @author Vahab Akbarzadeh (v.akbarzadeh@gmail.com)
  *
  * A Naive Bayes Classifier which parametrically estimates the distribution of
- * the features.  It is assumed that the features have been sampled from a
- * Gaussian PDF.
+ * the features.  This classifier makes its predictions based on the assumption
+ * that the features have been sampled from a set of Gaussians with diagonal
+ * covariance.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -36,9 +38,10 @@ template<typename MatType>
 NaiveBayesClassifier<MatType>::NaiveBayesClassifier(
     const MatType& data,
     const arma::Col<size_t>& labels,
-    const size_t classes)
+    const size_t classes,
+    const bool incrementalVariance)
 {
-  size_t dimensionality = data.n_rows;
+  const size_t dimensionality = data.n_rows;
 
   // Update the variables according to the number of features and classes
   // present in the data.
@@ -46,29 +49,68 @@ NaiveBayesClassifier<MatType>::NaiveBayesClassifier(
   means.zeros(dimensionality, classes);
   variances.zeros(dimensionality, classes);
 
-  Rcpp::Rcout<< "Training Naive Bayes classifier on " << data.n_cols
+  Rcpp::Rcout << "Training Naive Bayes classifier on " << data.n_cols
       << " examples with " << dimensionality << " features each." << std::endl;
 
   // Calculate the class probabilities as well as the sample mean and variance
   // for each of the features with respect to each of the labels.
-  for (size_t j = 0; j < data.n_cols; ++j)
+  if (incrementalVariance)
   {
-    const size_t label = labels[j];
-    ++probabilities[label];
-
-    means.col(label) += data.col(j);
-    variances.col(label) += square(data.col(j));
-  }
-
-  for (size_t i = 0; i < classes; ++i)
-  {
-    if (probabilities[i] != 0)
+    // Use incremental algorithm.
+    for (size_t j = 0; j < data.n_cols; ++j)
     {
-      variances.col(i) -= (square(means.col(i)) / probabilities[i]);
-      means.col(i) /= probabilities[i];
-      variances.col(i) /= (probabilities[i] - 1);
+      const size_t label = labels[j];
+      ++probabilities[label];
+
+      arma::vec delta = data.col(j) - means.col(label);
+      means.col(label) += delta / probabilities[label];
+      variances.col(label) += delta % (data.col(j) - means.col(label));
+    }
+
+    for (size_t i = 0; i < classes; ++i)
+    {
+      if (probabilities[i] > 2)
+        variances.col(i) /= (probabilities[i] - 1);
     }
   }
+  else
+  {
+    // Don't use incremental algorithm.  This is a two-pass algorithm.  It is
+    // possible to calculate the means and variances using a faster one-pass
+    // algorithm but there are some precision and stability issues.  If this is
+    // too slow, it's an option to use the faster algorithm by default and then
+    // have this (and the incremental algorithm) be other options.
+
+    // Calculate the means.
+    for (size_t j = 0; j < data.n_cols; ++j)
+    {
+      const size_t label = labels[j];
+      ++probabilities[label];
+      means.col(label) += data.col(j);
+    }
+
+    // Normalize means.
+    for (size_t i = 0; i < classes; ++i)
+      if (probabilities[i] != 0.0)
+        means.col(i) /= probabilities[i];
+
+    // Calculate variances.
+    for (size_t j = 0; j < data.n_cols; ++j)
+    {
+      const size_t label = labels[j];
+      variances.col(label) += square(data.col(j) - means.col(label));
+    }
+
+    // Normalize variances.
+    for (size_t i = 0; i < classes; ++i)
+      if (probabilities[i] > 1)
+        variances.col(i) /= (probabilities[i] - 1);
+  }
+
+  // Ensure that the variances are invertible.
+  for (size_t i = 0; i < variances.n_elem; ++i)
+    if (variances[i] == 0.0)
+      variances[i] = 1e-50;
 
   probabilities /= data.n_cols;
 }
@@ -80,44 +122,49 @@ void NaiveBayesClassifier<MatType>::Classify(const MatType& data,
   // Check that the number of features in the test data is same as in the
   // training data.
 
-  arma::vec probs(means.n_cols);
+  arma::vec probs = arma::log(probabilities);
+  arma::mat invVar = 1.0 / variances;
 
-  results.zeros(data.n_cols);
+  arma::mat testProbs = arma::repmat(probs.t(), data.n_cols, 1);
 
-  Rcpp::Rcout<< "Running Naive Bayes classifier on " << data.n_cols
+  results.set_size(data.n_cols); // No need to fill with anything yet.
+
+  Rcpp::Rcout << "Running Naive Bayes classifier on " << data.n_cols
       << " data points with " << data.n_rows << " features each." << std::endl;
 
   // Calculate the joint probability for each of the data points for each of the
   // means.n_cols.
 
-  // Loop over every test case.
-  for (size_t n = 0; n < data.n_cols; n++)
+  // Loop over every class.
+  for (size_t i = 0; i < means.n_cols; i++)
   {
-    // Loop over every class.
-    for (size_t i = 0; i < means.n_cols; i++)
-    {
-      // Use the log values to prevent floating point underflow.
-      probs(i) = log(probabilities(i));
+    // This is an adaptation of gmm::phi() for the case where the covariance is
+    // a diagonal matrix.
+    arma::mat diffs = data - arma::repmat(means.col(i), 1, data.n_cols);
+    arma::mat rhs = -0.5 * arma::diagmat(invVar.col(i)) * diffs;
+    arma::vec exponents(diffs.n_cols);
+    for (size_t j = 0; j < diffs.n_cols; ++j)
+      exponents(j) = std::exp(arma::accu(diffs.col(j) % rhs.unsafe_col(j)));
 
-      // Loop over every feature, but avoid inverting empty matrices.
-      if (probabilities[i] != 0)
-      {
-        probs(i) += log(gmm::phi(data.unsafe_col(n), means.unsafe_col(i),
-            diagmat(variances.unsafe_col(i))));
-      }
-    }
+    testProbs.col(i) += log(pow(2 * M_PI, (double) data.n_rows / -2.0) *
+        pow(det(arma::diagmat(invVar.col(i))), -0.5) * exponents);
+  }
 
-    // Find the index of the maximum value in tmp_vals.
+  // Now calculate the label.
+  for (size_t i = 0; i < data.n_cols; ++i)
+  {
+    // Find the index of the class with maximum probability for this point.
     arma::uword maxIndex = 0;
-    probs.max(maxIndex);
+    arma::vec pointProbs = testProbs.row(i).t();
+    pointProbs.max(maxIndex);
 
-    results[n] = maxIndex;
+    results[i] = maxIndex;
   }
 
   return;
 }
 
-} // namespace naive_bayes
-} // namespace mlpack
+}; // namespace naive_bayes
+}; // namespace mlpack
 
 #endif

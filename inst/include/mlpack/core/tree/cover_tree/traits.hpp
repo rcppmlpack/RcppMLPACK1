@@ -5,7 +5,7 @@
  * This file contains the specialization of the TreeTraits class for the
  * CoverTree type of tree.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -41,13 +41,6 @@ class TreeTraits<CoverTree<MetricType, RootPointPolicy, StatisticType> >
 {
  public:
   /**
-   * The cover tree calculates the distance between parent and child during
-   * construction, so that value is saved and CoverTree<...>::ParentDistance()
-   * does exist.
-   */
-  static const bool HasParentDistance = true;
-
-  /**
    * The cover tree (or, this implementation of it) does not require that
    * children represent non-overlapping subsets of the parent node.
    */
@@ -63,9 +56,14 @@ class TreeTraits<CoverTree<MetricType, RootPointPolicy, StatisticType> >
    * Cover trees do have self-children.
    */
   static const bool HasSelfChildren = true;
+
+  /**
+   * Points are not rearranged when the tree is built.
+   */
+  static const bool RearrangesDataset = false;
 };
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 #endif

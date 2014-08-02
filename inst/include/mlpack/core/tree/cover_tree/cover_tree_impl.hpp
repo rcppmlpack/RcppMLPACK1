@@ -4,7 +4,7 @@
  *
  * Implementation of CoverTree class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -1008,9 +1008,10 @@ std::string CoverTree<MetricType, RootPointPolicy, StatisticType>::ToString()
   convert << std::endl;
   convert << "children:";
 
-  if (IsLeaf() == false)
+  // How many levels should we print?  This will print the top two tree levels.
+  if (IsLeaf() == false && parent == NULL)
   {
-    for (int i = 0; i < children.size(); i++)
+    for (size_t i = 0; i < children.size(); i++)
     {
       convert << std::endl << mlpack::util::Indent(children.at(i)->ToString());
     }
@@ -1018,7 +1019,7 @@ std::string CoverTree<MetricType, RootPointPolicy, StatisticType>::ToString()
   return convert.str();
 }
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 #endif

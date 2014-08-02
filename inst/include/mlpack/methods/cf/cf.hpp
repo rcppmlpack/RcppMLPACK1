@@ -7,7 +7,7 @@
  * Defines the CF class to perform collaborative filtering on the specified data
  * set using alternating least squares (ALS).
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -27,6 +27,9 @@
 
 #include <mlpack/core.hpp>
 #include <mlpack/methods/neighbor_search/neighbor_search.hpp>
+#include <mlpack/methods/amf/amf.hpp>
+#include <mlpack/methods/amf/update_rules/nmf_als.hpp>
+#include <mlpack/methods/amf/termination_policies/simple_residue_termination.hpp>
 #include <set>
 #include <map>
 #include <iostream>
@@ -44,19 +47,15 @@ namespace cf /** Collaborative filtering. */{
  * @code
  * extern arma::mat data; // (user, item, rating) table
  * extern arma::Col<size_t> users; // users seeking recommendations
- * arma::mat recommendations; // Recommendations
- * size_t numRecommendations = 10;
+ * arma::Mat<size_t> recommendations; // Recommendations
  *
  * CF<> cf(data); // Default options.
  *
- * // Generate the default number of recommendations for all users.
- * cf.GenerateRecommendations(recommendations);
- *
- * // Generate the default number of recommendations for specified users.
- * cf.GenerateRecommendations(recommendations, users);
+ * // Generate 10 recommendations for all users.
+ * cf.GetRecommendations(10, recommendations);
  *
  * // Generate 10 recommendations for specified users.
- * cf.GenerateRecommendations(recommendations, users, numRecommendations);
+ * cf.GetRecommendations(10, recommendations, users);
  *
  * @endcode
  *
@@ -64,58 +63,35 @@ namespace cf /** Collaborative filtering. */{
  * should have three rows.  The first represents the user; the second represents
  * the item; and the third represents the rating.  The user and item, while they
  * are in a matrix that holds doubles, should hold integer (or size_t) values.
+ * The user and item indices are assumed to start at 0.
+ *
+ * @tparam FactorizerType The type of matrix factorization to use to decompose
+ *     the rating matrix (a W and H matrix).  This must implement the method
+ *     Apply(arma::sp_mat& data, size_t rank, arma::mat& W, arma::mat& H).
  */
+template<
+    typename FactorizerType = amf::AMF<amf::SimpleResidueTermination,
+                                       amf::RandomInitialization, 
+                                       amf::NMFALSUpdate> >
 class CF
 {
  public:
   /**
-   * Create a CF object and (optionally) set the parameters with which
-   * collaborative filtering will be run.
+   * Initialize the CF object. Store a reference to the data that we
+   * will be using. There are parameters that can be set; default values
+   * are provided for each of them.  If the rank is left unset (or is set to 0),
+   * a simple density-based heuristic will be used to choose a rank.
    *
-   * @param data Initial (user,item,rating) matrix.
-   * @param numRecs Desired number of recommendations for each user.
+   * @param data Initial (user, item, rating) matrix.
    * @param numUsersForSimilarity Size of the neighborhood.
+   * @param rank Rank parameter for matrix factorization.
    */
-  CF(const size_t numRecs,const size_t numUsersForSimilarity,
-     arma::mat& data);
+  CF(arma::mat& data,
+     const size_t numUsersForSimilarity = 5,
+     const size_t rank = 0);
 
-  /**
-   * Create a CF object and (optionally) set the parameters which CF
-   * will be run with.
-   *
-   * @param data Initial User,Item,Rating Matrix
-   * @param numRecs Number of Recommendations for each user.
-   */
-  CF(const size_t numRecs, arma::mat& data);
-
-  /**
-   * Create a CF object and (optionally) set the parameters which CF
-   * will be run with.
-   *
-   * @param data Initial User,Item,Rating Matrix
-   */
-  CF(arma::mat& data);
-
-  //! Sets number of Recommendations.
-  void NumRecs(size_t recs)
-  {
-    if (recs < 1)
-    {
-      Rcpp::Rcout << "CF::NumRecs(): invalid value (< 1) "
-          "ignored." << std::endl;
-      return;
-    }
-    this->numRecs = recs;
-  }
-
-  //! Gets numRecs
-  size_t NumRecs()
-  {
-    return numRecs;
-  }
-
-  //! Sets number of user for calculating similarity.
-  void NumUsersForSimilarity(size_t num)
+  //! Sets number of users for calculating similarity.
+  void NumUsersForSimilarity(const size_t num)
   {
     if (num < 1)
     {
@@ -126,10 +102,28 @@ class CF
     this->numUsersForSimilarity = num;
   }
 
-  //! Gets number of users for calculating similarity/
-  size_t NumUsersForSimilarity()
+  //! Gets number of users for calculating similarity.
+  size_t NumUsersForSimilarity() const
   {
     return numUsersForSimilarity;
+  }
+
+  //! Sets rank parameter for matrix factorization.
+  void Rank(const size_t rankValue)
+  {
+    this->rank = rankValue;
+  }
+
+  //! Gets rank parameter for matrix factorization.
+  size_t Rank() const
+  {
+    return rank;
+  }
+
+  //! Sets factorizer for NMF
+  void Factorizer(const FactorizerType& f)
+  {
+    this->factorizer = f;
   }
 
   //! Get the User Matrix.
@@ -144,57 +138,45 @@ class CF
   const arma::sp_mat& CleanedData() const { return cleanedData; }
 
   /**
-   * Generates default number of recommendations for all users.
+   * Generates the given number of recommendations for all users.
    *
+   * @param numRecs Number of Recommendations
    * @param recommendations Matrix to save recommendations into.
    */
-  void GetRecommendations(arma::Mat<size_t>& recommendations);
+  void GetRecommendations(const size_t numRecs,
+                          arma::Mat<size_t>& recommendations);
 
   /**
-   * Generates default number of recommendations for specified users.
+   * Generates the given number of recommendations for the specified users.
    *
+   * @param numRecs Number of Recommendations
    * @param recommendations Matrix to save recommendations
    * @param users Users for which recommendations are to be generated
    */
-  void GetRecommendations(arma::Mat<size_t>& recommendations,
+  void GetRecommendations(const size_t numRecs,
+                          arma::Mat<size_t>& recommendations,
                           arma::Col<size_t>& users);
 
   /**
-   * Generates a fixed number of recommendations for specified users.
-   *
-   * @param recommendations Matrix to save recommendations
-   * @param users Users for which recommendations are to be generated
-   * @param num Number of Recommendations
+   * Returns a string representation of this object.
    */
-  void GetRecommendations(arma::Mat<size_t>& recommendations,
-                          arma::Col<size_t>& users, size_t num);
-
-  /**
-   * Generates a fixed number of recommendations for specified users.
-   *
-   * @param recommendations Matrix to save recommendations
-   * @param users Users for which recommendations are to be generated
-   * @param num Number of Recommendations
-   * @param neighbours Number of user to be considered while calculating
-   *        the neighbourhood
-   */
-  void GetRecommendations(arma::Mat<size_t>& recommendations,
-                          arma::Col<size_t>& users, size_t num,
-                          size_t neighbours);
+  std::string ToString() const;
 
  private:
-  //! Number of recommendations.
-  size_t numRecs;
+  //! Initial data matrix.
+  arma::mat data;
   //! Number of users for similarity.
   size_t numUsersForSimilarity;
+  //! Rank used for matrix factorization.
+  size_t rank;
+  //! Instantiated factorizer object.
+  FactorizerType factorizer;
   //! User matrix.
   arma::mat w;
   //! Item matrix.
   arma::mat h;
   //! Rating matrix.
   arma::mat rating;
-  //! Initial data matrix.
-  arma::mat data;
   //! Cleaned data matrix.
   arma::sp_mat cleanedData;
   //! Converts the User, Item, Value Matrix to User-Item Table
@@ -218,7 +200,10 @@ class CF
 
 }; // class CF
 
-} // namespace cf
-} // namespace mlpack
+}; // namespace cf
+}; // namespace mlpack
+
+//Include implementation
+#include "cf_impl.hpp"
 
 #endif

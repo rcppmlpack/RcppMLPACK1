@@ -7,7 +7,7 @@
  *
  * This also gives several convenience typedefs for commonly used L-metrics.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -33,7 +33,7 @@ namespace metric {
 /**
  * The L_p metric for arbitrary integer p, with an option to take the root.
  *
- * This class implements the standard L_p metric for two arbitary vectors @f$ x
+ * This class implements the standard L_p metric for two arbitrary vectors @f$ x
  * @f$ and @f$ y @f$ of dimensionality @f$ n @f$:
  *
  * @f[
@@ -84,6 +84,7 @@ class LMetric
    */
   template<typename VecType1, typename VecType2>
   static double Evaluate(const VecType1& a, const VecType2& b);
+  std::string ToString() const;
 };
 
 // Convenience typedefs.
@@ -108,8 +109,9 @@ typedef LMetric<2, true> EuclideanDistance;
  */
 typedef LMetric<INT_MAX, false> ChebyshevDistance;
 
-} // namespace metric
-} // namespace mlpack
+
+}; // namespace metric
+}; // namespace mlpack
 
 // Include implementation.
 #include "lmetric_impl.hpp"

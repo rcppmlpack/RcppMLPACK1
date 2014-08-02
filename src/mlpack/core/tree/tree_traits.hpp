@@ -6,7 +6,7 @@
  * provides information about tree types.  If you create a tree class, you
  * should specialize this class with the characteristics of your tree.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -54,17 +54,18 @@ namespace tree {
  * template<typename TreeType>
  * void Compute(TreeType& node,
  *              boost::enable_if<
- *                  TreeTraits<TreeType>::HasParentDistance>::type*)
+ *                  TreeTraits<TreeType>::RearrangesDataset>::type*)
  * {
- *   // Computation with TreeType::ParentDistance().
+ *   // Computation where special dataset-rearranging tree constructor is
+ *   // called.
  * }
  *
  * template<typename TreeType>
  * void Compute(TreeType& node,
  *              boost::enable_if<
- *                  !TreeTraits<TreeType>::HasParentDistance>::type*)
+ *                  !TreeTraits<TreeType>::RearrangesDataset>::type*)
  * {
- *   // Computation without TreeType::ParentDistance().
+ *   // Computation where normal tree constructor is called.
  * }
  * @endcode
  *
@@ -88,13 +89,6 @@ class TreeTraits
 {
  public:
   /**
-   * This is true if TreeType::ParentDistance() exists and works.  The
-   * ParentDistance() function returns the distance between the center of a node
-   * and the center of its parent.
-   */
-  static const bool HasParentDistance = false;
-
-  /**
    * This is true if the subspaces represented by the children of a node can
    * overlap.
    */
@@ -110,9 +104,14 @@ class TreeTraits
    * (Child(0)) are also contained in that node.
    */
   static const bool HasSelfChildren = false;
+
+  /**
+   * This is true if the tree rearranges points in the dataset when it is built.
+   */
+  static const bool RearrangesDataset = false;
 };
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 #endif

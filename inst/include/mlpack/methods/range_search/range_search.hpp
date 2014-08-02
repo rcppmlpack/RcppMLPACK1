@@ -5,7 +5,7 @@
  * Defines the RangeSearch class, which performs a generalized range search on
  * points.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -24,11 +24,8 @@
 #define __MLPACK_METHODS_RANGE_SEARCH_RANGE_SEARCH_HPP
 
 #include <mlpack/core.hpp>
-
 #include <mlpack/core/metrics/lmetric.hpp>
-
 #include <mlpack/core/tree/binary_space_tree.hpp>
-
 #include "range_search_stat.hpp"
 
 namespace mlpack {
@@ -69,7 +66,6 @@ class RangeSearch
               const typename TreeType::Mat& querySet,
               const bool naive = false,
               const bool singleMode = false,
-              const size_t leafSize = 20,
               const MetricType metric = MetricType());
 
   /**
@@ -94,7 +90,6 @@ class RangeSearch
   RangeSearch(const typename TreeType::Mat& referenceSet,
               const bool naive = false,
               const bool singleMode = false,
-              const size_t leafSize = 20,
               const MetricType metric = MetricType());
 
   /**
@@ -201,6 +196,9 @@ class RangeSearch
               std::vector<std::vector<size_t> >& neighbors,
               std::vector<std::vector<double> >& distances);
 
+  // Returns a string representation of this object. 
+  std::string ToString() const;
+
  private:
   //! Copy of reference matrix; used when a tree is built internally.
   typename TreeType::Mat referenceCopy;
@@ -240,8 +238,8 @@ class RangeSearch
   size_t numPrunes;
 };
 
-} // namespace range
-} // namespace mlpack
+}; // namespace range
+}; // namespace mlpack
 
 // Include implementation.
 #include "range_search_impl.hpp"

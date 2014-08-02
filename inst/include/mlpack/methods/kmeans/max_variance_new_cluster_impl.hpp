@@ -4,7 +4,7 @@
  *
  * Implementation of MaxVarianceNewCluster class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -45,11 +45,19 @@ size_t MaxVarianceNewCluster::EmptyCluster(const MatType& data,
 
   // Add the variance of each point's distance away from the cluster.  I think
   // this is the sensible thing to do.
-  for (size_t i = 0; i < data.n_cols; i++)
+  for (size_t i = 0; i < data.n_cols; ++i)
   {
-    variances[assignments[i]] += arma::as_scalar(
-        arma::var(data.col(i) - centroids.col(assignments[i])));
+    variances[assignments[i]] += metric::SquaredEuclideanDistance::Evaluate(
+        data.col(i), centroids.col(assignments[i]));
   }
+
+  // Divide by the number of points in the cluster to produce the variance.
+  // Although a -nan will occur here for the empty cluster(s), this doesn't
+  // matter because variances.max() won't pick it up.  If the number of points
+  // in the cluster is 1, we ensure that cluster is not selected by forcing the
+  // variance to 0.
+  for (size_t i = 0; i < clusterCounts.n_elem; ++i)
+    variances[i] /= (clusterCounts[i] == 1) ? DBL_MAX : clusterCounts[i];
 
   // Now find the cluster with maximum variance.
   arma::uword maxVarCluster;
@@ -58,7 +66,7 @@ size_t MaxVarianceNewCluster::EmptyCluster(const MatType& data,
   // Now, inside this cluster, find the point which is furthest away.
   size_t furthestPoint = data.n_cols;
   double maxDistance = -DBL_MAX;
-  for (size_t i = 0; i < data.n_cols; i++)
+  for (size_t i = 0; i < data.n_cols; ++i)
   {
     if (assignments[i] == maxVarCluster)
     {
@@ -85,7 +93,7 @@ size_t MaxVarianceNewCluster::EmptyCluster(const MatType& data,
   return 1; // We only changed one point.
 }
 
-} // namespace kmeans
-} // namespace mlpack
+}; // namespace kmeans
+}; // namespace mlpack
 
 #endif

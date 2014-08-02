@@ -4,7 +4,7 @@
  *
  * Implementation of the LSHSearch class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -141,7 +141,9 @@ BaseCase(const size_t queryIndex, const size_t referenceIndex)
   // If this distance is better than any of the current candidates, the
   // SortDistance() function will give us the position to insert it into.
   arma::vec queryDist = distancePtr->unsafe_col(queryIndex);
-  size_t insertPosition = SortPolicy::SortDistance(queryDist, distance);
+  arma::Col<size_t> queryIndices = neighborPtr->unsafe_col(queryIndex);
+  size_t insertPosition = SortPolicy::SortDistance(queryDist, queryIndices,
+      distance);
 
   // SortDistance() returns (size_t() - 1) if we shouldn't add it.
   if (insertPosition != (size_t() - 1))
@@ -188,6 +190,7 @@ ReturnIndicesFromTable(const size_t queryIndex,
     hashVec[i] = (double) ((size_t) hashVec[i] % secondHashSize);
 
 
+
   // For all the buckets that the query is hashed into, sequentially
   // collect the indices in those buckets.
   arma::Col<size_t> refPointsConsidered;
@@ -201,8 +204,7 @@ ReturnIndicesFromTable(const size_t queryIndex,
     {
       // Pick the indices in the bucket corresponding to 'hashInd'.
       size_t tableRow = bucketRowInHashTable[hashInd];
-      //assert(tableRow < secondHashSize);
-      //assert(tableRow < secondHashTable.n_rows);
+
 
       for (size_t j = 0; j < bucketContentSize[hashInd]; j++)
         refPointsConsidered[secondHashTable(tableRow, j)]++;
@@ -249,7 +251,6 @@ Search(const size_t k,
     for (size_t j = 0; j < refIndices.n_elem; j++)
       BaseCase(i, (size_t) refIndices[j]);
   }
-
 
 
   avgIndicesReturned /= querySet.n_cols;
@@ -354,6 +355,7 @@ BuildHash()
       secondHashVec[j] = (double)((size_t) secondHashVec[j] % secondHashSize);
 
 
+
     // Insert the point in the corresponding row to its bucket in the
     // 'secondHashTable'.
     for (size_t j = 0; j < secondHashVec.n_elem; j++)
@@ -400,7 +402,25 @@ BuildHash()
   secondHashTable.resize(numRowsInTable, maxBucketSize);
 }
 
-} // namespace neighbor
-} // namespace mlpack
+template<typename SortPolicy>
+std::string LSHSearch<SortPolicy>::ToString() const
+{
+  std::ostringstream convert;
+  convert << "LSHSearch [" << this << "]" << std::endl;
+  convert << "  Reference Set: " << referenceSet.n_rows << "x" ;
+  convert <<  referenceSet.n_cols << std::endl;
+  if (&referenceSet != &querySet)
+    convert << "  QuerySet: " << querySet.n_rows << "x" << querySet.n_cols 
+        << std::endl;
+  convert << "  Number of Projections: " << numProj << std::endl;
+  convert << "  Number of Tables: " << numTables << std::endl;
+  convert << "  Hash Width: " << hashWidth << std::endl;
+  convert << "  Metric: " << std::endl;
+  convert << mlpack::util::Indent(metric.ToString(),2);
+  return convert.str();
+}
+
+}; // namespace neighbor
+}; // namespace mlpack
 
 #endif

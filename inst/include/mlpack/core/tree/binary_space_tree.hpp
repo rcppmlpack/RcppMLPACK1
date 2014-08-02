@@ -4,7 +4,7 @@
  *
  * Include all the necessary files to use the BinarySpaceTree class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -25,7 +25,9 @@
 #include "bounds.hpp"
 #include "binary_space_tree/binary_space_tree.hpp"
 #include "binary_space_tree/single_tree_traverser.hpp"
+#include "binary_space_tree/single_tree_traverser_impl.hpp"
 #include "binary_space_tree/dual_tree_traverser.hpp"
+#include "binary_space_tree/dual_tree_traverser_impl.hpp"
 #include "binary_space_tree/traits.hpp"
 
 #endif

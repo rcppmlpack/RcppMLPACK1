@@ -4,7 +4,7 @@
  * Include all of the base components required to write MLPACK methods, and the
  * main MLPACK Doxygen documentation.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -99,6 +99,7 @@
  *
  * The following methods are included in MLPACK:
  *
+ *  - Decision Stump - mlpack::decision_stump::DecisionStump
  *  - Density Estimation Trees - mlpack::det::DTree
  *  - Euclidean Minimum Spanning Trees - mlpack::emst::DualTreeBoruvka
  *  - Gaussian Mixture Models (GMMs) - mlpack::gmm::GMM
@@ -110,20 +111,22 @@
  *  - Locality-Sensitive Hashing - mlpack::neighbor::LSHSearch
  *  - Naive Bayes Classifier - mlpack::naive_bayes::NaiveBayesClassifier
  *  - Neighborhood Components Analysis (NCA) - mlpack::nca::NCA
+ *  - Nonnegative Matrix Factorization (NMF) - mlpack::amf::AMF<>
+ *  - Nystroem Method - mlpack::kernel::NystroemMethod
+ *  - Perceptron - mlpack::perceptron::Perceptron
  *  - Principal Components Analysis (PCA) - mlpack::pca::PCA
+ *  - QUIC-SVD - mlpack::svd::QUIC_SVD
  *  - RADICAL (ICA) - mlpack::radical::Radical
+ *  - Regularized SVD - mlpack::svd::RegularizedSVD
  *  - Simple Least-Squares Linear Regression -
  *        mlpack::regression::LinearRegression
+ *  - Sparse Autoencoding - mlpack::nn::SparseAutoencoder
  *  - Sparse Coding - mlpack::sparse_coding::SparseCoding
  *  - Tree-based neighbor search (AllkNN, AllkFN) -
  *        mlpack::neighbor::NeighborSearch
  *  - Tree-based range search - mlpack::range::RangeSearch
  *
  * @section remarks Final Remarks
- *
- * This software was written in the FASTLab (http://www.fast-lab.org), which is
- * in the School of Computational Science and Engineering at the Georgia
- * Institute of Technology.
  *
  * MLPACK contributors include:
  *
@@ -153,54 +156,31 @@
  *   - Marcus Edel <marcus.edel@fu-berlin.de>
  *   - Mudit Raj Gupta <mudit.raaj.gupta@gmail.com>
  *   - Sumedh Ghaisas <sumedhghaisas@gmail.com>
+ *   - Michael Fox <michaelfox99@gmail.com>
+ *   - Ryan Birmingham <birm@gatech.edu>
+ *   - Siddharth Agrawal <siddharth.950@gmail.com>
+ *   - Saheb Motiani <saheb210692@gmail.com>
+ *   - Yash Vadalia <yashdv@gmail.com>
+ *   - Abhishek Laddha <laddhaabhishek11@gmail.com>
+ *   - Vahab Akbarzadeh <v.akbarzadeh@gmail.com>
+ *   - Andrew Wells <andrewmw94@gmail.com>
+ *   - Zhihao Lou <lzh1984@gmail.com>
  */
 
-// First, standard includes.
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
-#include <limits.h>
-#include <float.h>
-#include <stdint.h>
-//#include <iostream>
+// First, include all of the prerequisites.
+#include <mlpack/prereqs.hpp>
 
-// Defining _USE_MATH_DEFINES should set M_PI.
-#define _USE_MATH_DEFINES
-#include <math.h>
-
-// For tgamma().
-#include <boost/math/special_functions/gamma.hpp>
-
-// But if it's not defined, we'll do it.
-#ifndef M_PI
-  #define M_PI 3.141592653589793238462643383279
-#endif
-
-// Give ourselves a nice way to force functions to be inline if we need.
-#define force_inline
-#if defined(__GNUG__) && !defined(DEBUG)
-  #undef force_inline
-  #define force_inline __attribute__((always_inline))
-#elif defined(_MSC_VER) && !defined(DEBUG)
-  #undef force_inline
-  #define force_inline __forceinline
-#endif
-
-// Now MLPACK-specific includes.
-#include <mlpack/core/arma_extend/arma_extend.hpp> // Includes Armadillo.
-//#include <mlpack/core/util/log.hpp>
-//#include <mlpack/core/util/cli.hpp>
+// Now the core mlpack classes.
+#include <mlpack/core/util/arma_traits.hpp>
+#include <mlpack/core/util/string_util.hpp>
 #include <mlpack/core/data/load.hpp>
 #include <mlpack/core/data/save.hpp>
-#include <mlpack/core/util/string_util.hpp>
 #include <mlpack/core/data/normalize_labels.hpp>
 #include <mlpack/core/math/clamp.hpp>
 #include <mlpack/core/math/random.hpp>
 #include <mlpack/core/math/lin_alg.hpp>
 #include <mlpack/core/math/range.hpp>
 #include <mlpack/core/math/round.hpp>
-//#include <mlpack/core/util/save_restore_utility.hpp>
 #include <mlpack/core/dists/discrete_distribution.hpp>
 #include <mlpack/core/dists/gaussian_distribution.hpp>
 

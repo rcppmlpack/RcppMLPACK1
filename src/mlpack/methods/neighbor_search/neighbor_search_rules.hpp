@@ -5,7 +5,7 @@
  * Defines the pruning rules and base case rules necessary to perform a
  * tree-based search (with an arbitrary tree) for the NeighborSearch class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -23,6 +23,8 @@
 #ifndef __MLPACK_METHODS_NEIGHBOR_SEARCH_NEIGHBOR_SEARCH_RULES_HPP
 #define __MLPACK_METHODS_NEIGHBOR_SEARCH_NEIGHBOR_SEARCH_RULES_HPP
 
+#include "ns_traversal_info.hpp"
+
 namespace mlpack {
 namespace neighbor {
 
@@ -30,12 +32,19 @@ template<typename SortPolicy, typename MetricType, typename TreeType>
 class NeighborSearchRules
 {
  public:
-  NeighborSearchRules(const arma::mat& referenceSet,
-                      const arma::mat& querySet,
+  NeighborSearchRules(const typename TreeType::Mat& referenceSet,
+                      const typename TreeType::Mat& querySet,
                       arma::Mat<size_t>& neighbors,
                       arma::mat& distances,
                       MetricType& metric);
-
+  /**
+   * Get the distance from the query point to the reference point.
+   * This will update the "neighbor" matrix with the new point if appropriate
+   * and will track the number of base cases (number of points evaluated).
+   *
+   * @param queryIndex Index of query point.
+   * @param referenceIndex Index of reference point.
+   */
   double BaseCase(const size_t queryIndex, const size_t referenceIndex);
 
   /**
@@ -88,12 +97,30 @@ class NeighborSearchRules
                  TreeType& referenceNode,
                  const double oldScore) const;
 
+  //! Get the number of base cases that have been performed.
+  size_t BaseCases() const { return baseCases; }
+  //! Modify the number of base cases that have been performed.
+  size_t& BaseCases() { return baseCases; }
+
+  //! Get the number of scores that have been performed.
+  size_t Scores() const { return scores; }
+  //! Modify the number of scores that have been performed.
+  size_t& Scores() { return scores; }
+
+  //! Convenience typedef.
+  typedef NeighborSearchTraversalInfo<TreeType> TraversalInfoType;
+
+  //! Get the traversal info.
+  const TraversalInfoType& TraversalInfo() const { return traversalInfo; }
+  //! Modify the traversal info.
+  TraversalInfoType& TraversalInfo() { return traversalInfo; }
+
  private:
   //! The reference set.
-  const arma::mat& referenceSet;
+  const typename TreeType::Mat& referenceSet;
 
   //! The query set.
-  const arma::mat& querySet;
+  const typename TreeType::Mat& querySet;
 
   //! The matrix the resultant neighbor indices should be stored in.
   arma::Mat<size_t>& neighbors;
@@ -110,6 +137,15 @@ class NeighborSearchRules
   size_t lastReferenceIndex;
   //! The last base case result.
   double lastBaseCase;
+
+  //! The number of base cases that have been performed.
+  size_t baseCases;
+  //! The number of scores that have been performed.
+  size_t scores;
+
+  //! Traversal info for the parent combination; this is updated by the
+  //! traversal before each call to Score().
+  TraversalInfoType traversalInfo;
 
   /**
    * Recalculate the bound for a given query node.
@@ -131,8 +167,8 @@ class NeighborSearchRules
                       const double distance);
 };
 
-} // namespace neighbor
-} // namespace mlpack
+}; // namespace neighbor
+}; // namespace mlpack
 
 // Include implementation.
 #include "neighbor_search_rules_impl.hpp"

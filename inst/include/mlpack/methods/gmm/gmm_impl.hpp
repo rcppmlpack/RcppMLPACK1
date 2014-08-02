@@ -5,7 +5,7 @@
  *
  * Implementation of template-based GMM methods.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -27,9 +27,66 @@
 #include "gmm.hpp"
 
 
-
 namespace mlpack {
 namespace gmm {
+
+/**
+ * Create a GMM with the given number of Gaussians, each of which have the
+ * specified dimensionality.  The means and covariances will be set to 0.
+ *
+ * @param gaussians Number of Gaussians in this GMM.
+ * @param dimensionality Dimensionality of each Gaussian.
+ */
+template<typename FittingType>
+GMM<FittingType>::GMM(const size_t gaussians, const size_t dimensionality) :
+    gaussians(gaussians),
+    dimensionality(dimensionality),
+    means(gaussians, arma::vec(dimensionality)),
+    covariances(gaussians, arma::mat(dimensionality, dimensionality)),
+    weights(gaussians),
+    localFitter(FittingType()),
+    fitter(localFitter)
+{
+  // Clear the memory; set it to 0.  Technically this model is still valid, but
+  // only barely.
+  weights.fill(1.0 / gaussians);
+  for (size_t i = 0; i < gaussians; ++i)
+  {
+    means[i].zeros();
+    covariances[i].eye();
+  }
+}
+
+/**
+ * Create a GMM with the given number of Gaussians, each of which have the
+ * specified dimensionality.  Also, pass in an initialized FittingType class;
+ * this is useful in cases where the FittingType class needs to store some
+ * state.
+ *
+ * @param gaussians Number of Gaussians in this GMM.
+ * @param dimensionality Dimensionality of each Gaussian.
+ * @param fitter Initialized fitting mechanism.
+ */
+template<typename FittingType>
+GMM<FittingType>::GMM(const size_t gaussians,
+                      const size_t dimensionality,
+                      FittingType& fitter) :
+    gaussians(gaussians),
+    dimensionality(dimensionality),
+    means(gaussians, arma::vec(dimensionality)),
+    covariances(gaussians, arma::mat(dimensionality, dimensionality)),
+    weights(gaussians),
+    fitter(fitter)
+{
+  // Clear the memory; set it to 0.  Technically this model is still valid, but
+  // only barely.
+  weights.fill(1.0 / gaussians);
+  for (size_t i = 0; i < gaussians; ++i)
+  {
+    means[i].zeros();
+    covariances[i].eye();
+  }
+}
 
 // Copy constructor.
 template<typename FittingType>
@@ -81,7 +138,70 @@ GMM<FittingType>& GMM<FittingType>::operator=(const GMM<FittingType>& other)
   return *this;
 }
 
+// Load a GMM from file.
+/*
+template<typename FittingType>
+void GMM<FittingType>::Load(const std::string& filename)
+{
+  util::SaveRestoreUtility load;
 
+  if (!load.ReadFile(filename))
+    Rcpp::Rcout << "GMM::Load(): could not read file '" << filename << "'!\n";
+
+  load.LoadParameter(gaussians, "gaussians");
+  load.LoadParameter(dimensionality, "dimensionality");
+  load.LoadParameter(weights, "weights");
+
+  // We need to do a little error checking here.
+  if (weights.n_elem != gaussians)
+  {
+    Rcpp::Rcout << "GMM::Load('" << filename << "'): file reports " << gaussians
+        << " gaussians but weights vector only contains " << weights.n_elem
+        << " elements!" << std::endl;
+  }
+
+  means.resize(gaussians);
+  covariances.resize(gaussians);
+
+  for (size_t i = 0; i < gaussians; ++i)
+  {
+    std::stringstream o;
+    o << i;
+    std::string meanName = "mean" + o.str();
+    std::string covName = "covariance" + o.str();
+
+    load.LoadParameter(means[i], meanName);
+    load.LoadParameter(covariances[i], covName);
+  }
+}
+*/
+
+// Save a GMM to a file.
+/*
+template<typename FittingType>
+void GMM<FittingType>::Save(const std::string& filename) const
+{
+  util::SaveRestoreUtility save;
+  save.SaveParameter(gaussians, "gaussians");
+  save.SaveParameter(dimensionality, "dimensionality");
+  save.SaveParameter(weights, "weights");
+  for (size_t i = 0; i < gaussians; ++i)
+  {
+    // Generate names for the XML nodes.
+    std::stringstream o;
+    o << i;
+    std::string meanName = "mean" + o.str();
+    std::string covName = "covariance" + o.str();
+
+    // Now save them.
+    save.SaveParameter(means[i], meanName);
+    save.SaveParameter(covariances[i], covName);
+  }
+
+  if (!save.WriteFile(filename))
+    Rcpp::Rcout << "GMM::Save(): error saving to '" << filename << "'.\n";
+}
+*/
 /**
  * Return the probability of the given observation being from this GMM.
  */
@@ -120,7 +240,7 @@ arma::vec GMM<FittingType>::Random() const
 {
   // Determine which Gaussian it will be coming from.
   double gaussRand = math::Random();
-  size_t gaussian;
+  size_t gaussian = 0;
 
   double sumProb = 0;
   for (size_t g = 0; g < gaussians; g++)
@@ -373,7 +493,33 @@ double GMM<FittingType>::LogLikelihood(
   return loglikelihood;
 }
 
-} // namespace gmm
-} // namespace mlpack
+template<typename FittingType>
+std::string GMM<FittingType>::ToString() const
+{
+  std::ostringstream convert;
+  std::ostringstream data;
+  convert << "GMM [" << this << "]" << std::endl;
+  convert << "  Gaussians: " << gaussians << std::endl;
+  convert << "  Dimensionality: "<<dimensionality;
+  convert << std::endl;
+  // Secondary ostringstream so things can be indented properly.
+  for (size_t ind=0; ind < gaussians; ind++)
+  {
+    data << "Means of Gaussian " << ind << ": " << std::endl << means[ind]; 
+    data << std::endl;
+    data << "Covariances of Gaussian " << ind << ": " << std::endl ;
+    data << covariances[ind] << std::endl;
+    data << "Weight of Gaussian " << ind << ": " << std::endl ;
+    data << weights[ind] << std::endl;
+  }
+
+  convert << util::Indent(data.str());
+
+  return convert.str();
+}
+
+}; // namespace gmm
+}; // namespace mlpack
 
 #endif
+

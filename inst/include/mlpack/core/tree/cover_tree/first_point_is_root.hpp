@@ -5,7 +5,7 @@
  * A very simple policy for the cover tree; the first point in the dataset is
  * chosen as the root of the cover tree.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -46,7 +46,7 @@ class FirstPointIsRoot
   static size_t ChooseRoot(const arma::mat& /* dataset */) { return 0; }
 };
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 #endif // __MLPACK_CORE_TREE_FIRST_POINT_IS_ROOT_HPP

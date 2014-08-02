@@ -6,7 +6,7 @@
  * optimization method (also called the 'method of multipliers'.  This class
  * uses the L-BFGS optimizer.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -133,6 +133,9 @@ class AugLagrangian
   //! Modify the penalty parameter.
   double& Sigma() { return augfunc.Sigma(); }
 
+  // convert the obkect into a string
+  std::string ToString() const;
+
  private:
   //! Function to be optimized.
   LagrangianFunction& function;
@@ -149,9 +152,10 @@ class AugLagrangian
   L_BFGSType& lbfgs;
 };
 
-} // namespace optimization
-} // namespace mlpack
+}; // namespace optimization
+}; // namespace mlpack
 
 #include "aug_lagrangian_impl.hpp"
 
 #endif // __MLPACK_CORE_OPTIMIZERS_AUG_LAGRANGIAN_AUG_LAGRANGIAN_HPP
+

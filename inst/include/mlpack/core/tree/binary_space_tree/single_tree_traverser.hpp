@@ -6,7 +6,7 @@
  * given set of rules which indicate the branches which can be pruned and the
  * order in which to recurse.  This traverser is a depth-first traverser.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -31,9 +31,13 @@
 namespace mlpack {
 namespace tree {
 
-template<typename BoundType, typename StatisticType, typename MatType>
+template<typename BoundType,
+         typename StatisticType,
+         typename MatType,
+         typename SplitType>
 template<typename RuleType>
-class BinarySpaceTree<BoundType, StatisticType, MatType>::SingleTreeTraverser
+class BinarySpaceTree<BoundType, StatisticType, MatType, SplitType>::
+    SingleTreeTraverser
 {
  public:
   /**
@@ -63,8 +67,8 @@ class BinarySpaceTree<BoundType, StatisticType, MatType>::SingleTreeTraverser
   size_t numPrunes;
 };
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 // Include implementation.
 #include "single_tree_traverser_impl.hpp"

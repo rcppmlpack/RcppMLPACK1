@@ -5,7 +5,7 @@
  *
  * You should define your own statistic that looks like EmptyStatistic.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -59,7 +59,7 @@ class EmptyStatistic
     }
 };
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 #endif // __MLPACK_CORE_TREE_STATISTIC_HPP

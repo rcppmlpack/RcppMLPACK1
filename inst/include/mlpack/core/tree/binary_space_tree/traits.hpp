@@ -4,7 +4,7 @@
  *
  * Specialization of the TreeTraits class for the BinarySpaceTree type of tree.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -40,12 +40,6 @@ class TreeTraits<BinarySpaceTree<BoundType, StatisticType, MatType> >
 {
  public:
   /**
-   * The binary space tree cannot easily calculate the distance from a node to
-   * its parent; so BinarySpaceTree<...>::ParentDistance() does not exist.
-   */
-  static const bool HasParentDistance = false;
-
-  /**
    * Each binary space tree node has two children which represent
    * non-overlapping subsets of the space which the node represents.  Therefore,
    * children are not overlapping.
@@ -61,9 +55,14 @@ class TreeTraits<BinarySpaceTree<BoundType, StatisticType, MatType> >
    * Points are not contained at multiple levels of the binary space tree.
    */
   static const bool HasSelfChildren = false;
+
+  /**
+   * Points are rearranged during building of the tree.
+   */
+  static const bool RearrangesDataset = true;
 };
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 #endif

@@ -5,7 +5,7 @@
  * Implementation of the SortPolicy class for NeighborSearch; in this case, the
  * nearest neighbors are those that are most important.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -55,7 +55,9 @@ class NearestNeighborSort
    * @return size_t containing the position to insert into, or (size_t() - 1)
    *     if the new distance should not be inserted.
    */
-  static size_t SortDistance(const arma::vec& list, double newDistance);
+  static size_t SortDistance(const arma::vec& list,
+                             const arma::Col<size_t>& indices,
+                             double newDistance);
 
   /**
    * Return whether or not value is "better" than ref.  In this case, that means
@@ -113,8 +115,8 @@ class NearestNeighborSort
    * this is the minimum distance between the tree node and the point using the
    * given distance function.
    */
-  template<typename TreeType>
-  static double BestPointToNodeDistance(const arma::vec& queryPoint,
+  template<typename VecType, typename TreeType>
+  static double BestPointToNodeDistance(const VecType& queryPoint,
                                         const TreeType* referenceNode);
 
   /**
@@ -123,8 +125,8 @@ class NearestNeighborSort
    * calculated.  This is used in conjunction with trees that have
    * self-children (like cover trees).
    */
-  template<typename TreeType>
-  static double BestPointToNodeDistance(const arma::vec& queryPoint,
+  template<typename VecType, typename TreeType>
+  static double BestPointToNodeDistance(const VecType& queryPoint,
                                         const TreeType* referenceNode,
                                         const double pointToCenterDistance);
 
@@ -165,8 +167,8 @@ class NearestNeighborSort
   }
 };
 
-} // namespace neighbor
-} // namespace mlpack
+}; // namespace neighbor
+}; // namespace mlpack
 
 // Include implementation of templated functions.
 #include "nearest_neighbor_sort_impl.hpp"

@@ -4,7 +4,7 @@
  *
  * DTBStat is the StatisticType used by trees when performing EMST.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -56,7 +56,11 @@ class DTBStat
    * A generic initializer.  Sets the maximum neighbor distance to its default,
    * and the component membership to -1 (no component).
    */
-  DTBStat();
+  DTBStat() :
+      maxNeighborDistance(DBL_MAX),
+      minNeighborDistance(DBL_MAX),
+      bound(DBL_MAX),
+      componentMembership(-1) { }
 
   /**
    * This is called when a node is finished initializing.  We set the maximum
@@ -66,7 +70,13 @@ class DTBStat
    * @param node Node that has been finished.
    */
   template<typename TreeType>
-  DTBStat(const TreeType& node);
+  DTBStat(const TreeType& node) :
+      maxNeighborDistance(DBL_MAX),
+      minNeighborDistance(DBL_MAX),
+      bound(DBL_MAX),
+      componentMembership(
+          ((node.NumPoints() == 1) && (node.NumChildren() == 0)) ?
+            node.Point(0) : -1) { }
 
   //! Get the maximum neighbor distance.
   double MaxNeighborDistance() const { return maxNeighborDistance; }
@@ -90,7 +100,7 @@ class DTBStat
 
 }; // class DTBStat
 
-} // namespace emst
-} // namespace mlpack
+}; // namespace emst
+}; // namespace mlpack
 
 #endif // __MLPACK_METHODS_EMST_DTB_STAT_HPP

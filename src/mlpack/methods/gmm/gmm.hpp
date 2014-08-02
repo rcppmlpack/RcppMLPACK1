@@ -5,7 +5,7 @@
  * Defines a Gaussian Mixture model and
  * estimates the parameters of the model
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -119,19 +119,12 @@ class GMM
 
   /**
    * Create a GMM with the given number of Gaussians, each of which have the
-   * specified dimensionality.
+   * specified dimensionality.  The means and covariances will be set to 0.
    *
    * @param gaussians Number of Gaussians in this GMM.
    * @param dimensionality Dimensionality of each Gaussian.
    */
-  GMM(const size_t gaussians, const size_t dimensionality) :
-      gaussians(gaussians),
-      dimensionality(dimensionality),
-      means(gaussians, arma::vec(dimensionality)),
-      covariances(gaussians, arma::mat(dimensionality, dimensionality)),
-      weights(gaussians),
-      localFitter(FittingType()),
-      fitter(localFitter) { /* Nothing to do. */ }
+  GMM(const size_t gaussians, const size_t dimensionality);
 
   /**
    * Create a GMM with the given number of Gaussians, each of which have the
@@ -145,13 +138,7 @@ class GMM
    */
   GMM(const size_t gaussians,
       const size_t dimensionality,
-      FittingType& fitter) :
-      gaussians(gaussians),
-      dimensionality(dimensionality),
-      means(gaussians, arma::vec(dimensionality)),
-      covariances(gaussians, arma::mat(dimensionality, dimensionality)),
-      weights(gaussians),
-      fitter(fitter) { /* Nothing to do. */ }
+      FittingType& fitter);
 
   /**
    * Create a GMM with the given means, covariances, and weights.
@@ -362,6 +349,11 @@ class GMM
   void Classify(const arma::mat& observations,
                 arma::Col<size_t>& labels) const;
 
+  /**
+   * Returns a string representation of this object.
+   */
+  std::string ToString() const;
+
  private:
   /**
    * This function computes the loglikelihood of the given model.  This function
@@ -384,10 +376,11 @@ class GMM
   FittingType& fitter;
 };
 
-} // namespace gmm
-} // namespace mlpack
+}; // namespace gmm
+}; // namespace mlpack
 
 // Include implementation.
 #include "gmm_impl.hpp"
 
 #endif
+

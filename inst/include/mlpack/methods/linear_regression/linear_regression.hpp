@@ -4,7 +4,7 @@
  *
  * Simple least-squares linear regression.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -102,6 +102,9 @@ class LinearRegression
   //! Modify the Tikhonov regularization parameter for ridge regression.
   double& Lambda() { return lambda; }
 
+  // Returns a string representation of this object. 
+  std::string ToString() const;
+
  private:
   /**
    * The calculated B.
@@ -116,7 +119,7 @@ class LinearRegression
   double lambda;
 };
 
-} // namespace linear_regression
-} // namespace mlpack
+}; // namespace linear_regression
+}; // namespace mlpack
 
 #endif // __MLPACK_METHODS_LINEAR_REGRESSCLIN_HPP

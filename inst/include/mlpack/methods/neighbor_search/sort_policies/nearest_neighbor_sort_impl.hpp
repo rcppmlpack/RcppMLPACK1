@@ -5,7 +5,7 @@
  * Implementation of templated methods for the NearestNeighborSort SortPolicy
  * class for the NeighborSearch class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -56,9 +56,9 @@ inline double NearestNeighborSort::BestNodeToNodeDistance(
       referenceChildNode->ParentDistance();
 }
 
-template<typename TreeType>
+template<typename VecType, typename TreeType>
 inline double NearestNeighborSort::BestPointToNodeDistance(
-    const arma::vec& point,
+    const VecType& point,
     const TreeType* referenceNode)
 {
   // This is not implemented yet for the general case because the trees do not
@@ -66,16 +66,16 @@ inline double NearestNeighborSort::BestPointToNodeDistance(
   return referenceNode->MinDistance(point);
 }
 
-template<typename TreeType>
+template<typename VecType, typename TreeType>
 inline double NearestNeighborSort::BestPointToNodeDistance(
-    const arma::vec& point,
+    const VecType& point,
     const TreeType* referenceNode,
     const double pointToCenterDistance)
 {
   return referenceNode->MinDistance(point, pointToCenterDistance);
 }
 
-} // namespace neighbor
-} // namespace mlpack
+}; // namespace neighbor
+}; // namespace mlpack
 
 #endif

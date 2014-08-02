@@ -16,7 +16,7 @@
  * Although this option currently is not implemented, it will be implemented
  * very soon.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -164,8 +164,11 @@ class LARS
 
   //! Access the upper triangular cholesky factor
   const arma::mat& MatUtriCholFactor() const { return matUtriCholFactor; }
-  
-private:
+
+  // Returns a string representation of this object.
+  std::string ToString() const;
+
+ private:
   //! Gram matrix.
   arma::mat matGramInternal;
 
@@ -203,6 +206,14 @@ private:
   //! Active set membership indicator (for each dimension).
   std::vector<bool> isActive;
 
+  // Set of variables that are ignored (if any).
+
+  //! Set of ignored variables (for dimensions in span{active set dimensions}).
+  std::vector<size_t> ignoreSet;
+
+  //! Membership indicator for set of ignored variables.
+  std::vector<bool> isIgnored;
+
   /**
    * Remove activeVarInd'th element from active set.
    *
@@ -216,6 +227,13 @@ private:
    * @param varInd Dimension to add to active set.
    */
   void Activate(const size_t varInd);
+
+  /**
+   * Add dimension varInd to ignores set (never removed).
+   *
+   * @param varInd Dimension to add to ignores set.
+   */
+  void Ignore(const size_t varInd);
 
   // compute "equiangular" direction in output space
   void ComputeYHatDirection(const arma::mat& matX,
@@ -236,7 +254,7 @@ private:
   void CholeskyDelete(const size_t colToKill);
 };
 
-} // namespace regression
-} // namespace mlpack
+}; // namespace regression
+}; // namespace mlpack
 
 #endif

@@ -4,7 +4,7 @@
  *
  * Convenience methods to unmap results.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -70,7 +70,7 @@ void Unmap(const arma::Mat<size_t>& neighbors,
            arma::mat& distancesOut,
            const bool squareRoot = false);
 
-} // namespace neighbor
-} // namespace mlpack
+}; // namespace neighbor
+}; // namespace mlpack
 
 #endif

@@ -5,7 +5,7 @@
  * Inner product induced metric.  If given a kernel function, this gives the
  * complementary metric.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -49,7 +49,10 @@ class IPMetric
   const KernelType& Kernel() const { return kernel; }
   //! Modify the kernel.
   KernelType& Kernel() { return kernel; }
-
+  /**
+   * Returns a string representation of this object.
+   */
+  std::string ToString() const;
  private:
   //! The locally stored kernel, if it is necessary.
   KernelType* localKernel;
@@ -57,8 +60,8 @@ class IPMetric
   KernelType& kernel;
 };
 
-} // namespace metric
-} // namespace mlpack
+}; // namespace metric
+}; // namespace mlpack
 
 // Include implementation.
 #include "ip_metric_impl.hpp"

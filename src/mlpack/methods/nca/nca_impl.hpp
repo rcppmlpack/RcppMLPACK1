@@ -4,7 +4,7 @@
  *
  * Implementation of templated NCA class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -48,13 +48,24 @@ void NCA<MetricType, OptimizerType>::LearnDistance(arma::mat& outputMatrix)
       (outputMatrix.n_cols != dataset.n_rows))
     outputMatrix.eye(dataset.n_rows, dataset.n_rows);
 
-
-
   optimizer.Optimize(outputMatrix);
 
 }
 
-} // namespace nca
-} // namespace mlpack
+template<typename MetricType, template<typename> class OptimizerType>
+std::string NCA<MetricType, OptimizerType>::ToString() const
+{
+  std::ostringstream convert;
+  convert << "NCA  [" << this << "]" << std::endl;
+  convert << "  Dataset: " << dataset.n_rows << "x" << dataset.n_cols 
+      << std::endl;
+  convert << "  Metric: " << std::endl << 
+      mlpack::util::Indent(metric.ToString(),2);
+  return convert.str();
+}
+
+
+}; // namespace nca
+}; // namespace mlpack
 
 #endif

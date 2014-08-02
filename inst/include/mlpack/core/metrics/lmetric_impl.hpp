@@ -4,7 +4,7 @@
  *
  * Implementation of template specializations of LMetric class.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -42,6 +42,17 @@ double LMetric<Power, TakeRoot>::Evaluate(const VecType1& a,
     return sum;
 
   return pow(sum, (1.0 / Power));
+}
+
+// String conversion.
+template<int Power, bool TakeRoot>
+std::string LMetric<Power, TakeRoot>::ToString() const
+{
+  std::ostringstream convert;
+  convert << "LMetric [" << this << "]" << std::endl;
+  convert << "  Power: " << Power << std::endl;
+  convert << "  TakeRoot: " << (TakeRoot ? "true" : "false") << std::endl;
+  return convert.str();
 }
 
 // L1-metric specializations; the root doesn't matter.
@@ -101,7 +112,7 @@ double LMetric<INT_MAX, false>::Evaluate(const VecType1& a, const VecType2& b)
   return arma::as_scalar(max(abs(a - b)));
 }
 
-} // namespace metric
-} // namespace mlpack
+}; // namespace metric
+}; // namespace mlpack
 
 #endif

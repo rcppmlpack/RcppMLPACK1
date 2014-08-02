@@ -5,7 +5,7 @@
  * Save/load utilities for HMMs.  This should be eventually merged into the HMM
  * class itself.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -48,8 +48,8 @@ void SaveHMM(const HMM<Distribution>& hmm, util::SaveRestoreUtility& sr);
 template<typename Distribution>
 void LoadHMM(HMM<Distribution>& hmm, util::SaveRestoreUtility& sr);
 
-} // namespace hmm
-} // namespace mlpack
+}; // namespace hmm
+}; // namespace mlpack
 
 // Include implementation.
 #include "hmm_util_impl.hpp"

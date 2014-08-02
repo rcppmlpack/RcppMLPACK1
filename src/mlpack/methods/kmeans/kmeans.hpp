@@ -4,7 +4,7 @@
  *
  * K-Means clustering.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -157,16 +157,6 @@ class KMeans
                const bool initialAssignmentGuess = false,
                const bool initialCentroidGuess = false) const;
 
-  /**
-   * An implementation of k-means using the Pelleg-Moore algorithm; this is
-   * known to not work -- do not use it!  (Fixing it is TODO, of course; see
-   * #251.)
-   */
-  template<typename MatType>
-  void FastCluster(MatType& data,
-                   const size_t clusters,
-                   arma::Col<size_t>& assignments) const;
-
   //! Return the overclustering factor.
   double OverclusteringFactor() const { return overclusteringFactor; }
   //! Set the overclustering factor.  Must be greater than 1.
@@ -193,6 +183,9 @@ class KMeans
   //! Modify the empty cluster policy.
   EmptyClusterPolicy& EmptyClusterAction() { return emptyClusterAction; }
 
+  // Returns a string representation of this object.
+  std::string ToString() const;
+
  private:
   //! Factor controlling how many clusters are actually found.
   double overclusteringFactor;
@@ -206,8 +199,8 @@ class KMeans
   EmptyClusterPolicy emptyClusterAction;
 };
 
-} // namespace kmeans
-} // namespace mlpack
+}; // namespace kmeans
+}; // namespace mlpack
 
 // Include implementation.
 #include "kmeans_impl.hpp"

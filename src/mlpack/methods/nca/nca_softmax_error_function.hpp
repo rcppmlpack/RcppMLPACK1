@@ -5,7 +5,7 @@
  * Implementation of the stochastic neighbor assignment probability error
  * function (the "softmax error").
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -123,6 +123,9 @@ class SoftmaxErrorFunction
    */
   size_t NumFunctions() const { return dataset.n_cols; }
 
+  // convert the obkect into a string
+  std::string ToString() const;
+
  private:
   //! The dataset.
   const arma::mat& dataset;
@@ -161,8 +164,8 @@ class SoftmaxErrorFunction
   void Precalculate(const arma::mat& coordinates);
 };
 
-} // namespace nca
-} // namespace mlpack
+}; // namespace nca
+}; // namespace mlpack
 
 // Include implementation.
 #include "nca_softmax_error_function_impl.hpp"

@@ -7,7 +7,7 @@
  * manner with a given set of rules which indicate the branches which can be
  * pruned and the order in which to recurse.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -32,9 +32,13 @@
 namespace mlpack {
 namespace tree {
 
-template<typename BoundType, typename StatisticType, typename MatType>
+template<typename BoundType,
+         typename StatisticType,
+         typename MatType,
+         typename SplitType>
 template<typename RuleType>
-class BinarySpaceTree<BoundType, StatisticType, MatType>::DualTreeTraverser
+class BinarySpaceTree<BoundType, StatisticType, MatType, SplitType>::
+    DualTreeTraverser
 {
  public:
   /**
@@ -47,8 +51,10 @@ class BinarySpaceTree<BoundType, StatisticType, MatType>::DualTreeTraverser
    *
    * @param queryNode The query node to be traversed.
    * @param referenceNode The reference node to be traversed.
+   * @param score The score of the current node combination.
    */
-  void Traverse(BinarySpaceTree& queryNode, BinarySpaceTree& referenceNode);
+  void Traverse(BinarySpaceTree& queryNode,
+                BinarySpaceTree& referenceNode);
 
   //! Get the number of prunes.
   size_t NumPrunes() const { return numPrunes; }
@@ -85,10 +91,14 @@ class BinarySpaceTree<BoundType, StatisticType, MatType>::DualTreeTraverser
 
   //! The number of times a base case was calculated.
   size_t numBaseCases;
+
+  //! Traversal information, held in the class so that it isn't continually
+  //! being reallocated.
+  typename RuleType::TraversalInfoType traversalInfo;
 };
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 // Include implementation.
 #include "dual_tree_traverser_impl.hpp"

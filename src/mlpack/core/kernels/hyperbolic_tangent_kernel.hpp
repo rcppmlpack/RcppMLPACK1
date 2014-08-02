@@ -4,7 +4,7 @@
  *
  * Implementation of the hyperbolic tangent kernel.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -80,12 +80,22 @@ class HyperbolicTangentKernel
   //! Modify offset for the kernel.
   double& Offset() { return offset; }
 
+  //! Convert object to string.
+  std::string ToString() const
+  {
+    std::ostringstream convert;
+    convert << "HyperbolicTangentKernel [" << this << "]" << std::endl;
+    convert << "  Scale: " << scale << std::endl;
+    convert << "  Offset: " << offset << std::endl;
+    return convert.str();
+  }
+
  private:
   double scale;
   double offset;
 };
 
-} // namespace kernel
-} // namespace mlpack
+}; // namespace kernel
+}; // namespace mlpack
 
 #endif

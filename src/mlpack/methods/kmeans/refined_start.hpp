@@ -6,7 +6,7 @@
  * K-Means clustering".  This class is meant to provide better initial points
  * for the k-means algorithm.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -88,8 +88,8 @@ class RefinedStart
   double percentage;
 };
 
-} // namespace kmeans
-} // namespace mlpack
+}; // namespace kmeans
+}; // namespace mlpack
 
 // Include implementation.
 #include "refined_start_impl.hpp"

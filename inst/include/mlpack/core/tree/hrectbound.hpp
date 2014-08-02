@@ -6,7 +6,7 @@
  * This file describes the interface for the HRectBound class, which implements
  * a hyperrectangle bound.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -75,10 +75,16 @@ class HRectBound
   //! Gets the dimensionality.
   size_t Dim() const { return dim; }
 
-  //! Get the range for a particular dimension.  No bounds checking.
+  //! Get the range for a particular dimension.  No bounds checking.  Be
+  //! careful: this may make MinWidth() invalid.
   math::Range& operator[](const size_t i) { return bounds[i]; }
   //! Modify the range for a particular dimension.  No bounds checking.
   const math::Range& operator[](const size_t i) const { return bounds[i]; }
+
+  //! Get the minimum width of the bound.
+  double MinWidth() const { return minWidth; }
+  //! Modify the minimum width of the bound.
+  double& MinWidth() { return minWidth; }
 
   /**
    * Calculates the centroid of the range, placing it into the given vector.
@@ -93,7 +99,8 @@ class HRectBound
    * @param point Point to which the minimum distance is requested.
    */
   template<typename VecType>
-  double MinDistance(const VecType& point) const;
+  double MinDistance(const VecType& point,
+                     typename boost::enable_if<IsVector<VecType> >* = 0) const;
 
   /**
    * Calculates minimum bound-to-bound distance.
@@ -108,7 +115,8 @@ class HRectBound
    * @param point Point to which the maximum distance is requested.
    */
   template<typename VecType>
-  double MaxDistance(const VecType& point) const;
+  double MaxDistance(const VecType& point,
+                     typename boost::enable_if<IsVector<VecType> >* = 0) const;
 
   /**
    * Computes maximum distance.
@@ -132,7 +140,9 @@ class HRectBound
    *     requested.
    */
   template<typename VecType>
-  math::Range RangeDistance(const VecType& point) const;
+  math::Range RangeDistance(const VecType& point,
+                            typename boost::enable_if<IsVector<VecType> >* = 0)
+      const;
 
   /**
    * Expands this region to include new points.
@@ -177,10 +187,12 @@ class HRectBound
   size_t dim;
   //! The bounds for each dimension.
   math::Range* bounds;
+  //! Cached minimum width of bound.
+  double minWidth;
 };
 
-} // namespace bound
-} // namespace mlpack
+}; // namespace bound
+}; // namespace mlpack
 
 #include "hrectbound_impl.hpp"
 

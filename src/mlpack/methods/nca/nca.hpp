@@ -4,7 +4,7 @@
  *
  * Declaration of NCA class (Neighborhood Components Analysis).
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -98,6 +98,9 @@ class NCA
   OptimizerType<SoftmaxErrorFunction<MetricType> >& Optimizer()
   { return optimizer; }
 
+  // Returns a string representation of this object. 
+  std::string ToString() const;
+
  private:
   //! Dataset reference.
   const arma::mat& dataset;
@@ -114,8 +117,8 @@ class NCA
   OptimizerType<SoftmaxErrorFunction<MetricType> > optimizer;
 };
 
-} // namespace nca
-} // namespace mlpack
+}; // namespace nca
+}; // namespace mlpack
 
 // Include the implementation.
 #include "nca_impl.hpp"

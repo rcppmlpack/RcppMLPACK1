@@ -4,7 +4,7 @@
  *
  * Rules for range search, so that it can be done with arbitrary tree types.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -21,6 +21,8 @@
  */
 #ifndef __MLPACK_METHODS_RANGE_SEARCH_RANGE_SEARCH_RULES_HPP
 #define __MLPACK_METHODS_RANGE_SEARCH_RANGE_SEARCH_RULES_HPP
+
+#include "../neighbor_search/ns_traversal_info.hpp"
 
 namespace mlpack {
 namespace range {
@@ -106,6 +108,11 @@ class RangeSearchRules
                  TreeType& referenceNode,
                  const double oldScore) const;
 
+  typedef neighbor::NeighborSearchTraversalInfo<TreeType> TraversalInfoType;
+
+  const TraversalInfoType& TraversalInfo() const { return traversalInfo; }
+  TraversalInfoType& TraversalInfo() { return traversalInfo; }
+
  private:
   //! The reference set.
   const arma::mat& referenceSet;
@@ -135,10 +142,12 @@ class RangeSearchRules
   //! add that to the results twice.
   void AddResult(const size_t queryIndex,
                  TreeType& referenceNode);
+
+  TraversalInfoType traversalInfo;
 };
 
-} // namespace range
-} // namespace mlpack
+}; // namespace range
+}; // namespace mlpack
 
 // Include implementation.
 #include "range_search_rules_impl.hpp"

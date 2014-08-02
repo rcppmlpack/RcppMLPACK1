@@ -5,7 +5,7 @@
  *
  * The generic L-BFGS optimizer.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -154,6 +154,9 @@ class L_BFGS
   //! Modify the maximum line search step size.
   double& MaxStep() { return maxStep; }
 
+  // convert the obkect into a string
+  std::string ToString() const;
+
  private:
   //! Internal reference to the function we are optimizing.
   FunctionType& function;
@@ -260,9 +263,10 @@ class L_BFGS
                       const arma::mat& oldGradient);
 };
 
-} // namespace optimization
-} // namespace mlpack
+}; // namespace optimization
+}; // namespace mlpack
 
 #include "lbfgs_impl.hpp"
 
 #endif // __MLPACK_CORE_OPTIMIZERS_LBFGS_LBFGS_HPP
+

@@ -1,24 +1,31 @@
 MLPACKOBJECTS=\
 ./mlpack/methods/pca/pca.o \
+./mlpack/methods/mvu/mvu.o \
 ./mlpack/methods/det/dtree.o \
 ./mlpack/methods/det/dt_utils.o \
 ./mlpack/methods/linear_regression/linear_regression.o \
 ./mlpack/methods/radical/radical.o \
-./mlpack/methods/cf/cf.o \
 ./mlpack/methods/neighbor_search/unmap.o \
 ./mlpack/methods/neighbor_search/sort_policies/furthest_neighbor_sort.o \
 ./mlpack/methods/neighbor_search/sort_policies/nearest_neighbor_sort.o \
 ./mlpack/methods/lars/lars.o \
 ./mlpack/methods/logistic_regression/logistic_regression_function.o \
+./mlpack/methods/regularized_svd/regularized_svd_function.o \
+./mlpack/methods/sparse_autoencoder/sparse_autoencoder_function.o \
 ./mlpack/core/math/lin_alg.o \
 ./mlpack/core/math/random.o \
+./mlpack/core/kernels/epanechnikov_kernel.o \
 ./mlpack/core/kernels/pspectrum_string_kernel.o \
 ./mlpack/core/optimizers/lbfgs/test_functions.o \
 ./mlpack/core/optimizers/aug_lagrangian/aug_lagrangian_test_functions.o \
 ./mlpack/core/optimizers/sgd/test_function.o \
+./mlpack/core/optimizers/lrsdp/lrsdp_function.o \
+./mlpack/core/optimizers/lrsdp/lrsdp.o \
 ./mlpack/core/dists/gaussian_distribution.o \
 ./mlpack/core/dists/discrete_distribution.o \
+./mlpack/core/dists/laplace_distribution.o \
 ./mlpack/core/tree/mrkd_statistic.o \
+./mlpack/core/tree/cosine_tree/cosine_tree.o \
 ./mlpack/core/util/string_util.o
 
 

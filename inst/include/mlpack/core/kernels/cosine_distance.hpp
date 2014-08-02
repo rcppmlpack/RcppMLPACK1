@@ -5,7 +5,7 @@
  * This implements the cosine distance (or cosine similarity) between two
  * vectors, which is a measure of the angle between the two vectors.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -49,6 +49,16 @@ class CosineDistance
    */
   template<typename VecType>
   static double Evaluate(const VecType& a, const VecType& b);
+
+  /**
+   * Returns a string representation of this object.
+   */
+  std::string ToString() const
+  {
+    std::ostringstream convert;
+    convert << "CosineDistance [" << this << "]" << std::endl;
+    return convert.str();
+  }
 };
 
 //! Kernel traits for the cosine distance.
@@ -60,8 +70,8 @@ class KernelTraits<CosineDistance>
   static const bool IsNormalized = true;
 };
 
-} // namespace kernel
-} // namespace mlpack
+}; // namespace kernel
+}; // namespace mlpack
 
 // Include implementation.
 #include "cosine_distance_impl.hpp"

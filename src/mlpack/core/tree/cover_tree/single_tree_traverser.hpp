@@ -6,7 +6,7 @@
  * single-tree breadth-first recursion with a pruning rule and a base case (two
  * point) rule.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -63,8 +63,8 @@ class CoverTree<MetricType, RootPointPolicy, StatisticType>::SingleTreeTraverser
   size_t numPrunes;
 };
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 // Include implementation.
 #include "single_tree_traverser_impl.hpp"

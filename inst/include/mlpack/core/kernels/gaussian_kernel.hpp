@@ -6,7 +6,7 @@
  *
  * Implementation of the Gaussian kernel (GaussianKernel).
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -54,7 +54,7 @@ class GaussianKernel
    *
    * @param bandwidth The bandwidth of the kernel (@f$\mu@f$).
    */
-  GaussianKernel(double bandwidth) :
+  GaussianKernel(const double bandwidth) :
       bandwidth(bandwidth),
       gamma(-0.5 * pow(bandwidth, -2.0))
   { }
@@ -84,7 +84,7 @@ class GaussianKernel
    * @return K(t) using the bandwidth (@f$\mu@f$) specified in the
    *     constructor.
    */
-  double Evaluate(double t) const
+  double Evaluate(const double t) const
   {
     // The precalculation of gamma saves us a little computation time.
     return exp(gamma * std::pow(t, 2.0));
@@ -96,7 +96,7 @@ class GaussianKernel
    * @param dimension
    * @return the normalization constant
    */
-  double Normalizer(size_t dimension)
+  double Normalizer(const size_t dimension)
   {
     return pow(sqrt(2.0 * M_PI) * bandwidth, (double) dimension);
   }
@@ -130,6 +130,15 @@ class GaussianKernel
   //! Get the precalculated constant.
   double Gamma() const { return gamma; }
 
+  //! Convert object to string.
+  std::string ToString() const
+  {
+    std::ostringstream convert;
+    convert << "GaussianKernel [" << this << "]" << std::endl;
+    convert << "  Bandwidth: " << bandwidth << std::endl;
+    return convert.str();
+  }
+
  private:
   //! Kernel bandwidth.
   double bandwidth;
@@ -148,7 +157,7 @@ class KernelTraits<GaussianKernel>
   static const bool IsNormalized = true;
 };
 
-} // namespace kernel
-} // namespace mlpack
+}; // namespace kernel
+}; // namespace mlpack
 
 #endif

@@ -6,7 +6,7 @@
  * the features.  It is assumed that the features have been sampled from a
  * Gaussian PDF.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -84,10 +84,14 @@ class NaiveBayesClassifier
    * @param data Training data points.
    * @param labels Labels corresponding to training data points.
    * @param classes Number of classes in this classifier.
+   * @param incrementalVariance If true, an incremental algorithm is used to
+   *     calculate the variance; this can prevent loss of precision in some
+   *     cases, but will be somewhat slower to calculate.
    */
   NaiveBayesClassifier(const MatType& data,
                        const arma::Col<size_t>& labels,
-                       const size_t classes);
+                       const size_t classes,
+                       const bool incrementalVariance = false);
 
   /**
    * Given a bunch of data points, this function evaluates the class of each of
@@ -121,8 +125,8 @@ class NaiveBayesClassifier
   arma::vec& Probabilities() { return probabilities; }
 };
 
-} // namespace naive_bayes
-} // namespace mlpack
+}; // namespace naive_bayes
+}; // namespace mlpack
 
 // Include implementation.
 #include "naive_bayes_classifier_impl.hpp"

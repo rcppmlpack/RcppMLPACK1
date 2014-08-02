@@ -5,7 +5,7 @@
  * Defines the NeighborSearch class, which performs an abstract
  * nearest-neighbor-like query on two datasets.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -87,7 +87,6 @@ class NeighborSearch
                  const typename TreeType::Mat& querySet,
                  const bool naive = false,
                  const bool singleMode = false,
-                 const size_t leafSize = 20,
                  const MetricType metric = MetricType());
 
   /**
@@ -114,7 +113,6 @@ class NeighborSearch
   NeighborSearch(const typename TreeType::Mat& referenceSet,
                  const bool naive = false,
                  const bool singleMode = false,
-                 const size_t leafSize = 20,
                  const MetricType metric = MetricType());
 
   /**
@@ -208,17 +206,20 @@ class NeighborSearch
               arma::Mat<size_t>& resultingNeighbors,
               arma::mat& distances);
 
+  // Returns a string representation of this object. 
+  std::string ToString() const;
+
  private:
   //! Copy of reference dataset (if we need it, because tree building modifies
   //! it).
-  arma::mat referenceCopy;
+  typename TreeType::Mat referenceCopy;
   //! Copy of query dataset (if we need it, because tree building modifies it).
-  arma::mat queryCopy;
+  typename TreeType::Mat queryCopy;
 
   //! Reference dataset.
-  const arma::mat& referenceSet;
+  const typename TreeType::Mat& referenceSet;
   //! Query dataset (may not be given).
-  const arma::mat& querySet;
+  const typename TreeType::Mat& querySet;
 
   //! Pointer to the root of the reference tree.
   TreeType* referenceTree;
@@ -242,13 +243,10 @@ class NeighborSearch
   std::vector<size_t> oldFromNewReferences;
   //! Permutations of query points during tree building.
   std::vector<size_t> oldFromNewQueries;
-
-  //! Total number of pruned nodes during the neighbor search.
-  size_t numberOfPrunes;
 }; // class NeighborSearch
 
-} // namespace neighbor
-} // namespace mlpack
+}; // namespace neighbor
+}; // namespace mlpack
 
 // Include implementation.
 #include "neighbor_search_impl.hpp"

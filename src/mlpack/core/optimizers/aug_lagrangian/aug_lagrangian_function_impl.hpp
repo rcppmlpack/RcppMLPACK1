@@ -6,7 +6,7 @@
  * specializations can probably be given in many cases, but this is the most
  * general case.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -110,7 +110,20 @@ const arma::mat& AugLagrangianFunction<LagrangianFunction>::GetInitialPoint()
   return function.GetInitialPoint();
 }
 
-} // namespace optimization
-} // namespace mlpack
+// Convert the object to a string.
+template<typename LagrangianFunction>
+std::string AugLagrangianFunction<LagrangianFunction>::ToString() const
+{
+  std::ostringstream convert;
+  convert << "AugLagrangianFunction [" << this << "]" << std::endl;
+  convert << "  Lagrange multipliers:" << std::endl;
+  convert << lambda;
+  convert << "  Penalty parameter: " << sigma << std::endl;
+  return convert.str();
+}
+
+}; // namespace optimization
+}; // namespace mlpack
 
 #endif
+

@@ -5,7 +5,7 @@
  * Implementation of the LogisticRegression class.  This implementation supports
  * L2-regularization.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -41,7 +41,9 @@ LogisticRegression<OptimizerType>::LogisticRegression(
   OptimizerType<LogisticRegressionFunction> optimizer(errorFunction);
 
   // Train the model.
+
   const double out = optimizer.Optimize(parameters);
+
 
   Rcpp::Rcout << "LogisticRegression::LogisticRegression(): final objective of "
       << "trained model is " << out << "." << std::endl;
@@ -61,7 +63,9 @@ LogisticRegression<OptimizerType>::LogisticRegression(
   OptimizerType<LogisticRegressionFunction> optimizer(errorFunction);
 
   // Train the model.
+
   const double out = optimizer.Optimize(parameters);
+
 
   Rcpp::Rcout << "LogisticRegression::LogisticRegression(): final objective of "
       << "trained model is " << out << "." << std::endl;
@@ -73,7 +77,9 @@ LogisticRegression<OptimizerType>::LogisticRegression(
     parameters(optimizer.Function().GetInitialPoint()),
     lambda(optimizer.Function().Lambda())
 {
+
   const double out = optimizer.Optimize(parameters);
+
 
   Rcpp::Rcout << "LogisticRegression::LogisticRegression(): final objective of "
       << "trained model is " << out << "." << std::endl;
@@ -133,7 +139,17 @@ double LogisticRegression<OptimizerType>::ComputeAccuracy(
   return (double) (count * 100) / responses.n_rows;
 }
 
-} // namespace regression
-} // namespace mlpack
+template <template<typename> class OptimizerType>
+std::string LogisticRegression<OptimizerType>::ToString() const
+{
+  std::ostringstream convert;
+  convert << "Logistic Regression [" << this << "]" << std::endl;
+  convert << "  Parameters: " << parameters.n_rows << std::endl;
+  convert << "  Lambda: " << lambda << std::endl;
+  return convert.str();
+}
+
+}; // namespace regression
+}; // namespace mlpack
 
 #endif // __MLPACK_METHODS_LOGISTIC_REGRESSION_LOGISTIC_REGRESSION_IMPL_HPP

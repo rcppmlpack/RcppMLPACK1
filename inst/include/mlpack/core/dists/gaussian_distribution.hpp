@@ -4,7 +4,7 @@
  *
  * Implementation of the Gaussian distribution.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -95,24 +95,14 @@ class GaussianDistribution
   void Estimate(const arma::mat& observations,
                 const arma::vec& probabilities);
 
-  /**
-   * Return the mean.
-   */
+  //! Return the mean.
   const arma::vec& Mean() const { return mean; }
-
-  /**
-   * Return a modifiable copy of the mean.
-   */
+  //! Return a modifiable copy of the mean.
   arma::vec& Mean() { return mean; }
 
-  /**
-   * Return the covariance matrix.
-   */
+  //! Return the covariance matrix.
   const arma::mat& Covariance() const { return covariance; }
-
-  /**
-   * Return a modifiable copy of the covariance.
-   */
+  //! Return a modifiable copy of the covariance.
   arma::mat& Covariance() { return covariance; }
 
   /**
@@ -121,7 +111,7 @@ class GaussianDistribution
   std::string ToString() const;
 };
 
-} // namespace distribution
-} // namespace mlpack
+}; // namespace distribution
+}; // namespace mlpack
 
 #endif

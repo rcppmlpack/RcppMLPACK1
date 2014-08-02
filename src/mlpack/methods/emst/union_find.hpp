@@ -7,7 +7,7 @@
  * Calling unionfind.Union(x, y) unites the components indexed by x and y.
  * unionfind.Find(x) returns the index of the component containing point x.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -40,13 +40,12 @@ namespace emst {
 class UnionFind
 {
  private:
-  size_t size;
   arma::Col<size_t> parent;
   arma::ivec rank;
 
  public:
   //! Construct the object with the given size.
-  UnionFind(const size_t size) : size(size), parent(size), rank(size)
+  UnionFind(const size_t size) : parent(size), rank(size)
   {
     for (size_t i = 0; i < size; ++i)
     {
@@ -109,7 +108,7 @@ class UnionFind
   }
 }; // class UnionFind
 
-} // namespace emst
-} // namespace mlpack
+}; // namespace emst
+}; // namespace mlpack
 
 #endif // __MLPACK_METHODS_EMST_UNION_FIND_HPP

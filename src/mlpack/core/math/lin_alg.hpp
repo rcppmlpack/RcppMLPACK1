@@ -4,7 +4,7 @@
  *
  * Linear algebra utilities.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -22,7 +22,7 @@
 #ifndef __MLPACK_CORE_MATH_LIN_ALG_HPP
 #define __MLPACK_CORE_MATH_LIN_ALG_HPP
 
-#include <mlpack/core.hpp>
+#include <mlpack/prereqs.hpp>
 
 /**
  * Linear algebra utility functions, generally performed on matrices or vectors.
@@ -35,7 +35,7 @@ namespace math {
  * is ignored in the power operation and then re-added.  Useful for
  * eigenvalues.
  */
-void VectorPower(arma::vec& vec, double power);
+void VectorPower(arma::vec& vec, const double power);
 
 /**
  * Creates a centered matrix, where centering is done by subtracting
@@ -91,7 +91,7 @@ void RemoveRows(const arma::mat& input,
                 const std::vector<size_t>& rowsToRemove,
                 arma::mat& output);
 
-} // namespace math
-} // namespace mlpack
+}; // namespace math
+}; // namespace mlpack
 
 #endif // __MLPACK_CORE_MATH_LIN_ALG_HPP

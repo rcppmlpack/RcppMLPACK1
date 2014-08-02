@@ -4,7 +4,7 @@
  *
  * Definition and implementation of the trivially simple triangular kernel.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -76,6 +76,15 @@ class TriangularKernel
   //! Modify the bandwidth of the kernel.
   double& Bandwidth() { return bandwidth; }
 
+  //! Return a string representation of the kernel.
+  std::string ToString() const
+  {
+    std::ostringstream convert;
+    convert << "TriangularKernel [" << this << "]" << std::endl;
+    convert << "  Bandwidth: " << bandwidth << std::endl;
+    return convert.str();
+  }
+
  private:
   //! The bandwidth of the kernel.
   double bandwidth;
@@ -90,7 +99,7 @@ class KernelTraits<TriangularKernel>
   static const bool IsNormalized = true;
 };
 
-} // namespace kernel
-} // namespace mlpack
+}; // namespace kernel
+}; // namespace mlpack
 
 #endif

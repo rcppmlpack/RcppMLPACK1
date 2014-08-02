@@ -4,7 +4,7 @@
  *
  * Implementation of the Softmax error function.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -49,7 +49,7 @@ double SoftmaxErrorFunction<MetricType>::Evaluate(const arma::mat& coordinates)
 
   return -accu(p); // Sum of p_i for all i.  We negate because our solver
                    // minimizes, not maximizes.
-}
+};
 
 //! The separated objective function, which does not use Precalculate().
 template<typename MetricType>
@@ -282,7 +282,19 @@ void SoftmaxErrorFunction<MetricType>::Precalculate(
   precalculated = true;
 }
 
-} // namespace nca
-} // namespace mlpack
+template<typename MetricType>
+std::string SoftmaxErrorFunction<MetricType>::ToString() const{
+  std::ostringstream convert;
+  convert << "Sofmax Error Function [" << this << "]" << std::endl;
+  convert << "  Dataset: " << dataset.n_rows << "x" << dataset.n_cols 
+      << std::endl;
+  convert << "  Labels: " << labels.n_elem << std::endl;
+  //convert << "Metric: " << metric << std::endl;
+  convert << "  Precalculated: " << precalculated << std::endl;
+  return convert.str();
+}
+
+}; // namespace nca
+}; // namespace mlpack
 
 #endif

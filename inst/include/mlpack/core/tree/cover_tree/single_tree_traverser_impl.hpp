@@ -5,7 +5,7 @@
  * Implementation of the single tree traverser for cover trees, which implements
  * a breadth-first traversal.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -230,7 +230,7 @@ SingleTreeTraverser<RuleType>::Traverse(
   }
 }
 
-} // namespace tree
-} // namespace mlpack
+}; // namespace tree
+}; // namespace mlpack
 
 #endif

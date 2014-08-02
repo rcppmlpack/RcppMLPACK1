@@ -5,7 +5,7 @@
  * Implementation of AugLagrangian class (Augmented Lagrangian optimization
  * method).
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -62,6 +62,19 @@ bool AugLagrangian<LagrangianFunction>::Optimize(arma::mat& coordinates,
   augfunc.Sigma() = initSigma;
 
   return Optimize(coordinates, maxIterations);
+}
+
+// Convert the object to a string.
+template<typename LagrangianFunction>
+std::string AugLagrangian<LagrangianFunction>::ToString() const
+{
+  std::ostringstream convert;
+  convert << "AugLagrangian [" << this << "]" << std::endl;
+  convert << "  Function:" << std::endl;
+  convert << mlpack::util::Indent(function.ToString(), 2);
+  convert << "  L-BFGS optimizer:" << std::endl;
+  convert << mlpack::util::Indent(lbfgs.ToString(), 2);
+  return convert.str();
 }
 
 template<typename LagrangianFunction>
@@ -157,7 +170,8 @@ bool AugLagrangian<LagrangianFunction>::Optimize(arma::mat& coordinates,
   return false;
 }
 
-} // namespace optimization
-} // namespace mlpack
+}; // namespace optimization
+}; // namespace mlpack
 
 #endif // __MLPACK_CORE_OPTIMIZERS_AUG_LAGRANGIAN_AUG_LAGRANGIAN_IMPL_HPP
+

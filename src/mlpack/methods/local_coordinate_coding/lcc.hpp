@@ -5,7 +5,7 @@
  * Definition of the LocalCoordinateCoding class, which performs the Local
  * Coordinate Coding algorithm.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -145,6 +145,9 @@ class LocalCoordinateCoding
   //! Modify the codes.
   arma::mat& Codes() { return codes; }
 
+  // Returns a string representation of this object. 
+  std::string ToString() const;
+
  private:
   //! Number of atoms in dictionary.
   size_t atoms;
@@ -162,8 +165,8 @@ class LocalCoordinateCoding
   double lambda;
 };
 
-} // namespace lcc
-} // namespace mlpack
+}; // namespace lcc
+}; // namespace mlpack
 
 // Include implementation.
 #include "lcc_impl.hpp"

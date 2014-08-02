@@ -4,7 +4,7 @@
  *
  * Very simple test function for SGD.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -53,8 +53,8 @@ class SGDTestFunction
                 arma::mat& gradient) const;
 };
 
-} // namespace test
-} // namespace optimization
-} // namespace mlpack
+}; // namespace test
+}; // namespace optimization
+}; // namespace mlpack
 
 #endif

@@ -5,7 +5,7 @@
  *
  * The implementation of the L_BFGS optimizer.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -434,7 +434,28 @@ double L_BFGS<FunctionType>::Optimize(arma::mat& iterate,
   return function.Evaluate(iterate);
 }
 
-} // namespace optimization
-} // namespace mlpack
+// Convert the object to a string.
+template<typename FunctionType>
+std::string L_BFGS<FunctionType>::ToString() const
+{
+  std::ostringstream convert;
+  convert << "L_BFGS [" << this << "]" << std::endl;
+  convert << "  Function:" << std::endl;
+  convert << util::Indent(function.ToString(), 2);
+  convert << "  Memory size: " << numBasis << std::endl;
+  convert << "  Cube size: " << s.n_rows << "x" << s.n_cols << "x"
+      << s.n_slices << std::endl;
+  convert << "  Maximum iterations: " << maxIterations << std::endl;
+  convert << "  Armijo condition constant: " << armijoConstant << std::endl;
+  convert << "  Wolfe parameter: " << wolfe << std::endl;
+  convert << "  Minimum gradient norm: " << minGradientNorm << std::endl;
+  convert << "  Minimum step for line search: " << minStep << std::endl;
+  convert << "  Maximum step for line search: " << maxStep << std::endl;
+  return convert.str();
+}
+
+}; // namespace optimization
+}; // namespace mlpack
 
 #endif // __MLPACK_CORE_OPTIMIZERS_LBFGS_LBFGS_IMPL_HPP
+

@@ -10,7 +10,7 @@
  *  ACM Trans. Math. Softw. 7, 1 (March 1981), 17-41.
  *  http://portal.acm.org/citation.cfm?id=355934.355936
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -167,8 +167,8 @@ class RosenbrockWoodFunction
   WoodFunction wf;
 };
 
-} // namespace test
-} // namespace optimization
-} // namespace mlpack
+}; // namespace test
+}; // namespace optimization
+}; // namespace mlpack
 
 #endif // __MLPACK_CORE_OPTIMIZERS_LBFGS_TEST_FUNCTIONS_HPP

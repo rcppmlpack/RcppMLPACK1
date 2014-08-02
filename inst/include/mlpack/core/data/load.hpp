@@ -6,7 +6,7 @@
  * not transpose matrices on input, and it allows us to give better error
  * output.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -24,12 +24,13 @@
 #ifndef __MLPACK_CORE_DATA_LOAD_HPP
 #define __MLPACK_CORE_DATA_LOAD_HPP
 
-//#include <mlpack/core/util/log.hpp>
 #include <mlpack/core/arma_extend/arma_extend.hpp> // Includes Armadillo.
 #include <string>
 
-namespace mlpack {
-namespace data /** Functions to load and save matrices. */ {
+namespace mlpack
+{
+namespace data /** Functions to load and save matrices. */
+{
 
 /**
  * Loads a matrix from file, guessing the filetype from the extension.  This
@@ -69,8 +70,8 @@ bool Load(const std::string& filename,
           bool fatal = false,
           bool transpose = true);
 
-} // namespace data
-} // namespace mlpack
+}; // namespace data
+}; // namespace mlpack
 
 // Include implementation.
 #include "load_impl.hpp"

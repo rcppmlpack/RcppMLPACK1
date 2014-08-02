@@ -5,7 +5,7 @@
  * This is an example kernel.  If you are making your own kernel, follow the
  * outline specified in this file.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -117,6 +117,18 @@ class ExampleKernel
   static double Evaluate(const VecType& a, const VecType& b) { return 0; }
 
   /**
+   * Returns a string for the kernel object; in this case, with only the memory
+   * address for the kernel. If your kernel has any members, your ToString()
+   * method should include those as neccessary as well.
+   **/
+  std::string ToString() const
+  {
+    std::ostringstream convert;
+    convert << "ExampleKernel [" << this << "]" << std::endl;
+    return convert.str();
+  }
+
+  /**
    * Obtains the convolution integral [integral K(||x-a||)K(||b-x||)dx]
    * for the two vectors.  In this case, because
    * our simple example kernel has no internal parameters, we can declare the
@@ -142,10 +154,14 @@ class ExampleKernel
    * @param dimension the dimension of the space.
    * @return the normalization constant.
    */
-  static double Normalizer(size_t dimension) { return 0; }
+  static double Normalizer() { return 0; }
+
+  // Modified to remove unused variable "dimension"
+  //static double Normalizer(size_t dimension=1) { return 0; }
+
 };
 
-} // namespace kernel
-} // namespace mlpack
+}; // namespace kernel
+}; // namespace mlpack
 
 #endif

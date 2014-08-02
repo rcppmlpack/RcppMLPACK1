@@ -4,7 +4,7 @@
  *
  * Contains a utility class for AugLagrangian.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -108,6 +108,9 @@ class AugLagrangianFunction
   const LagrangianFunction& Function() const { return function; }
   //! Modify the Lagrangian function.
   LagrangianFunction& Function() { return function; }
+  
+  // convert the obkect into a string
+  std::string ToString() const;
 
  private:
   //! Instantiation of the function to be optimized.
@@ -119,10 +122,11 @@ class AugLagrangianFunction
   double sigma;
 };
 
-} // namespace optimization
-} // namespace mlpack
+}; // namespace optimization
+}; // namespace mlpack
 
 // Include basic implementation.
 #include "aug_lagrangian_function_impl.hpp"
 
 #endif // __MLPACK_CORE_OPTIMIZERS_AUG_LAGRANGIAN_AUG_LAGRANGIAN_FUNCTION_HPP
+

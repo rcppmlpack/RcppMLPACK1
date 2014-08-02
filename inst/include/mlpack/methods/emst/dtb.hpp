@@ -17,7 +17,7 @@
  * }
  * @endcode
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -94,7 +94,7 @@ class DualTreeBoruvka
   //! Copy of the data (if necessary).
   typename TreeType::Mat dataCopy;
   //! Reference to the data (this is what should be used for accessing data).
-  typename TreeType::Mat& data;
+  const typename TreeType::Mat& data;
 
   //! Pointer to the root of the tree.
   TreeType* tree;
@@ -145,7 +145,6 @@ class DualTreeBoruvka
    */
   DualTreeBoruvka(const typename TreeType::Mat& dataset,
                   const bool naive = false,
-                  const size_t leafSize = 1,
                   const MetricType metric = MetricType());
 
   /**
@@ -165,7 +164,8 @@ class DualTreeBoruvka
    * @param tree Pre-built tree.
    * @param dataset Dataset corresponding to the pre-built tree.
    */
-  DualTreeBoruvka(TreeType* tree, const typename TreeType::Mat& dataset,
+  DualTreeBoruvka(TreeType* tree,
+                  const typename TreeType::Mat& dataset,
                   const MetricType metric = MetricType());
 
   /**
@@ -183,6 +183,11 @@ class DualTreeBoruvka
    * @param results Matrix which results will be stored in.
    */
   void ComputeMST(arma::mat& results);
+
+  /**
+   * Returns a string representation of this object.
+   */
+  std::string ToString() const;
 
  private:
   /**
@@ -213,8 +218,8 @@ class DualTreeBoruvka
 
 }; // class DualTreeBoruvka
 
-} // namespace emst
-} // namespace mlpack
+}; // namespace emst
+}; // namespace mlpack
 
 #include "dtb_impl.hpp"
 

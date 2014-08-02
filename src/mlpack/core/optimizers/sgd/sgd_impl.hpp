@@ -4,7 +4,7 @@
  *
  * Implementation of stochastic gradient descent.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -22,6 +22,7 @@
 #ifndef __MLPACK_CORE_OPTIMIZERS_SGD_SGD_IMPL_HPP
 #define __MLPACK_CORE_OPTIMIZERS_SGD_SGD_IMPL_HPP
 
+#include <mlpack/methods/regularized_svd/regularized_svd_function.hpp>
 // In case it hasn't been included yet.
 #include "sgd.hpp"
 
@@ -112,7 +113,22 @@ double SGD<DecomposableFunctionType>::Optimize(arma::mat& iterate)
   return overallObjective;
 }
 
-} // namespace optimization
-} // namespace mlpack
+// Convert the object to a string.
+template<typename DecomposableFunctionType>
+std::string SGD<DecomposableFunctionType>::ToString() const
+{
+  std::ostringstream convert;
+  convert << "SGD [" << this << "]" << std::endl;
+  convert << "  Function:" << std::endl;
+  convert << util::Indent(function.ToString(), 2);
+  convert << "  Step size: " << stepSize << std::endl;
+  convert << "  Maximum iterations: " << maxIterations << std::endl;
+  convert << "  Tolerance: " << tolerance << std::endl;
+  convert << "  Shuffle points: " << (shuffle ? "true" : "false") << std::endl;
+  return convert.str();
+}
+
+}; // namespace optimization
+}; // namespace mlpack
 
 #endif

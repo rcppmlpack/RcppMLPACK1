@@ -5,7 +5,7 @@
  * Very simple partitioner which partitions the data randomly into the number of
  * desired clusters.  Used as the default InitialPartitionPolicy for KMeans.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -61,7 +61,7 @@ class RandomPartition
   }
 };
 
-}
-}
+};
+};
 
 #endif

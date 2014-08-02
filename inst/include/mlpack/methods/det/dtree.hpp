@@ -4,7 +4,7 @@
  *
  * Density Estimation Tree class
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -293,6 +293,11 @@ class DTree
   //! Modify the minimum values.
   arma::vec& MinVals() { return minVals; }
 
+  /**
+   * Returns a string representation of this object.
+   */
+  std::string ToString() const;
+
  private:
 
   // Utility methods.
@@ -305,7 +310,6 @@ class DTree
                  double& splitValue,
                  double& leftError,
                  double& rightError,
-                 const size_t maxLeafSize = 10,
                  const size_t minLeafSize = 5) const;
 
   /**
@@ -318,7 +322,7 @@ class DTree
 
 };
 
-} // namespace det
-} // namespace mlpack
+}; // namespace det
+}; // namespace mlpack
 
 #endif // __MLPACK_METHODS_DET_DTREE_HPP

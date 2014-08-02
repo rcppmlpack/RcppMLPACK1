@@ -4,7 +4,7 @@
  *
  * Implementation of the Mahalanobis distance.
  *
- * This file is part of MLPACK 1.0.8.
+ * This file is part of MLPACK 1.0.9.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -39,7 +39,6 @@ double MahalanobisDistance<false>::Evaluate(const VecType1& a,
   arma::mat out = trans(m) * covariance * m; // 1x1
   return out[0];
 }
-
 /**
  * Specialization for rooted case.  This requires one extra evaluation of
  * sqrt().
@@ -58,7 +57,31 @@ double MahalanobisDistance<true>::Evaluate(const VecType1& a,
   return sqrt(out[0]);
 }
 
-} // namespace metric
-} // namespace mlpack
+// Convert object into string.
+template<bool TakeRoot>
+std::string MahalanobisDistance<TakeRoot>::ToString() const
+{
+  std::ostringstream convert;
+  std::ostringstream convertb;
+  convert << "MahalanobisDistance [" << this << "]" << std::endl;
+  if (TakeRoot)
+    convert << "  TakeRoot: TRUE" << std::endl;
+  if (covariance.size() < 65)
+  {
+    convert << "  Covariance: " << std::endl;
+    convertb << covariance << std::endl;
+    convert << mlpack::util::Indent(convertb.str(),2);
+  }
+  else 
+  {
+    convert << "  Covariance matrix: " << covariance.n_rows << "x" ; 
+    convert << covariance.n_cols << std::endl << " Range: [" ;
+    convert << covariance.min() << "," << covariance.max() << "]" << std::endl;
+  }
+  return convert.str();
+}
+
+}; // namespace metric
+}; // namespace mlpack
 
 #endif
