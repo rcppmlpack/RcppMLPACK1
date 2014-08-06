@@ -334,8 +334,8 @@ private:
     friend class RASearch<SortPolicy, MetricType, TreeType>;
 }; // class RASearchRules
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 // Include implementation.
 #include "ra_search_rules_impl.hpp"

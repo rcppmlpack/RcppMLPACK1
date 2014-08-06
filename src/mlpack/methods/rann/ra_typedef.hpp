@@ -64,7 +64,7 @@ typedef RASearch<> AllkRANN;
  */
 typedef RASearch<FurthestNeighborSort> AllkRAFN;
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 #endif

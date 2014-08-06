@@ -59,7 +59,7 @@ TreeType* BuildTree(
     return new TreeType(dataset);
 }
 
-}; // namespace aux
+} // namespace aux
 
 // Construct the object.
 template<typename SortPolicy, typename MetricType, typename TreeType>
@@ -441,7 +441,7 @@ std::string RASearch<SortPolicy, MetricType, TreeType>::ToString() const
     return convert.str();
 }
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 #endif

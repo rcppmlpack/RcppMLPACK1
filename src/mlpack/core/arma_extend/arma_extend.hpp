@@ -17,7 +17,7 @@
 #define ARMA_EXTRA_SPMAT_MEAT  mlpack/core/arma_extend/SpMat_extra_meat.hpp
 
 #include <RcppArmadillo.h>
-
+#define NDEBUG 1
 namespace arma {
   // u64/s64
   #include "typedef.hpp"

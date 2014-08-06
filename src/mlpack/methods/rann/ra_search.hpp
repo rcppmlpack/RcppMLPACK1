@@ -301,8 +301,8 @@ private:
     void ResetRAQueryStat(TreeType* treeNode);
 }; // class RASearch
 
-}; // namespace neighbor
-}; // namespace mlpack
+} // namespace neighbor
+} // namespace mlpack
 
 // Include implementation.
 #include "ra_search_impl.hpp"

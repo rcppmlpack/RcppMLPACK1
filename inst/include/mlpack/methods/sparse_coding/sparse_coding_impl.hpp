@@ -359,7 +359,7 @@ std::string SparseCoding<DictionaryInitializer>::ToString() const
   return convert.str();
 }
 
-}; // namespace sparse_coding
-}; // namespace mlpack
+} // namespace sparse_coding
+} // namespace mlpack
 
 #endif
