@@ -7,8 +7,11 @@
 #endif
 #endif
 
-#include <mlpack/core.hpp>
+#if defined(__MINGW32__)
+#define ARMA_DONT_USE_CXX11
+#endif
 
+#include <mlpack/core.hpp>
 #include <mlpack/core/kernels/cosine_distance.hpp>
 #include <mlpack/core/kernels/epanechnikov_kernel.hpp>
 #include <mlpack/core/kernels/gaussian_kernel.hpp>
@@ -66,7 +69,6 @@
 #include <mlpack/methods/lsh/lsh_search.hpp>
 #include <mlpack/methods/local_coordinate_coding/lcc.hpp>
 #include <mlpack/methods/mvu/mvu.hpp>
-//#include <mlpack/methods/naive_bayes/naive_bayes_classifier.hpp>
 #include <mlpack/methods/nca/nca.hpp>
 #include <mlpack/methods/neighbor_search/neighbor_search.hpp>
 #include <mlpack/methods/neighbor_search/unmap.hpp>
