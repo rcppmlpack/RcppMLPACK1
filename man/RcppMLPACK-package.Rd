@@ -7,6 +7,8 @@
 }
 \description{
   The package eases the integration of MLPACK types with R.
+  MLPACK is an intuitive, fast, scalable C++ machine learning
+   library, meant to be a machine learning analog to LAPACK.
 }
 \author{
   For RcppMLPACK: Qiang Kou

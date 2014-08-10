@@ -20,8 +20,6 @@
 #include <mlpack/core/kernels/pspectrum_string_kernel.hpp>
 #include <mlpack/core/metrics/lmetric.hpp>
 #include <mlpack/core/metrics/mahalanobis_distance.hpp>
-
-
 #include <mlpack/core/tree/binary_space_tree.hpp>
 #include <mlpack/core/tree/binary_space_tree/binary_space_tree.hpp>
 #include <mlpack/core/tree/bounds.hpp>
@@ -38,10 +36,18 @@
 #include <mlpack/core/optimizers/sgd/sgd.hpp>
 #include <mlpack/core/optimizers/sgd/test_function.hpp>
 
+#include <mlpack/methods/amf/amf.hpp>
+#include <mlpack/methods/amf/init_rules/random_init.hpp>
+#include <mlpack/methods/amf/update_rules/nmf_mult_dist.hpp>
+#include <mlpack/methods/amf/update_rules/nmf_mult_div.hpp>
+#include <mlpack/methods/amf/update_rules/nmf_als.hpp>
+#include <mlpack/methods/amf/termination_policies/simple_residue_termination.hpp>
 #include <mlpack/methods/cf/cf.hpp>
+#include <mlpack/methods/det/dt_utils.hpp>
+#include <mlpack/methods/decision_stump/decision_stump.hpp>
 #include <mlpack/methods/emst/union_find.hpp>
+#include <mlpack/methods/emst/dtb.hpp>
 #include <mlpack/methods/fastmks/fastmks.hpp>
-#include <mlpack/methods/gmm/gmm.hpp>
 #include <mlpack/methods/gmm/gmm.hpp>
 #include <mlpack/methods/gmm/phi.hpp>
 #include <mlpack/methods/gmm/no_constraint.hpp>
@@ -52,19 +58,27 @@
 #include <mlpack/methods/lars/lars.hpp>
 #include <mlpack/methods/linear_regression/linear_regression.hpp>
 #include <mlpack/methods/logistic_regression/logistic_regression.hpp>
+#include <mlpack/methods/kernel_pca/kernel_rules/nystroem_method.hpp>
 #include <mlpack/methods/kernel_pca/kernel_pca.hpp>
 #include <mlpack/methods/kmeans/kmeans.hpp>
 #include <mlpack/methods/kmeans/allow_empty_clusters.hpp>
 #include <mlpack/methods/kmeans/refined_start.hpp>
 #include <mlpack/methods/lsh/lsh_search.hpp>
 #include <mlpack/methods/local_coordinate_coding/lcc.hpp>
-#include <mlpack/methods/naive_bayes/naive_bayes_classifier.hpp>
+#include <mlpack/methods/mvu/mvu.hpp>
+//#include <mlpack/methods/naive_bayes/naive_bayes_classifier.hpp>
 #include <mlpack/methods/nca/nca.hpp>
 #include <mlpack/methods/neighbor_search/neighbor_search.hpp>
 #include <mlpack/methods/neighbor_search/unmap.hpp>
+#include <mlpack/methods/nystroem_method/ordered_selection.hpp>
+#include <mlpack/methods/nystroem_method/random_selection.hpp>
+#include <mlpack/methods/nystroem_method/kmeans_selection.hpp>
+#include <mlpack/methods/nystroem_method/nystroem_method.hpp>
 #include <mlpack/methods/pca/pca.hpp>
+#include <mlpack/methods/perceptron/perceptron.hpp>
 #include <mlpack/methods/radical/radical.hpp>
 #include <mlpack/methods/range_search/range_search.hpp>
+#include <mlpack/methods/rann/ra_search.hpp>
 #include <mlpack/methods/sparse_coding/sparse_coding.hpp>
 
 #endif
