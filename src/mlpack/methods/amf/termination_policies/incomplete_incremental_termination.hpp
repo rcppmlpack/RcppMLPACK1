@@ -1,10 +1,8 @@
 /**
- * @file complete_incremental_termination_hpp
+ * @file incomplete_incremental_termination.hpp
  * @author Sumedh Ghaisas
  *
- * Complete incremental learning termination policy.
- *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -19,19 +17,19 @@
  * You should have received a copy of the GNU General Public License along with
  * MLPACK.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef COMPLETE_INCREMENTAL_TERMINATION_HPP_INCLUDED
-#define COMPLETE_INCREMENTAL_TERMINATION_HPP_INCLUDED
+#ifndef _INCOMPLETE_INCREMENTAL_TERMINATION_HPP_INCLUDED
+#define _INCOMPLETE_INCREMENTAL_TERMINATION_HPP_INCLUDED
 
-namespace mlpack
-{
-namespace amf
-{
+#include <mlpack/core.hpp>
+
+namespace mlpack {
+namespace amf {
 
 template <class TerminationPolicy>
-class CompleteIncrementalTermination
+class IncompleteIncrementalTermination
 {
  public:
-  CompleteIncrementalTermination(TerminationPolicy t_policy = TerminationPolicy())
+  IncompleteIncrementalTermination(TerminationPolicy t_policy = TerminationPolicy())
             : t_policy(t_policy) {}
 
   template <class MatType>
@@ -39,22 +37,14 @@ class CompleteIncrementalTermination
   {
     t_policy.Initialize(V);
 
-    incrementalIndex = accu(V != 0);
-    iteration = 0;
-  }
-
-  void Initialize(const arma::sp_mat& V)
-  {
-    t_policy.Initialize(V);
-
-    incrementalIndex = V.n_nonzero;
+    incrementalIndex = V.n_rows;
     iteration = 0;
   }
 
   bool IsConverged(arma::mat& W, arma::mat& H)
   {
     iteration++;
-    if(iteration % incrementalIndex == 0)
+    if(iteration % incrementalIndex == 0)  
       return t_policy.IsConverged(W, H);
     else return false;
   }
@@ -67,12 +57,11 @@ class CompleteIncrementalTermination
   {
     return iteration;
   }
-  
   const size_t& MaxIterations()
   {
     return t_policy.MaxIterations();
   }
-
+  
  private:
   TerminationPolicy t_policy;
 
@@ -80,9 +69,8 @@ class CompleteIncrementalTermination
   size_t iteration;
 };
 
-} // namespace amf
-} // namespace mlpack
+}; // namespace amf
+}; // namespace mlpack
 
-
-#endif // COMPLETE_INCREMENTAL_TERMINATION_HPP_INCLUDED
+#endif
 

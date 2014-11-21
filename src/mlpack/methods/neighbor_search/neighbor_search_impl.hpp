@@ -5,7 +5,7 @@
  * Implementation of Neighbor-Search class to perform all-nearest-neighbors on
  * two specified data sets.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -78,7 +78,7 @@ NeighborSearch(const typename TreeType::Mat& referenceSetIn,
   // copy/paste problem.
 
   // We'll time tree building, but only if we are building trees.
-
+  //Timer::Start("tree_building");
 
   // Copy the datasets, if they will be modified during tree building.
   if (tree::TreeTraits<TreeType>::RearrangesDataset)
@@ -103,7 +103,7 @@ NeighborSearch(const typename TreeType::Mat& referenceSetIn,
   }
 
   // Stop the timer we started above (if we need to).
-
+  //Timer::Stop("tree_building");
 }
 
 // Construct the object.
@@ -126,7 +126,7 @@ NeighborSearch(const typename TreeType::Mat& referenceSetIn,
     metric(metric)
 {
   // We'll time tree building, but only if we are building trees.
-
+  //Timer::Start("tree_building");
 
   // Copy the dataset, if it will be modified during tree building.
   if (tree::TreeTraits<TreeType>::RearrangesDataset)
@@ -147,7 +147,7 @@ NeighborSearch(const typename TreeType::Mat& referenceSetIn,
   }
 
   // Stop the timer we started above.
-
+  //Timer::Stop("tree_building");
 }
 
 // Construct the object.
@@ -189,13 +189,13 @@ NeighborSearch<SortPolicy, MetricType, TreeType>::NeighborSearch(
     singleMode(singleMode),
     metric(metric)
 {
-
+  //Timer::Start("tree_building");
 
   // The query tree cannot be the same as the reference tree.
   if (referenceTree && !singleMode)
     queryTree = new TreeType(*referenceTree);
 
-
+  //Timer::Stop("tree_building");
 }
 
 /**
@@ -229,7 +229,7 @@ void NeighborSearch<SortPolicy, MetricType, TreeType>::Search(
     arma::Mat<size_t>& resultingNeighbors,
     arma::mat& distances)
 {
-
+  //Timer::Start("computing_neighbors");
 
   // If we have built the trees ourselves, then we will have to map all the
   // indices back to their original indices when this computation is finished.
@@ -267,18 +267,21 @@ void NeighborSearch<SortPolicy, MetricType, TreeType>::Search(
   }
   else if (singleMode)
   {
-
     // The search doesn't work if the root node is also a leaf node.
     // if this is the case, it is suggested that you use the naive method.
-    
+    assert(!(referenceTree->IsLeaf()));
+
     // Create the traverser.
     typename TreeType::template SingleTreeTraverser<RuleType> traverser(rules);
 
     // Now have it traverse for each point.
     for (size_t i = 0; i < querySet.n_cols; ++i)
       traverser.Traverse(i, *referenceTree);
+
+    Rcpp::Rcout << rules.Scores() << " node combinations were scored.\n";
+    Rcpp::Rcout << rules.BaseCases() << " base cases were calculated.\n";
   }
-  else // Dual-tree recursion.referenceTree
+  else // Dual-tree recursion.
   {
     // Create the traverser.
     typename TreeType::template DualTreeTraverser<RuleType> traverser(rules);
@@ -289,7 +292,7 @@ void NeighborSearch<SortPolicy, MetricType, TreeType>::Search(
     Rcpp::Rcout << rules.BaseCases() << " base cases were calculated.\n";
   }
 
-
+  //Timer::Stop("computing_neighbors");
 
   // Now, do we need to do mapping of indices?
   if (!treeOwner || !tree::TreeTraits<TreeType>::RearrangesDataset)

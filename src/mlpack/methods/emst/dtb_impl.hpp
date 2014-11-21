@@ -4,7 +4,7 @@
  *
  * Implementation of DTB.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -67,7 +67,7 @@ DualTreeBoruvka<MetricType, TreeType>::DualTreeBoruvka(
     totalDist(0.0),
     metric(metric)
 {
-
+  //Timer::Start("emst/tree_building");
 
   if (!naive)
   {
@@ -79,7 +79,7 @@ DualTreeBoruvka<MetricType, TreeType>::DualTreeBoruvka(
         oldFromNew);
   }
 
-
+  //Timer::Stop("emst/tree_building");
 
   edges.reserve(data.n_cols - 1); // Set size.
 
@@ -124,7 +124,7 @@ DualTreeBoruvka<MetricType, TreeType>::~DualTreeBoruvka()
 template<typename MetricType, typename TreeType>
 void DualTreeBoruvka<MetricType, TreeType>::ComputeMST(arma::mat& results)
 {
-
+  //Timer::Start("emst/mst_computation");
 
   totalDist = 0; // Reset distance.
 
@@ -159,7 +159,7 @@ void DualTreeBoruvka<MetricType, TreeType>::ComputeMST(arma::mat& results)
     }
   }
 
-
+  //Timer::Stop("emst/mst_computation");
 
   EmitResults(results);
 
@@ -174,7 +174,8 @@ void DualTreeBoruvka<MetricType, TreeType>::AddEdge(const size_t e1,
                                         const size_t e2,
                                         const double distance)
 {
-
+  //Log::Assert((distance >= 0.0),
+  //    "DualTreeBoruvka::AddEdge(): distance cannot be negative.");
 
   if (e1 < e2)
     edges.push_back(EdgePair(e1, e2, distance));
@@ -213,7 +214,7 @@ void DualTreeBoruvka<MetricType, TreeType>::EmitResults(arma::mat& results)
   // Sort the edges.
   std::sort(edges.begin(), edges.end(), SortFun);
 
-
+  //Log::Assert(edges.size() == data.n_cols - 1);
   results.set_size(3, edges.size());
 
   // Need to unpermute the point labels.

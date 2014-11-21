@@ -9,7 +9,7 @@
  *
  * Note: this implementation of MVU does not work.  See #189.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -28,7 +28,7 @@
 #define __MLPACK_METHODS_MVU_MVU_HPP
 
 #include <mlpack/core.hpp>
-#include <mlpack/methods/neighbor_search/neighbor_search.hpp>
+
 namespace mlpack {
 namespace mvu {
 

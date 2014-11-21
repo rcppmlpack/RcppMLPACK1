@@ -6,7 +6,7 @@
  * This file contains utilities necessary for all of the minimum spanning tree
  * algorithms.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -55,7 +55,8 @@ class EdgePair
   EdgePair(const size_t lesser, const size_t greater, const double dist) :
       lesser(lesser), greater(greater), distance(dist)
   {
-
+    //Log::Assert(lesser != greater,
+        //"EdgePair::EdgePair(): indices cannot be equal.");
   }
 
   //! Get the lesser index.

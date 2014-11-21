@@ -6,7 +6,7 @@
  * the Density Estimation Tree class.
  *
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -149,7 +149,8 @@ bool DTree::FindSplit(const arma::mat& data,
 {
   // Ensure the dimensionality of the data is the same as the dimensionality of
   // the bounding rectangle.
-
+  assert(data.n_rows == maxVals.n_elem);
+  assert(data.n_rows == minVals.n_elem);
 
   const size_t points = end - start;
 
@@ -202,7 +203,7 @@ bool DTree::FindSplit(const arma::mat& data,
       {
         // Ensure that the right node will have at least the minimum number of
         // points.
-        
+        //Log::Assert((points - i - 1) >= minLeafSize);
 
         // Now we have to see if the error will be reduced.  Simple manipulation
         // of the error function gives us the condition we must satisfy:
@@ -286,7 +287,8 @@ double DTree::Grow(arma::mat& data,
                    const size_t maxLeafSize,
                    const size_t minLeafSize)
 {
-
+  //Log::Assert(data.n_rows == maxVals.n_elem);
+  //Log::Assert(data.n_rows == minVals.n_elem);
 
   double leftG, rightG;
 
@@ -360,7 +362,7 @@ double DTree::Grow(arma::mat& data,
   else
   {
     // We can make this a leaf node.
-
+    assert((size_t) (end - start) >= minLeafSize);
     subtreeLeaves = 1;
     subtreeLeavesLogNegError = logNegError;
   }
@@ -513,7 +515,8 @@ double DTree::PruneAndUpdate(const double oldAlpha,
         gT = alphaUpper - std::log((double) (subtreeLeaves - 1));
       }
 
-      
+      //Log::Assert(gT < std::numeric_limits<double>::max());
+
       return std::min((double) gT, std::min(leftG, rightG));
     }
     else
@@ -552,7 +555,7 @@ bool DTree::WithinRange(const arma::vec& query) const
 
 double DTree::ComputeValue(const arma::vec& query) const
 {
-
+  //Log::Assert(query.n_elem == maxVals.n_elem);
 
   if (root == 1) // If we are the root...
   {
@@ -581,7 +584,7 @@ double DTree::ComputeValue(const arma::vec& query) const
   return 0.0;
 }
 
-/*
+
 void DTree::WriteTree(FILE *fp, const size_t level) const
 {
   if (subtreeLeaves > 1)
@@ -606,7 +609,7 @@ void DTree::WriteTree(FILE *fp, const size_t level) const
     if (bucketTag != -1)
       fprintf(fp, " BT:%d", bucketTag);
   }
-}*/
+}
 
 
 // Index the buckets for possible usage later.
@@ -627,7 +630,7 @@ int DTree::TagTree(const int tag)
 
 int DTree::FindBucket(const arma::vec& query) const
 {
-
+  //Log::Assert(query.n_elem == maxVals.n_elem);
 
   if (subtreeLeaves == 1) // If we are a leaf...
   {

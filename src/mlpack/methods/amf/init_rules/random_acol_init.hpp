@@ -8,7 +8,7 @@
  * This method sets each of the columns of W by averaging p randomly chosen
  * columns of V.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -57,7 +57,7 @@ class RandomAcolInitialization
 
     if (p > m)
     {
-      Rcpp::Rcout << "Number of random columns is more than the number of columns"
+      Log::Warn << "Number of random columns is more than the number of columns"
           << "available in the V matrix; weird results may ensue!" << std::endl;
     }
 

@@ -4,7 +4,7 @@
  *
  * Density Estimation Tree class
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -161,7 +161,7 @@ class DTree
    * @param fp File to write the tree to.
    * @param level Level of the tree (should start at 0).
    */
-  //void WriteTree(FILE *fp, const size_t level = 0) const;
+  void WriteTree(FILE *fp, const size_t level = 0) const;
 
   /**
    * Index the buckets for possible usage later; this results in every leaf in

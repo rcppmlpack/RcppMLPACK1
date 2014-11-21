@@ -1,0 +1,3 @@
+2014-11-21  Qiang Kou  <qkou@umail.iu.edu>
+
+	* update to MLPACK 1.0.10

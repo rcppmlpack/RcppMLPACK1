@@ -5,7 +5,7 @@
  * This file implements functions to perform different tasks with the Density
  * Tree class.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -170,7 +170,10 @@ DTree* mlpack::det::Trainer(arma::mat& dataset,
     alpha = dtree->PruneAndUpdate(oldAlpha, dataset.n_cols, useVolumeReg);
 
     // Some sanity checks.
-
+    //Log::Assert((alpha < std::numeric_limits<double>::max()) ||
+    //    (dtree->SubtreeLeaves() == 1));
+    //Log::Assert(alpha > oldAlpha);
+    //Log::Assert(dtree->SubtreeLeavesLogNegError() < treeSeq.second);
   }
 
   std::pair<double, double> treeSeq(oldAlpha,
@@ -305,7 +308,9 @@ DTree* mlpack::det::Trainer(arma::mat& dataset,
     alpha = dtreeOpt->PruneAndUpdate(oldAlpha, newDataset.n_cols, useVolumeReg);
 
     // Some sanity checks.
-
+    //Log::Assert((alpha < std::numeric_limits<double>::max()) ||
+    //    (dtreeOpt->SubtreeLeaves() == 1));
+    //Log::Assert(alpha > oldAlpha);
   }
 
   Rcpp::Rcout << dtreeOpt->SubtreeLeaves() << " leaf nodes in the optimally "

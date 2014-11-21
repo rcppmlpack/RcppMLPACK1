@@ -4,7 +4,7 @@
  *
  * Implementation of sparse autoencoders.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -48,11 +48,11 @@ SparseAutoencoder<OptimizerType>::SparseAutoencoder(const arma::mat& data,
   parameters = encoderFunction.GetInitialPoint();
 
   // Train the model.
-
+  Timer::Start("sparse_autoencoder_optimization");
   const double out = optimizer.Optimize(parameters);
+  Timer::Stop("sparse_autoencoder_optimization");
 
-
-  Rcpp::Rcout << "SparseAutoencoder::SparseAutoencoder(): final objective of "
+  Log::Info << "SparseAutoencoder::SparseAutoencoder(): final objective of "
       << "trained model is " << out << "." << std::endl;
 }
 
@@ -66,11 +66,11 @@ SparseAutoencoder<OptimizerType>::SparseAutoencoder(
     beta(optimizer.Function().Beta()),
     rho(optimizer.Function().Rho())
 {
-
+  Timer::Start("sparse_autoencoder_optimization");
   const double out = optimizer.Optimize(parameters);
+  Timer::Stop("sparse_autoencoder_optimization");
 
-
-  Rcpp::Rcout << "SparseAutoencoder::SparseAutoencoder(): final objective of "
+  Log::Info << "SparseAutoencoder::SparseAutoencoder(): final objective of "
       << "trained model is " << out << "." << std::endl;
 }
 

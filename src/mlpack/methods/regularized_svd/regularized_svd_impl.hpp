@@ -4,7 +4,7 @@
  *
  * An implementation of Regularized SVD.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -45,9 +45,9 @@ RegularizedSVD<OptimizerType>::RegularizedSVD(const arma::mat& data,
   arma::mat parameters = rSVDFunc.GetInitialPoint();
 
   // Train the model.
-
+  Timer::Start("regularized_svd_optimization");
   const double out = optimizer.Optimize(parameters);
-
+  Timer::Stop("regularized_svd_optimization");
   
   const size_t numUsers = max(data.row(0)) + 1;
   const size_t numItems = max(data.row(1)) + 1;

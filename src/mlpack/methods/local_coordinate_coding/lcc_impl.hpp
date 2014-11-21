@@ -4,7 +4,7 @@
  *
  * Implementation of Local Coordinate Coding
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -47,6 +47,7 @@ void LocalCoordinateCoding<DictionaryInitializer>::Encode(
     const size_t maxIterations,
     const double objTolerance)
 {
+  //Timer::Start("local_coordinate_coding");
 
   double lastObjVal = DBL_MAX;
 
@@ -105,6 +106,7 @@ void LocalCoordinateCoding<DictionaryInitializer>::Encode(
     lastObjVal = curObjVal;
   }
 
+  //Timer::Stop("local_coordinate_coding");
 }
 
 template<typename DictionaryInitializer>
