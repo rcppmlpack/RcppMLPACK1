@@ -6,7 +6,7 @@
  * not transpose matrices upon saving, and it allows us to give better error
  * output.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -24,13 +24,12 @@
 #ifndef __MLPACK_CORE_DATA_SAVE_HPP
 #define __MLPACK_CORE_DATA_SAVE_HPP
 
+//#include <mlpack/core/util/log.hpp>
 #include <mlpack/core/arma_extend/arma_extend.hpp> // Includes Armadillo.
 #include <string>
 
-namespace mlpack
-{
-namespace data /** Functions to load and save matrices. */
-{
+namespace mlpack {
+namespace data /** Functions to load and save matrices. */ {
 
 /**
  * Saves a matrix to file, guessing the filetype from the extension.  This

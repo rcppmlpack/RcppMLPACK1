@@ -4,7 +4,7 @@
  *
  * Implementation of templated NCA class.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -48,8 +48,11 @@ void NCA<MetricType, OptimizerType>::LearnDistance(arma::mat& outputMatrix)
       (outputMatrix.n_cols != dataset.n_rows))
     outputMatrix.eye(dataset.n_rows, dataset.n_rows);
 
+  //Timer::Start("nca_sgd_optimization");
+
   optimizer.Optimize(outputMatrix);
 
+  //Timer::Stop("nca_sgd_optimization");
 }
 
 template<typename MetricType, template<typename> class OptimizerType>

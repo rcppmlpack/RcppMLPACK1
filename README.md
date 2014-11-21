@@ -23,11 +23,9 @@ The algorithms implemented in MLPACK:
 
 The RcppMLPACK package includes the source code from the MLPACK library. Thus users do not need to install MLPACK itself in order to use RcppMLPACK. 
  
-This MLPACK integration heavily relies on [Rcpp](http://www.rcpp.org) and RcppArmadillo packages for seamless R and C++ integration. 
+This MLPACK integration heavily relies on [Rcpp](http://www.rcpp.org) and RcppArmadillo packages. 
 
 The version number of MLPACK is used as the version number of this package. 
-
-There are known problems in 64-bit Windows, since the **size_t** in 64-bit Windows is defined as unsigned long long int, which is not allowed by R.
 
 Testing and bug reports are deeply welcome.
 

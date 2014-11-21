@@ -4,7 +4,7 @@
  *
  * Simple least-squares linear regression.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -50,7 +50,7 @@ class LinearRegression
    *
    * @param filename the name of the file to load the model from.
    */
-  LinearRegression(const std::string& filename);
+  //LinearRegression(const std::string& filename);
 
   /**
    * Copy constructor.

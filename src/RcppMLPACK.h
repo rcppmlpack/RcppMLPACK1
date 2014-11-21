@@ -72,6 +72,7 @@
 #include <mlpack/methods/nca/nca.hpp>
 #include <mlpack/methods/neighbor_search/neighbor_search.hpp>
 #include <mlpack/methods/neighbor_search/unmap.hpp>
+#include <mlpack/methods/neighbor_search/typedef.hpp>
 #include <mlpack/methods/nystroem_method/ordered_selection.hpp>
 #include <mlpack/methods/nystroem_method/random_selection.hpp>
 #include <mlpack/methods/nystroem_method/kmeans_selection.hpp>

@@ -4,7 +4,7 @@
  *
  * Implementation of AugLagrangianTestFunction class.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -185,15 +185,16 @@ LovaszThetaSDP::LovaszThetaSDP(const arma::mat& edges) : edges(edges),
 {
   // Calculate V by finding the maximum index in the edges matrix.
   vertices = max(max(edges)) + 1;
-
+//  Rcpp::Rcout << vertices << " vertices in graph." << std::endl;
 }
 
 double LovaszThetaSDP::Evaluate(const arma::mat& coordinates)
 {
   // The objective is equal to -Tr(ones * X) = -Tr(ones * (R^T * R)).
   // This can be simplified into the negative sum of (R^T * R).
+//  Rcpp::Rcout << "Evaluting objective function with coordinates:" << std::endl;
 //  std::cout << coordinates << std::endl;
-
+//  Rcpp::Rcout << "trans(coord) * coord:" << std::endl;
 //  std::cout << (trans(coordinates) * coordinates) << std::endl;
 
 
@@ -204,6 +205,7 @@ double LovaszThetaSDP::Evaluate(const arma::mat& coordinates)
 //  for (size_t i = 0; i < coordinates.n_cols; i++)
 //    obj -= dot(coordinates.col(i), coordinates.col(i));
 
+//  Rcpp::Rcout << "Objective function is " << obj << "." << std::endl;
 
   return obj;
 }

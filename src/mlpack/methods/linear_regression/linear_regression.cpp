@@ -4,7 +4,7 @@
  *
  * Implementation of simple linear regression.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -85,11 +85,11 @@ LinearRegression::LinearRegression(const arma::mat& predictors,
   }
 }
 
-LinearRegression::LinearRegression(const std::string& filename) :
+/*LinearRegression::LinearRegression(const std::string& filename) :
     lambda(0.0)
 {
   data::Load(filename, parameters, true);
-}
+}*/
 
 LinearRegression::LinearRegression(const LinearRegression& linearRegression) :
     parameters(linearRegression.parameters),
@@ -100,7 +100,7 @@ void LinearRegression::Predict(const arma::mat& points, arma::vec& predictions)
     const
 {
   // We want to be sure we have the correct number of dimensions in the dataset.
-
+  //Log::Assert(points.n_rows == parameters.n_rows - 1);
 
   // Get the predictions, but this ignores the intercept value (parameters[0]).
   predictions = arma::trans(arma::trans(

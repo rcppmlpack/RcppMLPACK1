@@ -4,7 +4,7 @@
  *
  * Implementation of LARS and LASSO.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -56,7 +56,7 @@ void LARS::Regress(const arma::mat& matX,
                    arma::vec& beta,
                    const bool transposeData)
 {
-
+  //Timer::Start("lars_regression");
 
   // This matrix may end up holding the transpose -- if necessary.
   arma::mat dataTrans;
@@ -102,7 +102,7 @@ void LARS::Regress(const arma::mat& matX,
   if (maxCorr < lambda1)
   {
     lambdaPath[0] = lambda1;
-
+    //Timer::Stop("lars_regression");
     return;
   }
 
@@ -334,7 +334,7 @@ void LARS::Regress(const arma::mat& matX,
   // Unfortunate copy...
   beta = betaPath.back();
 
-
+  //Timer::Stop("lars_regression");
 }
 
 // Private functions.

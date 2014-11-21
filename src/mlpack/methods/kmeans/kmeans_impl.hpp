@@ -5,7 +5,7 @@
  *
  * Implementation for the K-means method for getting an initial point.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -124,19 +124,19 @@ Cluster(const MatType& data,
   if (initialAssignmentGuess)
   {
     if (assignments.n_elem != data.n_cols)
-      Rcpp::Rcout << "KMeans::Cluster(): initial cluster assignments (length "
+      Rcpp::Rcerr << "KMeans::Cluster(): initial cluster assignments (length "
           << assignments.n_elem << ") not the same size as the dataset (size "
           << data.n_cols << ")!" << std::endl;
   }
   else if (initialCentroidGuess)
   {
     if (centroids.n_cols != clusters)
-      Rcpp::Rcout << "KMeans::Cluster(): wrong number of initial cluster "
+      Rcpp::Rcerr << "KMeans::Cluster(): wrong number of initial cluster "
         << "centroids (" << centroids.n_cols << ", should be " << clusters
         << ")!" << std::endl;
 
     if (centroids.n_rows != data.n_rows)
-      Rcpp::Rcout << "KMeans::Cluster(): initial cluster centroids have wrong "
+      Rcpp::Rcerr << "KMeans::Cluster(): initial cluster centroids have wrong "
         << " dimensionality (" << centroids.n_rows << ", should be "
         << data.n_rows << ")!" << std::endl;
 

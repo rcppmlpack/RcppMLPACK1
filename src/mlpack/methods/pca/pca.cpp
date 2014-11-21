@@ -5,7 +5,7 @@
  * Implementation of PCA class to perform Principal Components Analysis on the
  * specified data set.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -46,7 +46,7 @@ void PCA::Apply(const arma::mat& data,
                 arma::vec& eigVal,
                 arma::mat& coeff) const
 {
-
+  //Timer::Start("pca");
 
   // This matrix will store the right singular values; we do not need them.
   arma::mat v;
@@ -90,7 +90,7 @@ void PCA::Apply(const arma::mat& data,
   // Project the samples to the principals.
   transformedData = arma::trans(coeff) * centeredData;
 
-
+  //Timer::Stop("pca");
 }
 
 /**

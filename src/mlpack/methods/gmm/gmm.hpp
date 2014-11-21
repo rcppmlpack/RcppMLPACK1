@@ -5,7 +5,7 @@
  * Defines a Gaussian Mixture model and
  * estimates the parameters of the model
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -208,14 +208,14 @@ class GMM
    *
    * @param filename Name of XML file containing model to be loaded.
    */
-  void Load(const std::string& filename);
+  //void Load(const std::string& filename);
 
   /**
    * Save a GMM to an XML file.
    *
    * @param filename Name of XML file to write to.
    */
-  void Save(const std::string& filename) const;
+  //void Save(const std::string& filename) const;
 
   //! Return the number of gaussians in the model.
   size_t Gaussians() const { return gaussians; }

@@ -4,7 +4,7 @@
  *
  * Tree traverser rules for the DualTreeBoruvka algorithm.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -69,7 +69,7 @@ double DTBRules<MetricType, TreeType>::BaseCase(const size_t queryIndex,
 
     if (distance < neighborsDistances[queryComponentIndex])
     {
-
+      //Log::Assert(queryIndex != referenceIndex);
 
       neighborsDistances[queryComponentIndex] = distance;
       neighborsInComponent[queryComponentIndex] = queryIndex;
@@ -80,7 +80,7 @@ double DTBRules<MetricType, TreeType>::BaseCase(const size_t queryIndex,
   if (newUpperBound < neighborsDistances[queryComponentIndex])
     newUpperBound = neighborsDistances[queryComponentIndex];
 
-
+  //Log::Assert(newUpperBound >= 0.0);
 
   return newUpperBound;
 }

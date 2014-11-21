@@ -5,7 +5,7 @@
  * Simple typedefs describing template instantiations of the RASearch
  * class which are commonly used.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -31,10 +31,8 @@
 #include <mlpack/methods/neighbor_search/sort_policies/nearest_neighbor_sort.hpp>
 #include <mlpack/methods/neighbor_search/sort_policies/furthest_neighbor_sort.hpp>
 
-namespace mlpack
-{
-namespace neighbor
-{
+namespace mlpack {
+namespace neighbor {
 
 /**
  * The AllkRANN class is the all-k-rank-approximate-nearest-neighbors method.
@@ -64,7 +62,7 @@ typedef RASearch<> AllkRANN;
  */
 typedef RASearch<FurthestNeighborSort> AllkRAFN;
 
-} // namespace neighbor
-} // namespace mlpack
+}; // namespace neighbor
+}; // namespace mlpack
 
 #endif

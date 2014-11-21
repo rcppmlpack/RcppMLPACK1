@@ -8,7 +8,7 @@
  * that the features have been sampled from a set of Gaussians with diagonal
  * covariance.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -49,7 +49,7 @@ NaiveBayesClassifier<MatType>::NaiveBayesClassifier(
   means.zeros(dimensionality, classes);
   variances.zeros(dimensionality, classes);
 
-  Rcpp::Rcout << "Training Naive Bayes classifier on " << data.n_cols
+  Log::Info << "Training Naive Bayes classifier on " << data.n_cols
       << " examples with " << dimensionality << " features each." << std::endl;
 
   // Calculate the class probabilities as well as the sample mean and variance
@@ -121,6 +121,7 @@ void NaiveBayesClassifier<MatType>::Classify(const MatType& data,
 {
   // Check that the number of features in the test data is same as in the
   // training data.
+  Log::Assert(data.n_rows == means.n_rows);
 
   arma::vec probs = arma::log(probabilities);
   arma::mat invVar = 1.0 / variances;
@@ -129,7 +130,7 @@ void NaiveBayesClassifier<MatType>::Classify(const MatType& data,
 
   results.set_size(data.n_cols); // No need to fill with anything yet.
 
-  Rcpp::Rcout << "Running Naive Bayes classifier on " << data.n_cols
+  Log::Info << "Running Naive Bayes classifier on " << data.n_cols
       << " data points with " << data.n_rows << " features each." << std::endl;
 
   // Calculate the joint probability for each of the data points for each of the

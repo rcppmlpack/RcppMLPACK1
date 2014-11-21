@@ -5,7 +5,7 @@
  * Implementation of the LogisticRegression class.  This implementation supports
  * L2-regularization.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -41,9 +41,9 @@ LogisticRegression<OptimizerType>::LogisticRegression(
   OptimizerType<LogisticRegressionFunction> optimizer(errorFunction);
 
   // Train the model.
-
+  //Timer::Start("logistic_regression_optimization");
   const double out = optimizer.Optimize(parameters);
-
+  //Timer::Stop("logistic_regression_optimization");
 
   Rcpp::Rcout << "LogisticRegression::LogisticRegression(): final objective of "
       << "trained model is " << out << "." << std::endl;
@@ -63,9 +63,9 @@ LogisticRegression<OptimizerType>::LogisticRegression(
   OptimizerType<LogisticRegressionFunction> optimizer(errorFunction);
 
   // Train the model.
-
+  //Timer::Start("logistic_regression_optimization");
   const double out = optimizer.Optimize(parameters);
-
+  //Timer::Stop("logistic_regression_optimization");
 
   Rcpp::Rcout << "LogisticRegression::LogisticRegression(): final objective of "
       << "trained model is " << out << "." << std::endl;
@@ -77,9 +77,9 @@ LogisticRegression<OptimizerType>::LogisticRegression(
     parameters(optimizer.Function().GetInitialPoint()),
     lambda(optimizer.Function().Lambda())
 {
-
+  //Timer::Start("logistic_regression_optimization");
   const double out = optimizer.Optimize(parameters);
-
+  //Timer::Stop("logistic_regression_optimization");
 
   Rcpp::Rcout << "LogisticRegression::LogisticRegression(): final objective of "
       << "trained model is " << out << "." << std::endl;

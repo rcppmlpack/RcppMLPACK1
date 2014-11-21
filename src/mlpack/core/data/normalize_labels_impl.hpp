@@ -5,7 +5,7 @@
  * Implementation of label normalization functions; these are useful for mapping
  * labels to the range [0, n).
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -26,10 +26,8 @@
 // In case it hasn't been included yet.
 #include "normalize_labels.hpp"
 
-namespace mlpack
-{
-namespace data
-{
+namespace mlpack {
+namespace data {
 
 /**
  * Given a set of labels of a particular datatype, convert them to unsigned
@@ -46,37 +44,37 @@ void NormalizeLabels(const arma::Col<eT>& labelsIn,
                      arma::Col<size_t>& labels,
                      arma::Col<eT>& mapping)
 {
-    // Loop over the input labels, and develop the mapping.  We'll first naively
-    // resize the mapping to the maximum possible size, and then when we fill it,
-    // we'll resize it back down to its actual size.
-    mapping.set_size(labelsIn.n_elem);
-    labels.set_size(labelsIn.n_elem);
-    size_t curLabel = 0;
-    for (size_t i = 0; i < labelsIn.n_elem; ++i)
+  // Loop over the input labels, and develop the mapping.  We'll first naively
+  // resize the mapping to the maximum possible size, and then when we fill it,
+  // we'll resize it back down to its actual size.
+  mapping.set_size(labelsIn.n_elem);
+  labels.set_size(labelsIn.n_elem);
+  size_t curLabel = 0;
+  for (size_t i = 0; i < labelsIn.n_elem; ++i)
+  {
+    bool found = false;
+    for (size_t j = 0; j < curLabel; ++j)
     {
-        bool found = false;
-        for (size_t j = 0; j < curLabel; ++j)
-        {
-            // Is the label already in the list of labels we have seen?
-            if (labelsIn[i] == mapping[j])
-            {
-                labels[i] = j;
-                found = true;
-                break;
-            }
-        }
-
-        // Do we need to add this new label?
-        if (!found)
-        {
-            mapping[curLabel] = labelsIn[i];
-            labels[i] = curLabel;
-            ++curLabel;
-        }
+      // Is the label already in the list of labels we have seen?
+      if (labelsIn[i] == mapping[j])
+      {
+        labels[i] = j;
+        found = true;
+        break;
+      }
     }
 
-    // Resize mapping back down to necessary size.
-    mapping.resize(curLabel);
+    // Do we need to add this new label?
+    if (!found)
+    {
+      mapping[curLabel] = labelsIn[i];
+      labels[i] = curLabel;
+      ++curLabel;
+    }
+  }
+
+  // Resize mapping back down to necessary size.
+  mapping.resize(curLabel);
 }
 
 /**
@@ -92,11 +90,11 @@ void RevertLabels(const arma::Col<size_t>& labels,
                   const arma::Col<eT>& mapping,
                   arma::Col<eT>& labelsOut)
 {
-    // We already have the mapping, so we just need to loop over each element.
-    labelsOut.set_size(labels.n_elem);
+  // We already have the mapping, so we just need to loop over each element.
+  labelsOut.set_size(labels.n_elem);
 
-    for (size_t i = 0; i < labels.n_elem; ++i)
-        labelsOut[i] = mapping[labels[i]];
+  for (size_t i = 0; i < labels.n_elem; ++i)
+    labelsOut[i] = mapping[labels[i]];
 }
 
 }; // namespace data

@@ -18,6 +18,7 @@
 
 #include <RcppArmadillo.h>
 #define NDEBUG 1
+
 namespace arma {
   // u64/s64
   #include "typedef.hpp"

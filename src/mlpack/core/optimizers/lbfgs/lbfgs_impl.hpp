@@ -5,7 +5,7 @@
  *
  * The implementation of the L_BFGS optimizer.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -169,7 +169,7 @@ bool L_BFGS<FunctionType>::LineSearch(double& functionValue,
   // If it is not a descent direction, just report failure.
   if (initialSearchDirectionDotGradient > 0.0)
   {
-    Rcpp::Rcout << "L-BFGS line search direction is not a descent direction "
+    Rcpp::Rcerr << "L-BFGS line search direction is not a descent direction "
         << "(terminating)!" << std::endl;
     return false;
   }

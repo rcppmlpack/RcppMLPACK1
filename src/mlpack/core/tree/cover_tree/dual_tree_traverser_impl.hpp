@@ -4,7 +4,7 @@
  *
  * A dual-tree traverser for the cover tree.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -105,7 +105,8 @@ DualTreeTraverser<RuleType>::Traverse(
 
   // If we have made it this far, all we have is a bunch of base case
   // evaluations to do.
-
+  //Log::Assert((*referenceMap.begin()).first == INT_MIN);
+  //Log::Assert(queryNode.Scale() == INT_MIN);
   std::vector<DualCoverTreeMapEntry>& pointVector =
       (*referenceMap.begin()).second;
 
