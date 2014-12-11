@@ -59,10 +59,10 @@ RcppMLPACK.package.skeleton <- function(name="anRpackage", list=character(),
     x <- cbind(read.dcf( DESCRIPTION), 
                "Imports" = sprintf("Rcpp (>= %s)", 
                                    packageDescription("Rcpp")[["Version"]]), 
-               "LinkingTo" = "Rcpp, RcppArmadillo, BH, RcppMLPACK")
+               "LinkingTo" = "Rcpp, RcppMLPACK, RcppArmadillo, BH")
     write.dcf(x, file=DESCRIPTION)
     message(" >> added Imports: Rcpp")
-    message(" >> added LinkingTo: Rcpp, RcppArmadillo, BH, RcppMLPACK")
+    message(" >> added LinkingTo: Rcpp, RcppMLPACK, RcppArmadillo, BH")
   }
   
   ## add a useDynLib to NAMESPACE, 
