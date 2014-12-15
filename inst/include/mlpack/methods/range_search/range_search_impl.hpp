@@ -4,7 +4,7 @@
  *
  * Implementation of the RangeSearch class.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -73,6 +73,7 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
     numPrunes(0)
 {
   // Build the trees.
+  //Timer::Start("range_search/tree_building");
 
   // Copy the datasets, if they will be modified during tree building.
   if (tree::TreeTraits<TreeType>::RearrangesDataset)
@@ -96,6 +97,7 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
           const_cast<typename TreeType::Mat&>(querySet), oldFromNewQueries);
   }
 
+  //Timer::Stop("range_search/tree_building");
 }
 
 template<typename MetricType, typename TreeType>
@@ -117,6 +119,7 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
     numPrunes(0)
 {
   // Build the trees.
+  //Timer::Start("range_search/tree_building");
 
   // Copy the dataset, if it will be modified during tree building.
   if (tree::TreeTraits<TreeType>::RearrangesDataset)
@@ -135,6 +138,7 @@ RangeSearch<MetricType, TreeType>::RangeSearch(
     if (!singleMode)
       queryTree = new TreeType(*referenceTree);
   }
+  //Timer::Stop("range_search/tree_building");
 }
 
 template<typename MetricType, typename TreeType>
@@ -203,6 +207,7 @@ void RangeSearch<MetricType, TreeType>::Search(
     std::vector<std::vector<size_t> >& neighbors,
     std::vector<std::vector<double> >& distances)
 {
+  //Timer::Start("range_search/computing_neighbors");
 
   // Set size of prunes to 0.
   numPrunes = 0;
@@ -262,6 +267,8 @@ void RangeSearch<MetricType, TreeType>::Search(
 
     numPrunes = traverser.NumPrunes();
   }
+
+  //Timer::Stop("range_search/computing_neighbors");
 
   // Output number of prunes.
   Rcpp::Rcout << "Number of pruned nodes during computation: " << numPrunes

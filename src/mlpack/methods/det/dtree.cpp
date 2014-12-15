@@ -584,7 +584,7 @@ double DTree::ComputeValue(const arma::vec& query) const
   return 0.0;
 }
 
-
+/*
 void DTree::WriteTree(FILE *fp, const size_t level) const
 {
   if (subtreeLeaves > 1)
@@ -611,7 +611,7 @@ void DTree::WriteTree(FILE *fp, const size_t level) const
   }
 }
 
-
+*/
 // Index the buckets for possible usage later.
 int DTree::TagTree(const int tag)
 {

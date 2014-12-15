@@ -5,7 +5,7 @@
  *
  * Implementation of template-based GMM methods.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -26,6 +26,7 @@
 // In case it hasn't already been included.
 #include "gmm.hpp"
 
+//#include <mlpack/core/util/save_restore_utility.hpp>
 
 namespace mlpack {
 namespace gmm {
@@ -173,8 +174,7 @@ void GMM<FittingType>::Load(const std::string& filename)
     load.LoadParameter(means[i], meanName);
     load.LoadParameter(covariances[i], covName);
   }
-}
-*/
+}*/
 
 // Save a GMM to a file.
 /*
@@ -200,8 +200,8 @@ void GMM<FittingType>::Save(const std::string& filename) const
 
   if (!save.WriteFile(filename))
     Rcpp::Rcout << "GMM::Save(): error saving to '" << filename << "'.\n";
-}
-*/
+}*/
+
 /**
  * Return the probability of the given observation being from this GMM.
  */

@@ -5,7 +5,7 @@
  *
  * Implementation of class(MeanSplit) to split a binary space partition tree.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -196,7 +196,6 @@ size_t MeanSplit<BoundType, MatType>::
     while ((data(splitDimension, right) >= splitVal) && (left <= right))
       right--;
   }
-
 
   return left;
 }

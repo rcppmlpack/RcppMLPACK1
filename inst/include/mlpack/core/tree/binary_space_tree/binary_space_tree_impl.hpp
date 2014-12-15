@@ -3,7 +3,7 @@
  *
  * Implementation of generalized space partitioning tree.
  *
- * This file is part of MLPACK 1.0.9.
+ * This file is part of MLPACK 1.0.10.
  *
  * MLPACK is free software: you can redistribute it and/or modify it under the
  * terms of the GNU Lesser General Public License as published by the Free
@@ -24,6 +24,8 @@
 // In case it wasn't included already for some reason.
 #include "binary_space_tree.hpp"
 
+//#include <mlpack/core/util/cli.hpp>
+//#include <mlpack/core/util/log.hpp>
 #include <mlpack/core/util/string_util.hpp>
 
 namespace mlpack {
@@ -169,6 +171,7 @@ BinarySpaceTree<BoundType, StatisticType, MatType, SplitType>::BinarySpaceTree(
 {
   // Hopefully the vector is initialized correctly!  We can't check that
   // entirely but we can do a minor sanity check.
+  assert(oldFromNew.size() == data.n_cols);
 
   // Perform the actual splitting.
   SplitNode(data, oldFromNew);
@@ -200,7 +203,7 @@ BinarySpaceTree<BoundType, StatisticType, MatType, SplitType>::BinarySpaceTree(
 {
   // Hopefully the vector is initialized correctly!  We can't check that
   // entirely but we can do a minor sanity check.
-
+  //Log::Assert(oldFromNew.size() == data.n_cols);
 
   // Perform the actual splitting.
   SplitNode(data, oldFromNew);
@@ -304,7 +307,8 @@ BinarySpaceTree<BoundType, StatisticType, MatType, SplitType>::FindByBeginCount(
     size_t queryBegin,
     size_t queryCount) const
 {
-
+  //Log::Assert(queryBegin >= begin);
+  //Log::Assert(queryCount <= count);
 
   if (begin == queryBegin && count == queryCount)
     return this;
@@ -336,7 +340,8 @@ BinarySpaceTree<BoundType, StatisticType, MatType, SplitType>::FindByBeginCount(
     const size_t queryBegin,
     const size_t queryCount)
 {
-
+  //mlpack::Log::Assert(begin >= queryBegin);
+  //mlpack::Log::Assert(count <= queryCount);
 
   if (begin == queryBegin && count == queryCount)
     return this;
