@@ -3,7 +3,7 @@
 \alias{RcppMLPACK}
 \docType{package}
 \title{
-  R integration with MLPACK using Rcpp
+  Rcpp Integration for MLPACK Library
 }
 \description{
   The package eases the integration of MLPACK types with R.
