@@ -188,7 +188,7 @@ double CosineTree::MonteCarloError(CosineTree* node,
   
   // Sample O(log m) points from the input node's distribution.
   // 'm' is the number of columns present in the node.
-  size_t numSamples = log(node->NumColumns()) + 1;  
+  size_t numSamples = log((double)node->NumColumns()) + 1;  
   node->ColumnSamplesLS(sampledIndices, probabilities, numSamples);
   
   // Get pointer to the original dataset.

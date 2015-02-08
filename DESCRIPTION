@@ -1,8 +1,8 @@
 Package: RcppMLPACK
 Type: Package
 Title: Rcpp Integration for MLPACK Library
-Version: 1.0.10
-Date: 2014-11-21
+Version: 1.0.10-2
+Date: 2015-02-07
 Author: Qiang Kou, Ryan Curtin
 Maintainer: Qiang Kou <qkou@umail.iu.edu>
 Description:  MLPACK is an intuitive, fast, scalable C++ machine learning
@@ -11,6 +11,7 @@ Description:  MLPACK is an intuitive, fast, scalable C++ machine learning
    and function as a Swiss army knife for machine learning
    researchers: MLPACK is from http://www.mlpack.org/: sources are included in the package.
 License: LGPL (>= 2)
+Depends: R (>= 3.1.0)
 Imports: Rcpp (>= 0.11.2)
 LinkingTo: Rcpp, RcppArmadillo, BH
 URL: https://github.com/thirdwing/RcppMLPACK,
