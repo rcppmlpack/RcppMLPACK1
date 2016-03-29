@@ -1,7 +1,0 @@
-2014-12-11  Qiang Kou  <qkou@umail.iu.edu>
-
-	* include Armadillo after mlpack to avoid compiling error
-
-2014-11-21  Qiang Kou  <qkou@umail.iu.edu>
-
-	* update to MLPACK 1.0.10
