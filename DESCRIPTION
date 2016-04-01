@@ -11,7 +11,7 @@ Description:  MLPACK is an intuitive, fast, scalable C++ machine learning
    and function as a Swiss army knife for machine learning
    researchers: MLPACK is from http://www.mlpack.org/: sources are included in the package.
 OS_type: unix                                                                                       
- SystemRequirements: A C++11 compiler. Version 4.6.* of g++ (as currently in                         
+SystemRequirements: A C++11 compiler. Version 4.6.* of g++ (as currently in                         
  Rtools) is insufficient; versions 4.8.*, 4.9.* or later will be fine. 
 License: LGPL (>= 2)
 Depends: R (>= 3.2.0)
