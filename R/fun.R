@@ -1,8 +1,8 @@
 mlKmeans <- function(X, y) {
 
-    X <- as.matrix(X)
+    X <- matrix(as.numeric(unlist(X)),nrow=nrow(X))
     y <- as.numeric(y)
 
-    .Call( "RcppMLPACK_kmeans", X, y, PACKAGE = "RcppMLPACK" )
+    .Call( "RcppMLPACK_kmeans", t(X), y, PACKAGE = "RcppMLPACK" )
 
 }
