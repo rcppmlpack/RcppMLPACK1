@@ -1,6 +1,6 @@
 ## RcppMLPACK.package.skeleton.R: makes a skeleton for a package that wants to use RcppMLPACK
 ##
-## Copyright (C)  2014  Qiang Kou
+## Copyright (C)  2016  Qiang Kou
 ##
 ## This file is part of RcppMLPACK.
 ##
@@ -18,10 +18,10 @@
 ## along with RcppMLPACK.  If not, see <http://www.gnu.org/licenses/>.
 
 RcppMLPACK.package.skeleton <- function(name="anRpackage", list=character(),
-                                           environment=.GlobalEnv,
-                                           path=".", force=FALSE, 
-                                           code_files=character(), 
-                                           example_code=TRUE) {
+                                        environment=.GlobalEnv,
+                                        path=".", force=FALSE, 
+                                        code_files=character(), 
+                                        example_code=TRUE) {
   
   env <- parent.frame(1)
   
