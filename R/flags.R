@@ -18,7 +18,7 @@ RcppMLPACKLdPath <- function() {
 RcppMLPACKLdFlags <- function(static=staticLinking()) {
     RcppMLPACKdir <- RcppMLPACKLdPath()
     if (static) {                               # static is default on Windows and OS X
-        flags <- paste(RcppMLPACKdir, "/libRcppMLPACK.a", sep="")
+        flags <- paste('"',RcppMLPACKdir, '/libRcppMLPACK.a"', sep="")
     } else {					# else for dynamic linking
         flags <- paste("-L", RcppMLPACKdir, " -lRcppMLPACK", sep="") # baseline setting
         if ((.Platform$OS.type == "unix") &&    # on Linux, we can use rpath to encode path
