@@ -30,5 +30,3 @@ The version number of MLPACK is used as the version number of this package.
 Testing and bug reports are deeply welcome.
 
 You can find examples in the [wiki page](https://github.com/thirdwing/RcppMLPACK/wiki). You can always find me by email (qkou@umail.iu.edu) if you have any questions.
-
-[Qiang Kou](https://www.linkedin.com/pub/qiang-kou/2a/986/6b7)
