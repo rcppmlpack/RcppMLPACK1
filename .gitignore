@@ -13,3 +13,6 @@
 
 # RUnit generated stuff
 inst/unitTests/report*
+
+#autoconf
+config.log
