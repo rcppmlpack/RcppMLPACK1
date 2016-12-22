@@ -1,7 +1,7 @@
 RcppMLPACK
 ==========
 
-[![Build Status](https://travis-ci.org/thirdwing/RcppMLPACK.svg?branch=master)](https://travis-ci.org/thirdwing/RcppMLPACK)
+[![Build Status](https://travis-ci.org/thirdwing/RcppMLPACK1.svg?branch=master)](https://travis-ci.org/thirdwing/RcppMLPACK1)
 
 [MLPACK](http://www.mlpack.org/) is a C++ machine learning library with emphasis on scalability, speed, and ease-of-use. Its aim is to make machine learning possible for novice users by means of a simple, consistent API, while simultaneously exploiting C++ language features to provide maximum performance and maximum flexibility for expert users. MLPACK outperforms competing machine learning libraries by large margins; see the [BigLearning workshop paper](http://www.mlpack.org/papers/mlpack2011.pdf) for details. 
 
@@ -29,4 +29,4 @@ The version number of MLPACK is used as the version number of this package.
 
 Testing and bug reports are deeply welcome.
 
-You can find examples in the [wiki page](https://github.com/thirdwing/RcppMLPACK/wiki). You can always find me by email (qkou@umail.iu.edu) if you have any questions.
+You can find examples in the [wiki page](https://github.com/thirdwing/RcppMLPACK1/wiki). You can always find me by email (qkou@umail.iu.edu) if you have any questions.
