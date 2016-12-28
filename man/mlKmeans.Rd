@@ -24,8 +24,6 @@ mlKmeans(X, y)
   For MLPACK: Ryan Curtin
 }
 \examples{
-\dontrun{
   data(trees, package="datasets")
   mlKmeans(t(trees),3)
-}
 }

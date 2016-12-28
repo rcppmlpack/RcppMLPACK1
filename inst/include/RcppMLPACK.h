@@ -1,14 +1,7 @@
 #ifndef RcppMLPACK__RcppMLPACK__h
 #define RcppMLPACK__RcppMLPACK__h
 
-#if _WIN64
-#ifndef ARMA_64BIT_WORD
-#define ARMA_64BIT_WORD
-#endif
-#endif
-
 #include <mlpack/core.hpp>
-
 #include <mlpack/core/kernels/cosine_distance.hpp>
 #include <mlpack/core/kernels/epanechnikov_kernel.hpp>
 #include <mlpack/core/kernels/gaussian_kernel.hpp>
@@ -66,10 +59,10 @@
 #include <mlpack/methods/lsh/lsh_search.hpp>
 #include <mlpack/methods/local_coordinate_coding/lcc.hpp>
 #include <mlpack/methods/mvu/mvu.hpp>
-//#include <mlpack/methods/naive_bayes/naive_bayes_classifier.hpp>
 #include <mlpack/methods/nca/nca.hpp>
 #include <mlpack/methods/neighbor_search/neighbor_search.hpp>
 #include <mlpack/methods/neighbor_search/unmap.hpp>
+#include <mlpack/methods/neighbor_search/typedef.hpp>
 #include <mlpack/methods/nystroem_method/ordered_selection.hpp>
 #include <mlpack/methods/nystroem_method/random_selection.hpp>
 #include <mlpack/methods/nystroem_method/kmeans_selection.hpp>

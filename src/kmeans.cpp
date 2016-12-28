@@ -4,15 +4,17 @@ using namespace mlpack::kmeans;
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-List kmeans(const arma::mat& data, const int& clusters) {
-    
-    arma::Col<size_t> assignments;
+List kmeans(SEXP data, const int& clusters) {
 
-	// Initialize with the default arguments.
-	KMeans<> k;
+  NumericMatrix Xr(data);
+  arma::mat X(Xr.begin(), Xr.nrow(), Xr.ncol(), false); 
+  arma::Col<size_t> assignments;
 
-	k.Cluster(data, clusters, assignments); 
+  // Initialize with the default arguments.
+  KMeans<> k;
 
-    return List::create(_["clusters"]	= clusters,
-                        _["result"]		= assignments);
+  k.Cluster(X, clusters, assignments); 
+
+  return List::create(_["clusters"]	= clusters,
+                      _["result"]		= assignments);
 }
