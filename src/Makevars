@@ -31,7 +31,7 @@ MLPACKOBJECTS=\
 ./mlpack/core/util/string_util.o
 
 
-PKGOBJECTS = RcppExports.o kmeans.o
+PKGOBJECTS = RcppExports.o kmeans.o init.o
 
 OBJECTS= $(MLPACKOBJECTS) $(PKGOBJECTS)
 

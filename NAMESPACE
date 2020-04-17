@@ -1,4 +1,4 @@
-useDynLib(RcppMLPACK)
+useDynLib(RcppMLPACK, .registration=TRUE)
 export(RcppMLPACK.package.skeleton, mlKmeans)
 importFrom(Rcpp, evalCpp)
 importFrom(utils, packageDescription, package.skeleton)
